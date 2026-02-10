@@ -11,7 +11,7 @@ on:
       - "**/SKILL.md"
 
 concurrency:
-  group: validate-skill-${{ github.ref }}
+  group: skills-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -35,12 +35,19 @@ jobs:
           else
             BASE=${{ github.event.before }}
             HEAD=${{ github.event.after }}
+            # Handle initial commit or force push (BASE doesn't exist)
+            if [ "$BASE" = "0000000000000000000000000000000000000000" ] || ! git cat-file -e "$BASE" 2>/dev/null; then
+              SKILLS=$(ls -d skills/*/ 2>/dev/null | xargs -n1 basename | jq -R -s -c 'split("\n") | map(select(length > 0))')
+              echo "skills=$SKILLS" >> $GITHUB_OUTPUT
+              echo "Initial/force push - all skills: $SKILLS"
+              exit 0
+            fi
           fi
 
-          # Find changed SKILL.md files and extract skill directories
+          # Find changed files in skills/ and extract skill directories
           SKILLS=$(git diff --name-only $BASE $HEAD | \
-            grep 'SKILL.md$' | \
-            xargs -I {} dirname {} | \
+            grep '^skills/' | \
+            sed 's|skills/\([^/]*\)/.*|\1|' | \
             sort -u | \
             jq -R -s -c 'split("\n") | map(select(length > 0))')
 
@@ -78,7 +85,7 @@ jobs:
         run: node scripts/sync-skills.js
 
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "chore: sync skills documentation"
           commit_user_name: "Agent Skills Bot"
