@@ -1,0 +1,14 @@
+{
+  "name": "webflow-designer-extension",
+  "description": "Build applications that run inside the Webflow Designer.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Ben Sabic",
+    "email": "bensabic@users.noreply.github.com"
+  },
+  "license": "MIT",
+  "homepage": "https://224industries.com.au",
+  "repository": "https://github.com/224-industries/webflow-skills",
+  "keywords": "ai, agent, skill, webflow, designer, extension, cli, element manipulation, styles, components, pages, variables, assets, error handling, ui design patterns",
+  "category": "general"
+}

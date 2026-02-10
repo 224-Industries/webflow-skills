@@ -1,0 +1,29 @@
+{
+  "name": "224-industries-webflow-skills",
+  "description": "Webflow Agent Skills by 224 Industries. A collection of skills designed to enhance the capabilities of agents with specialized functionalities for Webflow.",
+  "owner": {
+    "name": "Ben Sabic",
+    "email": "bensabic@users.noreply.github.com"
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "description": "Claude Code marketplace of Webflow Agent Skills by 224 Industries"
+  },
+  "plugins": [
+    {
+      "name": "webflow-designer-extension-skill",
+      "description": "Build applications that run inside the Webflow Designer.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Ben Sabic",
+        "email": "bensabic@users.noreply.github.com"
+      },
+      "source": "./skills/webflow-designer-extension",
+      "homepage": "https://224industries.com.au",
+      "repository": "https://github.com/224-industries/webflow-skills",
+      "license": "MIT",
+      "category": "general",
+      "keywords": "ai, agent, skill, webflow, designer, extension, cli, element manipulation, styles, components, pages, variables, assets, error handling, ui design patterns"
+    }
+  ]
+}
