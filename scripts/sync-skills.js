@@ -120,7 +120,7 @@ async function discoverSkills() {
         description: frontmatter.description || pluginJson.description || "",
         license: frontmatter.license || pluginJson.license || "MIT",
         version: metadata.version || pluginJson.version || "1.0.0",
-        author: metadata.author || pluginJson.author || {},
+        author: pluginJson.author || {},
         homepage: pluginJson.homepage || "",
         repository: pluginJson.repository || "",
         category: pluginJson.category || "general",
@@ -153,7 +153,7 @@ function generateReadmeSkillsList(skills) {
 
   for (const skill of skills) {
     const escapedDesc = truncate(skill.description).replace(/\|/g, "\\|");
-    lines.push(`| ${skill.name} | ${escapedDesc} |`);
+    lines.push(`| [${skill.name}](./skills/${skill.dirName}) | ${escapedDesc} |`);
   }
 
   lines.push("");
@@ -214,6 +214,47 @@ async function updateMarketplace(skills) {
   return true;
 }
 
+async function updatePluginJson(skills) {
+  let updated = 0;
+
+  for (const skill of skills) {
+    const pluginJsonPath = join(SKILLS_DIR, skill.dirName, ".claude-plugin", "plugin.json");
+
+    let pluginJson;
+    try {
+      const content = await readFile(pluginJsonPath, "utf-8");
+      pluginJson = JSON.parse(content);
+    } catch {
+      continue;
+    }
+
+    let changed = false;
+
+    const pluginName = `${skill.name}-skill`;
+    if (pluginJson.name !== pluginName) {
+      pluginJson.name = pluginName;
+      changed = true;
+    }
+
+    if (pluginJson.description !== skill.description) {
+      pluginJson.description = skill.description;
+      changed = true;
+    }
+
+    if (skill.version && pluginJson.version !== skill.version) {
+      pluginJson.version = skill.version;
+      changed = true;
+    }
+
+    if (changed) {
+      await writeFile(pluginJsonPath, `${JSON.stringify(pluginJson, null, 2)}\n`, "utf-8");
+      updated++;
+    }
+  }
+
+  return updated;
+}
+
 async function main() {
   console.log("Syncing agent skill(s)...\n");
 
@@ -223,6 +264,11 @@ async function main() {
     console.log(`  - ${skill.name}`);
   }
   console.log();
+
+  const pluginCount = await updatePluginJson(skills);
+  if (pluginCount > 0) {
+    console.log(`✓ Updated ${pluginCount} plugin.json file(s)`);
+  }
 
   const readmeUpdated = await updateReadme(skills);
   if (readmeUpdated) {

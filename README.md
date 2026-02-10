@@ -14,7 +14,7 @@ Agent Skills are folders of instructions, scripts, and resources that agents can
 <!-- START:Available-Skills -->
 | Skill | Description |
 | ----- | ----------- |
-| webflow-designer-extension | Build Webflow Designer Extensions that run inside the Webflow Designer. Use w... |
+| [webflow-designer-extension](./skills/webflow-designer-extension) | Build Webflow Designer Extensions that run inside the Webflow Designer. Use w... |
 <!-- END:Available-Skills -->
 
 ## Installation
