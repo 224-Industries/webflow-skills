@@ -15,6 +15,8 @@ Build extensions that run inside Webflow's Designer as iframes, interacting with
 
 ## Quick Start Workflow
 
+> **Prerequisite:** Register your app in Webflow first — see [references/register-app.md](references/register-app.md). You'll need a Workspace with Admin permissions.
+
 1. **Scaffold**: `npx create-webflow-extension@latest` (interactive prompts for project name, package manager, linter)
 2. **Develop**: `cd <name> && pnpm dev` (serves at localhost:1337; also works with npm/yarn/bun)
 3. **Test**: Install app on test site via Workspace Settings > Apps & Integrations > Develop
@@ -184,6 +186,10 @@ python scripts/search_references.py --search <query>
 - **[references/extension-utilities.md](references/extension-utilities.md)**: Site info, events, notifications, app discovery, authentication
 - **[references/error-handling.md](references/error-handling.md)**: Error codes and handling patterns
 - **[references/design-guidelines.md](references/design-guidelines.md)**: UI design for native Webflow look
+- **[references/register-app.md](references/register-app.md)**: Registering a Webflow App and configuring capabilities
+- **[references/marketplace-guidelines.md](references/marketplace-guidelines.md)**: Marketplace review criteria (safety, technical, design, branding)
+- **[references/app-submission-and-listing.md](references/app-submission-and-listing.md)**: Submitting your app and creating an effective listing
+- **[references/faq.md](references/faq.md)**: FAQ and troubleshooting for extensions, marketplace, and common issues
 
 ## Scripts
 
