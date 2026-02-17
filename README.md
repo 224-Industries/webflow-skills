@@ -14,6 +14,7 @@ Agent Skills are folders of instructions, scripts, and resources that agents can
 <!-- START:Available-Skills -->
 | Skill | Description |
 | ----- | ----------- |
+| [memberstack-cli](./skills/memberstack-cli) | Use the Memberstack CLI to manage Memberstack accounts from the terminal. Cov... |
 | [webflow-designer-extension](./skills/webflow-designer-extension) | Build Webflow Designer Extensions that run inside the Webflow Designer. Use w... |
 <!-- END:Available-Skills -->
 

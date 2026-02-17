@@ -81,3 +81,13 @@ The SKILL.md should include:
 1. Add or edit reference files in `skills/<name>/references/`
 2. Update `SKILL.md` reference links if files were added/removed/renamed
 3. Run `node scripts/sync-skills.js` if SKILL.md frontmatter changed
+
+## Development
+
+- **Always use conventional commit prefixes** (e.g. `feat:`). Release-please relies on these to generate changelogs and trigger releases, commits without one will be silently ignored.
+- **Never force push, amend, or rewrite history** unless the user explicitly requests it and confirms. Force pushes can break release tracking and cause data loss.
+- **Never push to `main` directly** unless the user explicitly asks. Default to creating a feature branch and opening a PR.
+
+## Resources
+
+[CONTRIBUTING.md](.github/CONTRIBUTING.md): Project Contribution Guidelines
