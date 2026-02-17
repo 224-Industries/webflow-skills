@@ -9,6 +9,6 @@
   "license": "MIT",
   "homepage": "https://224industries.com.au",
   "repository": "https://github.com/224-industries/webflow-skills",
-  "keywords": "ai, agent, skill, memberstack, cli, command-line, membership, management, plans, custom-fields, data-tables, records",
+  "keywords": ["ai", "agent", "skill", "memberstack", "cli", "command-line", "membership", "management", "plans", "custom-fields", "data-tables", "records"],
   "category": "general"
 }

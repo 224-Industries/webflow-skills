@@ -23,7 +23,20 @@
       "repository": "https://github.com/224-industries/webflow-skills",
       "license": "MIT",
       "category": "general",
-      "keywords": "ai, agent, skill, memberstack, cli, command-line, membership, management, plans, custom-fields, data-tables, records"
+      "keywords": [
+        "ai",
+        "agent",
+        "skill",
+        "memberstack",
+        "cli",
+        "command-line",
+        "membership",
+        "management",
+        "plans",
+        "custom-fields",
+        "data-tables",
+        "records"
+      ]
     },
     {
       "name": "webflow-designer-extension-skill",
@@ -38,7 +51,23 @@
       "repository": "https://github.com/224-industries/webflow-skills",
       "license": "MIT",
       "category": "general",
-      "keywords": "ai, agent, skill, webflow, designer, extension, cli, element manipulation, styles, components, pages, variables, assets, error handling, ui design patterns"
+      "keywords": [
+        "ai",
+        "agent",
+        "skill",
+        "webflow",
+        "designer",
+        "extension",
+        "cli",
+        "element-manipulation",
+        "styles",
+        "components",
+        "pages",
+        "variables",
+        "assets",
+        "error-handling",
+        "ui-design-patterns"
+      ]
     }
   ]
 }

@@ -124,7 +124,7 @@ async function discoverSkills() {
         homepage: pluginJson.homepage || "",
         repository: pluginJson.repository || "",
         category: pluginJson.category || "general",
-        keywords: pluginJson.keywords || "",
+        keywords: pluginJson.keywords || [],
       });
     } catch (error) {
       console.warn(
