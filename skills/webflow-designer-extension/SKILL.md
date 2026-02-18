@@ -5,7 +5,7 @@ license: MIT
 compatibility: "create-webflow-extension, @webflow/webflow-cli"
 metadata:
   author: "[Ben Sabic](https://bensabic.dev)"
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Webflow Designer Extension Development
@@ -29,7 +29,7 @@ npx create-webflow-extension@latest [project-name] [options]
 
 Options:
   --pm <pnpm|npm|yarn|bun>           Package manager to use (default: pnpm)
-  --linter <oxlint|biome|eslint>     Linter to use
+  --linter <oxlint|biome|eslint>     Linter to use (default: oxlint)
   --skip-git                         Skip git initialization
   --skip-install                     Skip dependency installation
   --quiet                            Suppress output
@@ -84,7 +84,7 @@ python scripts/search_references.py --search <query>
 - **[references/create-webflow-extension-reference.md](references/create-webflow-extension-reference.md)**: `create-webflow-extension` scaffolding CLI
 - **[references/webflow-cli-reference.md](references/webflow-cli-reference.md)**: Webflow CLI for serving, bundling, and listing extensions
 
-### Designer API (detailed guides)
+### Designer API
 
 - **[references/designer-apis-reference.md](references/designer-apis-reference.md)**: All APIs and methods in one place (start here)
 - **[references/elements-api.md](references/elements-api.md)**: Element manipulation and presets
@@ -107,7 +107,6 @@ python scripts/search_references.py --search <query>
 
 ## Scripts
 
-- **`scripts/validate-extension.py`**: Validate extension structure before bundling
 - **`scripts/search_references.py`**: Search reference files by tag, keyword, or list all with metadata
 
 ## Assets
@@ -122,4 +121,3 @@ python scripts/search_references.py --search <query>
 4. **Use variables**: Leverage design token variables for consistent theming — see [Variables API](references/variables-api.md)
 5. **Subscribe to events**: Use Designer events to keep extension state in sync — see [Extension Utilities](references/extension-utilities.md)
 6. **Appropriate sizing**: Use `webflow.setExtensionSize()` for proper panel dimensions — see [Extension Utilities](references/extension-utilities.md)
-

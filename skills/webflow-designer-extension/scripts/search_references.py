@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Search Webflow Designer Extension reference files.
+Search reference files.
 Usage:
     python search_references.py --list
     python search_references.py --tag <tag>
@@ -11,9 +11,39 @@ import sys
 import re
 from pathlib import Path
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+SKILL_ROOT = SCRIPT_DIR.parent
+REFS_DIR = (SKILL_ROOT / "references").resolve()
+
+_INJECTION_RE = re.compile(
+    r"^\s*("
+    r"you are|you must|ignore previous|disregard|forget all|override|"
+    r"system:|<\||<system>|<\/?instruction"
+    r")",
+    re.IGNORECASE,
+)
+
+
+def _validate_refs_dir() -> None:
+
+    if not str(REFS_DIR).startswith(str(SKILL_ROOT)):
+        print(f"Error: references directory ({REFS_DIR}) is outside the skill root ({SKILL_ROOT})")
+        sys.exit(1)
+    if not REFS_DIR.is_dir():
+        print(f"Error: references directory not found: {REFS_DIR}")
+        sys.exit(1)
+
+
+def sanitize_body(text: str) -> str:
+
+    return "\n".join(
+        line for line in text.splitlines()
+        if not _INJECTION_RE.match(line)
+    )
+
 
 def parse_frontmatter(text: str) -> tuple[dict, str]:
-    """Parse YAML frontmatter from markdown text. Returns (metadata, body)."""
+
     if not text.startswith("---"):
         return {}, text
 
@@ -32,12 +62,10 @@ def parse_frontmatter(text: str) -> tuple[dict, str]:
         key = match.group(1)
         value = match.group(2).strip()
 
-        # Strip surrounding quotes
         if (value.startswith('"') and value.endswith('"')) or \
            (value.startswith("'") and value.endswith("'")):
             value = value[1:-1]
 
-        # Parse inline YAML list: [a, b, c]
         if value.startswith("[") and value.endswith("]"):
             items = [item.strip().strip('"').strip("'")
                      for item in value[1:-1].split(",")]
@@ -49,19 +77,21 @@ def parse_frontmatter(text: str) -> tuple[dict, str]:
 
 
 def load_references() -> list[dict]:
-    """Load all reference files from the references directory."""
-    script_dir = Path(__file__).resolve().parent
-    refs_dir = script_dir / ".." / "references"
-    refs_dir = refs_dir.resolve()
 
-    if not refs_dir.is_dir():
-        print(f"References directory not found: {refs_dir}")
-        sys.exit(1)
+    _validate_refs_dir()
 
     results = []
-    for md_file in sorted(refs_dir.glob("*.md")):
+    for md_file in sorted(REFS_DIR.glob("*.md")):
+
+        resolved = md_file.resolve()
+        if not str(resolved).startswith(str(SKILL_ROOT)):
+            continue
+
         text = md_file.read_text()
         metadata, body = parse_frontmatter(text)
+
+        body = sanitize_body(body)
+
         results.append({
             "file": str(md_file),
             "name": metadata.get("name", md_file.stem),
@@ -73,26 +103,30 @@ def load_references() -> list[dict]:
     return results
 
 
-def print_ref(ref: dict) -> None:
-    """Print a single reference entry."""
+def print_ref(ref: dict, include_body: bool = False) -> None:
+
     tags = ref["tags"]
     tag_str = ", ".join(tags) if isinstance(tags, list) else str(tags)
     print(f"  Name:        {ref['name']}")
     print(f"  Description: {ref['description']}")
     print(f"  Tags:        {tag_str}")
     print(f"  File:        {ref['file']}")
+    if include_body and ref.get("body"):
+        print("  --- BEGIN REFERENCE CONTENT ---")
+        print(ref["body"])
+        print("  --- END REFERENCE CONTENT ---")
     print()
 
 
 def cmd_list(refs: list[dict]) -> None:
-    """List all references."""
+
     print(f"Found {len(refs)} reference files:\n")
     for ref in refs:
-        print_ref(ref)
+        print_ref(ref, include_body=False)
 
 
 def cmd_tag(refs: list[dict], tag: str) -> None:
-    """Search references by tag (exact match)."""
+
     tag_lower = tag.lower()
     matches = [r for r in refs if tag_lower in
                [t.lower() for t in r["tags"]] if isinstance(r["tags"], list)]
@@ -103,11 +137,11 @@ def cmd_tag(refs: list[dict], tag: str) -> None:
 
     print(f"Found {len(matches)} reference(s) matching tag '{tag}':\n")
     for ref in matches:
-        print_ref(ref)
+        print_ref(ref, include_body=True)
 
 
 def cmd_search(refs: list[dict], query: str) -> None:
-    """Search references by keyword across name, description, tags, and body."""
+
     query_lower = query.lower()
     matches = []
 
@@ -129,7 +163,7 @@ def cmd_search(refs: list[dict], query: str) -> None:
 
     print(f"Found {len(matches)} reference(s) matching '{query}':\n")
     for ref in matches:
-        print_ref(ref)
+        print_ref(ref, include_body=True)
 
 
 def main():
