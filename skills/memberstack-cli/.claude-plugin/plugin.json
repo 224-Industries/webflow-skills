@@ -1,7 +1,7 @@
 {
   "name": "memberstack-cli-skill",
   "description": "Use the Memberstack CLI to manage Memberstack accounts from the terminal. Covers authentication, apps, members, plans, custom fields, data tables, and records. Trigger this skill whenever the user wants to interact with Memberstack — including managing members, plans, custom fields, data tables/records, or authenticating with Memberstack. Also trigger when the user mentions \"memberstack\", \"memberstack-cli\", membership management, or member data operations via CLI.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "Ben Sabic",
     "email": "bensabic@users.noreply.github.com"
@@ -9,5 +9,18 @@
   "license": "MIT",
   "homepage": "https://224industries.com.au",
   "repository": "https://github.com/224-industries/webflow-skills",
-  "keywords": ["ai", "agent", "skill", "memberstack", "cli", "command-line", "membership", "management", "plans", "custom-fields", "data-tables", "records"]
+  "keywords": [
+    "ai",
+    "agent",
+    "skill",
+    "memberstack",
+    "cli",
+    "command-line",
+    "membership",
+    "management",
+    "plans",
+    "custom-fields",
+    "data-tables",
+    "records"
+  ]
 }
