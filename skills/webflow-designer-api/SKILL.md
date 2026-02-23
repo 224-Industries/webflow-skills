@@ -6,6 +6,7 @@ compatibility: "create-webflow-extension, @webflow/webflow-cli"
 metadata:
   author: "Ben Sabic"
   repository: "https://github.com/224-industries/webflow-skills"
+  url: "https://skills.224ai.au/webflow-designer-api.skill"
   version: "2.0.0"
   keywords: "ai, agent, skill, webflow, designer, extension, cli, element-manipulation, styles, components, pages, variables, assets, error-handling, ui-design-patterns"
 ---

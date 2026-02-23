@@ -5,6 +5,7 @@ license: MIT
 metadata:
   author: "Ben Sabic"
   repository: "https://github.com/224-industries/webflow-skills"
+  url: "https://skills.224ai.au/webflow-webhooks.skill"
   version: "1.0.0"
   keywords: "ai, agent, skill, webhooks, signature verification, webflow, form submission, site publish, ecomm order, collection item"
 ---

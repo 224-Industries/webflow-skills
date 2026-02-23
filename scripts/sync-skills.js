@@ -158,11 +158,12 @@ function generateReadmeSkillsList(skills) {
     return "\n*No skills available yet.*\n";
   }
 
-  const lines = ["", "| Skill | Description |", "| ----- | ----------- |"];
+  const lines = ["", "| Skill | Description | Download |", "| ----- | ----------- | -------- |"];
 
   for (const skill of skills) {
     const escapedDesc = truncate(skill.description).replace(/\|/g, "\\|");
-    lines.push(`| [${skill.name}](./skills/${skill.dirName}) | ${escapedDesc} |`);
+    const downloadUrl = `https://skills.224ai.au/${skill.dirName}.skill`;
+    lines.push(`| [${skill.name}](./skills/${skill.dirName}) | ${escapedDesc} | [Download](${downloadUrl}) |`);
   }
 
   lines.push("");

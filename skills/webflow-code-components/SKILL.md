@@ -5,6 +5,7 @@ license: MIT
 metadata:
   author: "Ben Sabic"
   repository: "https://github.com/224-industries/webflow-skills"
+  url: "https://skills.224ai.au/webflow-code-components.skill"
   version: "1.0.0"
   keywords: "ai, agent, skill, webflow, code-components, devlink, react, declareComponent, props, shadow-dom, bundling, webpack, library"
 ---

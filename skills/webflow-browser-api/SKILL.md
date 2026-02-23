@@ -5,6 +5,7 @@ license: MIT
 metadata:
   author: "Ben Sabic"
   repository: "https://github.com/224-industries/webflow-skills"
+  url: "https://skills.224ai.au/webflow-browser-api.skill"
   version: "1.0.0"
   keywords: "ai, agent, skill, analyze, browser, api, webflow, optimize, cookie consent, tracking, performance, user experience, consent management, web analytics, automation"
 ---
