@@ -14,6 +14,7 @@ Agent Skills are folders of instructions, scripts, and resources that agents can
 <!-- START:Available-Skills -->
 | Skill | Description |
 | ----- | ----------- |
+| [webflow-browser-api](./skills/webflow-browser-api) | Control Webflow Analyze and Optimize from JavaScript via the Browser API. Use... |
 | [webflow-code-components](./skills/webflow-code-components) | Build, define, and import React code components into Webflow via DevLink. Use... |
 | [webflow-designer-api](./skills/webflow-designer-api) | Work with the Webflow Designer API — either by building Designer Extensions (... |
 | [webflow-webhooks](./skills/webflow-webhooks) | Receive and verify Webflow webhooks. Use when setting up Webflow webhook hand... |
