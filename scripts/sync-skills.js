@@ -1,12 +1,17 @@
 #!/usr/bin/env node
 
 /**
- * sync-skills.js
+ * @module sync-skills
+ * @description Discovers skills in the skills/ directory and syncs their metadata
+ * across all generated files: manifest.json, platform plugin configs
+ * (.claude-plugin/plugin.json, .cursor-plugin/plugin.json),
+ * .claude-plugin/marketplace.json, skills/index.json, and README.md.
  *
- * Syncs manifest.json, platform plugin files, marketplace.json, and README.md
- * with the actual skills discovered in skills/.
- *
- * Usage: node scripts/sync-skills.js
+ * Also propagates author and repository from manifest.json into each
+ * skill's SKILL.md frontmatter.
+ * @example
+ * // Run from the repository root
+ * node scripts/sync-skills.js
  */
 
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
@@ -21,6 +26,7 @@ const MANIFEST_PATH = join(ROOT_DIR, "manifest.json");
 const CLAUDE_MARKETPLACE_PATH = join(ROOT_DIR, ".claude-plugin", "marketplace.json");
 const CLAUDE_PLUGIN_PATH = join(ROOT_DIR, ".claude-plugin", "plugin.json");
 const CURSOR_PLUGIN_PATH = join(ROOT_DIR, ".cursor-plugin", "plugin.json");
+const INDEX_PATH = join(SKILLS_DIR, "index.json");
 
 const FRONTMATTER_REGEX = /^---\n([\s\S]*?)\n---/;
 const WHITESPACE_REGEX = /\S/;
@@ -68,16 +74,16 @@ function parseFrontmatter(content) {
     const rawValue = line.slice(colonIndex + 1);
 
     if (indent > 0 && currentObject !== null) {
-      // Nested property
+
       const value = parseValue(rawValue);
       if (value !== "") {
         currentObject[key] = value;
       }
     } else {
-      // Top-level property
+
       const value = parseValue(rawValue);
       if (value === "") {
-        // Start of a nested object
+
         currentObject = {};
         result[key] = currentObject;
       } else {
@@ -90,6 +96,8 @@ function parseFrontmatter(content) {
   return result;
 }
 
+// Scans the skills/ directory for subdirectories containing a SKILL.md,
+// parses each file's frontmatter, and returns a sorted array of skill metadata.
 async function discoverSkills() {
   const skills = [];
 
@@ -143,6 +151,8 @@ function truncate(str, maxLength = 80) {
   return `${str.slice(0, maxLength - 3)}...`;
 }
 
+// Builds a markdown table of skills with links to their directories,
+// used to replace the auto-generated section in README.md.
 function generateReadmeSkillsList(skills) {
   if (skills.length === 0) {
     return "\n*No skills available yet.*\n";
@@ -159,6 +169,8 @@ function generateReadmeSkillsList(skills) {
   return lines.join("\n");
 }
 
+// Replaces the skills table between the START/END markers in README.md
+// with a freshly generated table from the current skills list.
 async function updateReadme(skills) {
   const content = await readFile(README_PATH, "utf-8");
   const startMarker = "<!-- START:Available-Skills -->";
@@ -182,6 +194,8 @@ async function updateReadme(skills) {
   return true;
 }
 
+// Writes the skills array into manifest.json with name, description,
+// version, source path, license, and keywords for each skill.
 async function updateManifest(manifest, skills) {
   manifest.skills = skills.map((skill) => ({
     name: skill.name,
@@ -199,7 +213,9 @@ async function updateManifest(manifest, skills) {
   );
 }
 
-async function updateClaudePlugin(manifest) {
+// Generates a platform plugin.json at the given path from manifest metadata,
+// creating the directory if it doesn't exist. Extra fields (e.g. logo) are merged in.
+async function updatePlugin(manifest, pluginPath, extraFields = {}) {
   const pluginJson = {
     name: manifest.name,
     description: manifest.description,
@@ -210,17 +226,20 @@ async function updateClaudePlugin(manifest) {
     license: manifest.license,
     keywords: manifest.keywords || [],
     skills: "./skills/",
+    ...extraFields,
   };
 
-  await mkdir(dirname(CLAUDE_PLUGIN_PATH), { recursive: true });
+  await mkdir(dirname(pluginPath), { recursive: true });
   await writeFile(
-    CLAUDE_PLUGIN_PATH,
+    pluginPath,
     `${JSON.stringify(pluginJson, null, 2)}\n`,
     "utf-8"
   );
   return true;
 }
 
+// Updates .claude-plugin/marketplace.json with the current manifest
+// metadata so the plugin is discoverable in the Claude marketplace.
 async function updateMarketplace(manifest) {
   let marketplace;
   try {
@@ -253,29 +272,60 @@ async function updateMarketplace(manifest) {
   return true;
 }
 
-async function updateCursorPlugin(manifest) {
-  const pluginJson = {
-    name: manifest.name,
-    description: manifest.description,
-    version: manifest.version,
-    author: manifest.author,
-    homepage: manifest.homepage,
-    repository: manifest.repository,
-    license: manifest.license,
-    keywords: manifest.keywords || [],
-    skills: "./skills/",
-    logo: manifest.logo,
-  };
+// Recursively walks a skill directory and returns all file paths relative
+// to that directory, with SKILL.md sorted first per the RFC spec.
+async function listSkillFiles(skillDir) {
+  const files = [];
 
-  await mkdir(dirname(CURSOR_PLUGIN_PATH), { recursive: true });
+  async function walk(dir, prefix) {
+    const entries = await readdir(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const relativePath = prefix ? `${prefix}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) {
+        await walk(join(dir, entry.name), relativePath);
+      } else {
+        files.push(relativePath);
+      }
+    }
+  }
+
+  await walk(skillDir, "");
+
+  // SKILL.md must be first per the RFC spec
+  files.sort((a, b) => {
+    if (a === "SKILL.md") return -1;
+    if (b === "SKILL.md") return 1;
+    return a.localeCompare(b);
+  });
+
+  return files;
+}
+
+// Generates skills/index.json following the agent-skills-discovery RFC,
+// listing each skill's name, description, and full file manifest.
+async function updateIndex(skills) {
+  const indexSkills = await Promise.all(
+    skills.map(async (skill) => {
+      const skillDir = join(SKILLS_DIR, skill.dirName);
+      const files = await listSkillFiles(skillDir);
+      return {
+        name: skill.dirName,
+        description: skill.description,
+        files,
+      };
+    })
+  );
+
   await writeFile(
-    CURSOR_PLUGIN_PATH,
-    `${JSON.stringify(pluginJson, null, 2)}\n`,
+    INDEX_PATH,
+    `${JSON.stringify({ skills: indexSkills }, null, 2)}\n`,
     "utf-8"
   );
   return true;
 }
 
+// Propagates author and repository from manifest.json into each
+// skill's SKILL.md frontmatter so they stay in sync.
 async function updateSkillFrontmatter(skills, manifest) {
   const author = manifest.author?.name || "";
   const repository = manifest.repository || "";
@@ -286,7 +336,6 @@ async function updateSkillFrontmatter(skills, manifest) {
     let content = await readFile(skillMdPath, "utf-8");
     const original = content;
 
-    // Update metadata.author
     if (author) {
       content = content.replace(
         /^(  author:) .+$/m,
@@ -294,7 +343,6 @@ async function updateSkillFrontmatter(skills, manifest) {
       );
     }
 
-    // Update or add metadata.repository
     if (repository) {
       if (/^  repository: .+$/m.test(content)) {
         content = content.replace(
@@ -302,7 +350,7 @@ async function updateSkillFrontmatter(skills, manifest) {
           `$1 "${repository}"`
         );
       } else {
-        // Insert after the author line
+  
         content = content.replace(
           /^(  author: .+)$/m,
           `$1\n  repository: "${repository}"`
@@ -319,6 +367,8 @@ async function updateSkillFrontmatter(skills, manifest) {
   return updated;
 }
 
+// Entry point — discovers skills, then updates all generated files
+// (manifest, plugins, marketplace, index, README) in sequence.
 async function main() {
   console.log("Syncing agent skill(s)...\n");
 
@@ -333,33 +383,34 @@ async function main() {
 
   const skillsUpdated = await updateSkillFrontmatter(skills, manifest);
   if (skillsUpdated > 0) {
-    console.log(`✓ Updated ${skillsUpdated} SKILL.md file(s)`);
+    console.log(`Updated ${skillsUpdated} SKILL.md file(s)`);
   }
 
   await updateManifest(manifest, skills);
-  console.log("✓ Updated manifest.json");
+  console.log("Updated manifest.json");
 
-  const claudePluginUpdated = await updateClaudePlugin(manifest);
-  if (claudePluginUpdated) {
-    console.log("✓ Updated .claude-plugin/plugin.json");
-  }
+  await updatePlugin(manifest, CLAUDE_PLUGIN_PATH);
+  console.log("Updated .claude-plugin/plugin.json");
 
   const marketplaceUpdated = await updateMarketplace(manifest);
   if (marketplaceUpdated) {
-    console.log("✓ Updated .claude-plugin/marketplace.json");
+    console.log("Updated .claude-plugin/marketplace.json");
   }
 
-  const cursorPluginUpdated = await updateCursorPlugin(manifest);
-  if (cursorPluginUpdated) {
-    console.log("✓ Updated .cursor-plugin/plugin.json");
+  await updatePlugin(manifest, CURSOR_PLUGIN_PATH, { logo: manifest.logo });
+  console.log("Updated .cursor-plugin/plugin.json");
+
+  const indexUpdated = await updateIndex(skills);
+  if (indexUpdated) {
+    console.log("Updated skills/index.json");
   }
 
   const readmeUpdated = await updateReadme(skills);
   if (readmeUpdated) {
-    console.log("✓ Updated README.md");
+    console.log("Updated README.md");
   }
 
-  console.log("\nDone!");
+  console.log("\nSkill Sync Complete!");
 }
 
 main().catch((error) => {

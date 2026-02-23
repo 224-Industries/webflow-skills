@@ -8,13 +8,14 @@ A living document for understanding how this repository is structured and how it
 ./
 ├── manifest.json                       # Source of truth — global config, keywords, skills array
 ├── skills/
+│   ├── index.json                      # Generated — agent-skills-discovery RFC index
 │   └── <skill-name>/
 │       ├── SKILL.md                    # Entry point — frontmatter + instructions + reference index
 │       ├── references/                 # Detailed reference docs (API guides, guidelines, etc.)
 │       ├── scripts/                    # Helper scripts for the skill
 │       └── assets/                     # Static assets (CSS, images, etc.)
 ├── scripts/
-│   ├── sync-skills.js                  # Syncs manifest.json → plugin files, marketplace, README
+│   ├── sync-skills.js                  # Syncs manifest.json → plugin files, marketplace, index.json, README
 │   └── add-skill.js                    # Scaffolds a new skill directory with SKILL.md
 ├── .claude-plugin/
 │   ├── plugin.json                     # Generated — Claude Code plugin manifest
@@ -46,6 +47,7 @@ manifest.json ──────────────────────
         ├──generates──► .claude-plugin/plugin.json      (from manifest global fields + keywords)
         ├──generates──► .claude-plugin/marketplace.json  (single plugin entry)
         ├──generates──► .cursor-plugin/plugin.json      (from manifest global fields + keywords + logo)
+        ├──generates──► skills/index.json               (agent-skills-discovery RFC index)
         └──generates──► README.md                       (updates skills table)
 ```
 
@@ -57,8 +59,9 @@ manifest.json ──────────────────────
 | Plugin keywords | `manifest.json` → `keywords` | Both plugin.json files, marketplace.json |
 | Logo | `manifest.json` → `logo` | `.cursor-plugin/plugin.json` only |
 | Author, repository | `manifest.json` (global fields) | `SKILL.md` → `metadata.author`, `metadata.repository` |
-| Skill name, description, version, license | `SKILL.md` frontmatter | `manifest.json` → `skills[]` |
+| Skill name, description, version, license | `SKILL.md` frontmatter | `manifest.json` → `skills[]`, `skills/index.json` |
 | Skill keywords | `SKILL.md` → `metadata.keywords` | `manifest.json` → `skills[].keywords` |
+| Skill file listing | Filesystem (skill directory contents) | `skills/index.json` → `skills[].files` |
 | Plugin version | `manifest.json` → `version` | Both plugin.json files, marketplace.json |
 | Skill version | `SKILL.md` → `metadata.version` | `manifest.json` → `skills[].version` |
 
@@ -83,7 +86,7 @@ The `sync` job uses `always() && !failure() && !cancelled()` so that skipped val
 
 | Script | Purpose | Reads | Writes |
 |--------|---------|-------|--------|
-| `sync-skills.js` | Discover skills from `skills/*/SKILL.md`, update manifest and generated files | `SKILL.md` frontmatter, `manifest.json` | `manifest.json`, `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, `.cursor-plugin/plugin.json`, `README.md` |
+| `sync-skills.js` | Discover skills from `skills/*/SKILL.md`, update manifest and generated files | `SKILL.md` frontmatter, `manifest.json` | `manifest.json`, `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, `.cursor-plugin/plugin.json`, `skills/index.json`, `README.md` |
 | `add-skill.js` | Scaffold a new skill | `manifest.json` | `skills/<name>/SKILL.md`, then calls `sync-skills.js` |
 
 ## Platform Differences

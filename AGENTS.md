@@ -1,4 +1,5 @@
 # 224 Industries - Webflow Agent Skills Repository
+## AGENTS.md (Symlink to CLAUDE.md)
 
 This repo contains Webflow Agent Skills — folders of instructions, references, scripts, and assets that AI agents use to work more accurately with the Webflow ecosystem. For detailed architecture, see [ARCHITECTURE.md](ARCHITECTURE.md).
 
@@ -6,11 +7,13 @@ This repo contains Webflow Agent Skills — folders of instructions, references,
 
 ```
 manifest.json                   # Root source of truth — global config + skills array
-skills/<skill-name>/
-├── SKILL.md                    # Entry point — frontmatter + overview + reference index
-├── references/                 # Detailed reference docs (API guides, guidelines, etc.)
-├── scripts/                    # Helper scripts for the skill
-└── assets/                     # Static assets (CSS, images, etc.)
+skills/
+├── index.json                  # Generated — agent-skills-discovery RFC index
+└── <skill-name>/
+    ├── SKILL.md                # Entry point — frontmatter + overview + reference index
+    ├── references/             # Detailed reference docs (API guides, guidelines, etc.)
+    ├── scripts/                # Helper scripts for the skill
+    └── assets/                 # Static assets (CSS, images, etc.)
 ```
 
 ## Reference File Conventions
@@ -75,13 +78,13 @@ The SKILL.md should include:
 ## Scripts
 
 - `node scripts/add-skill.js <name> "<description>"` — Scaffold a new skill
-- `node scripts/sync-skills.js` — Sync manifest.json, platform plugin files, marketplace.json, and README.md with skills directory
+- `node scripts/sync-skills.js` — Sync manifest.json, platform plugin files, marketplace.json, skills/index.json, and README.md with skills directory
 
 ## Workflow
 
 1. Add or edit reference files in `skills/<name>/references/`
 2. Update `SKILL.md` reference links if files were added/removed/renamed
-3. Run `node scripts/sync-skills.js` if SKILL.md frontmatter changed (updates manifest.json, platform plugin files, and README)
+3. Run `node scripts/sync-skills.js` if SKILL.md frontmatter changed (updates manifest.json, platform plugin files, index.json, and README)
 
 ## Development
 

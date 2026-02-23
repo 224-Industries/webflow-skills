@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 /**
- * add-skill.js
- *
- * Adds a new skill to the repository.
- *
- * Usage: node scripts/add-skill.js <skill-name> <description>
- *
- * Example: node scripts/add-skill.js my-new-skill "Helps with X tasks"
+ * @module add-skill
+ * @description Scaffolds a new skill directory with a SKILL.md template, then
+ * runs sync-skills.js to register it across all generated files.
+ * @param {string} skill-name - Name of the skill (normalized to lowercase with hyphens).
+ * @param {string} description - Brief description of what the skill does.
+ * @example
+ * node scripts/add-skill.js my-new-skill "Helps with X tasks"
  */
 
 import { mkdir, readFile, writeFile } from "node:fs/promises";
@@ -43,6 +43,8 @@ Example:
 `);
 }
 
+// Reads and parses manifest.json, exiting with an error
+// if the file is missing or malformed.
 async function loadManifest() {
   try {
     const content = await readFile(MANIFEST_PATH, "utf-8");
@@ -54,6 +56,8 @@ async function loadManifest() {
   }
 }
 
+// Checks whether a skill directory with a SKILL.md already exists,
+// returning true if so to prevent overwriting.
 async function skillExists(skillName) {
   try {
     await readFile(join(SKILLS_DIR, skillName, "SKILL.md"), "utf-8");
@@ -63,6 +67,8 @@ async function skillExists(skillName) {
   }
 }
 
+// Returns a SKILL.md template string with frontmatter populated
+// from the given skill name, description, and manifest metadata.
 function generateSkillMd(skillName, description, manifest) {
   const author = manifest.author?.name || "224 Industries";
   const license = manifest.license || "MIT";
@@ -80,6 +86,8 @@ metadata:
 `;
 }
 
+// Spawns sync-skills.js as a child process so the new skill
+// is registered in manifest.json, plugins, and README.
 async function runSyncScript() {
   const { spawn } = await import("node:child_process");
 
@@ -101,6 +109,8 @@ async function runSyncScript() {
   });
 }
 
+// Entry point — validates CLI args, scaffolds the skill directory
+// with a SKILL.md template, then runs sync-skills.js.
 async function main() {
   const args = process.argv.slice(2);
 
@@ -135,17 +145,14 @@ async function main() {
   const manifest = await loadManifest();
   const skillDir = join(SKILLS_DIR, skillName);
 
-  // Create skill directory
   await mkdir(skillDir, { recursive: true });
 
-  // Generate SKILL.md
   const skillMd = generateSkillMd(skillName, description, manifest);
   await writeFile(join(skillDir, "SKILL.md"), skillMd, "utf-8");
 
-  console.log(`✓ Created skills/${skillName}/SKILL.md`);
+  console.log(`Created skills/${skillName}/SKILL.md`);
   console.log();
 
-  // Run sync script
   console.log("Running sync-skills.js...\n");
   await runSyncScript();
 

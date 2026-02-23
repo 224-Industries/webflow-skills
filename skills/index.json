@@ -1,0 +1,47 @@
+{
+  "skills": [
+    {
+      "name": "webflow-designer-api",
+      "description": "Work with the Webflow Designer API — either by building Designer Extensions (iframes inside the Webflow Designer) or by generating code snippets for the Designer API Playground. Covers element manipulation, styles, components, pages, variables, assets, error handling, CLI usage, and UI design patterns. Use when creating, debugging, or modifying Designer Extensions, OR when the user wants to run Designer API code in the Playground app.",
+      "files": [
+        "SKILL.md",
+        "assets/install-playground-prompt.md",
+        "assets/webflow-variables.css",
+        "references/app-submission-and-listing.md",
+        "references/assets-api.md",
+        "references/code-examples.md",
+        "references/components-api.md",
+        "references/create-webflow-extension-reference.md",
+        "references/design-guidelines.md",
+        "references/designer-apis-reference.md",
+        "references/designer-extension-workflow.md",
+        "references/elements-api.md",
+        "references/error-handling.md",
+        "references/extension-utilities.md",
+        "references/faq.md",
+        "references/marketplace-guidelines.md",
+        "references/pages-api.md",
+        "references/playground-workflow.md",
+        "references/register-app.md",
+        "references/styles-api.md",
+        "references/variables-api.md",
+        "references/webflow-cli-reference.md",
+        "scripts/search_references.py"
+      ]
+    },
+    {
+      "name": "webflow-webhooks",
+      "description": "Receive and verify Webflow webhooks. Use when setting up Webflow webhook handlers, debugging signature verification, or handling Webflow events like form_submission, site_publish, ecomm_new_order, or collection item changes.",
+      "files": [
+        "SKILL.md",
+        "references/event-types.md",
+        "references/faq.md",
+        "references/overview.md",
+        "references/setup.md",
+        "references/verification.md",
+        "references/webhook-api.md",
+        "scripts/search_references.py"
+      ]
+    }
+  ]
+}

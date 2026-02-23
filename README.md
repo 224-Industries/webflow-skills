@@ -72,14 +72,14 @@ Example:
 node scripts/add-skill.js webflow-designer-api "Build Webflow Designer Extensions..."
 ```
 
-This will create the skill structure and automatically update manifest.json, platform plugin files, and this README.
+This will create the skill structure and automatically update manifest.json, platform plugin files, skills/index.json, and this README.
 
 ## Scripts
 
 | Script | Description |
 | ------ | ----------- |
 | `node scripts/add-skill.js` | Add a new skill to the repository |
-| `node scripts/sync-skills.js` | Sync manifest.json, platform plugin files, and README with skills directory |
+| `node scripts/sync-skills.js` | Sync manifest.json, platform plugin files, skills/index.json, and README with skills directory |
 
 ## Resources
 
