@@ -1,0 +1,242 @@
+/**
+ * Webflow Designer Extension CSS Variables
+ * 
+ * These variables match Webflow's design system and automatically
+ * adjust based on user's Appearance settings (dark/light mode).
+ * 
+ * Usage: Include this file in your extension's CSS or reference
+ * the variables directly if the extension is loaded in Webflow's context.
+ */
+
+:root {
+  /* Typography */
+  --font-stack: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-size-small: 11.5px;
+  --font-size-small-letter-spacing: -0.115px;
+  --font-size-large: 12.5px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 600;
+  
+  /* Border radius */
+  --border-radius: 4px;
+  
+  /* Backgrounds */
+  --background1: #1E1E1E;
+  --background2: #2E2E2E;
+  --background3: #383838;
+  --background4: #373737;
+  --background5: #444444;
+  --backgroundInactive: #2E2E2E;
+  --backgroundInverse: #EBEBEB;
+  --backgroundInput: rgba(0, 0, 0, 0.15);
+  
+  /* Text */
+  --text1: #F5F5F5;
+  --text2: #BDBDBD;
+  --text3: #A3A3A3;
+  --textInactive: #757575;
+  --textInverse: #1E1E1E;
+  
+  /* Borders */
+  --border1: rgba(255, 255, 255, 0.13);
+  --border2: rgba(255, 255, 255, 0.14);
+  --border3: rgba(255, 255, 255, 0.19);
+  
+  /* Primary Actions */
+  --actionPrimaryBackground: #006ACC;
+  --actionPrimaryBackgroundHover: #187CD9;
+  --actionPrimaryText: #FFFFFF;
+  --actionPrimaryTextHover: #FFFFFF;
+  
+  /* Secondary Actions */
+  --actionSecondaryBackground: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.10) 100%);
+  --actionSecondaryBackgroundHover: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.16) 100%);
+  --actionSecondaryText: #E0E0E0;
+  --actionSecondaryTextHover: #E0E0E0;
+  
+  /* Blue (Info) */
+  --blueText: #8AC2FF;
+  --blueIcon: #8AC2FF;
+  --blueBorder: #007DF0;
+  
+  /* Green (Success) */
+  --greenBackground: #007A41;
+  --greenBackgroundHover: #0D8A4F;
+  --greenText: #63D489;
+  --greenIcon: #63D489;
+  --greenBorder: #259D4D;
+  
+  /* Yellow (Warning) */
+  --yellowBackground: #946B00;
+  --yellowBackgroundHover: #AF7F00;
+  --yellowText: #F3C831;
+  --yellowIcon: #F3C831;
+  --yellowBorder: #D7A220;
+  
+  /* Red (Error) */
+  --redBackground: #CF313B;
+  --redBackgroundHover: #CB3535;
+  --redText: #FF8A8A;
+  --redIcon: #FF8A8A;
+  --redBorder: #E42F3A;
+  
+  /* Orange */
+  --orangeBackground: #BF4704;
+  --orangeBackgroundHover: #DC9561;
+  --orangeText: #EBA267;
+  --orangeIcon: #EBA267;
+  --orangeBorder: #DF640C;
+  
+  /* Purple */
+  --purpleBackground: #734CE0;
+  --purpleBackgroundHover: #815BEB;
+  --purpleText: #B89EFF;
+  --purpleIcon: #B89EFF;
+  --purpleBorder: #875FFD;
+  
+  /* Box Shadows */
+  --boxShadows-action-colored: 
+    0px 0.5px 1px 0px rgba(0, 0, 0, 0.8),
+    0px 0.5px 0.5px 0px rgba(255, 255, 255, 0.20) inset;
+  
+  --boxShadows-action-secondary: 
+    0px 0.5px 1px rgba(0, 0, 0, 0.8),
+    inset 0px 0.5px 0.5px rgba(255, 255, 255, 0.12);
+  
+  --boxShadows-input-inner: 
+    0px 1px 1px -1px rgba(0, 0, 0, 0.13) inset,
+    0px 3px 3px -3px rgba(0, 0, 0, 0.17) inset,
+    0px 4px 4px -4px rgba(0, 0, 0, 0.17) inset,
+    0px 8px 8px -8px rgba(0, 0, 0, 0.17) inset,
+    0px 12px 12px -12px rgba(0, 0, 0, 0.13) inset,
+    0px 16px 16px -16px rgba(0, 0, 0, 0.13) inset;
+  
+  --boxShadows-menu: 
+    0px 0.5px 0.5px 0px rgba(255, 255, 255, 0.12) inset,
+    0px 12px 24px 8px rgba(0, 0, 0, 0.04),
+    0px 8px 16px 4px rgba(0, 0, 0, 0.04),
+    0px 4px 8px 2px rgba(0, 0, 0, 0.04),
+    0px 2px 6px 0px rgba(0, 0, 0, 0.04),
+    0px 0px 1px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* Base styles for native Webflow look */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-stack);
+  font-size: var(--font-size-large);
+  color: var(--text1);
+  background: var(--background1);
+  margin: 0;
+  padding: 12px;
+  line-height: 1.4;
+}
+
+/* Button styles */
+.wf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: var(--border-radius);
+  font-family: var(--font-stack);
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  border: none;
+  transition: background 0.15s ease;
+}
+
+.wf-btn-primary {
+  background: var(--actionPrimaryBackground);
+  color: var(--actionPrimaryText);
+  box-shadow: var(--boxShadows-action-colored);
+}
+
+.wf-btn-primary:hover {
+  background: var(--actionPrimaryBackgroundHover);
+}
+
+.wf-btn-secondary {
+  background: var(--actionSecondaryBackground);
+  color: var(--actionSecondaryText);
+  box-shadow: var(--boxShadows-action-secondary);
+}
+
+.wf-btn-secondary:hover {
+  background: var(--actionSecondaryBackgroundHover);
+}
+
+/* Full width button */
+.wf-btn-full {
+  width: 100%;
+}
+
+/* Input styles */
+.wf-input {
+  width: 100%;
+  padding: 8px 12px;
+  background: var(--backgroundInput);
+  color: var(--text1);
+  border: 1px solid var(--border2);
+  border-radius: var(--border-radius);
+  box-shadow: var(--boxShadows-input-inner);
+  font-family: var(--font-stack);
+  font-size: var(--font-size-large);
+}
+
+.wf-input:focus {
+  outline: none;
+  border-color: var(--blueBorder);
+}
+
+.wf-input::placeholder {
+  color: var(--textInactive);
+}
+
+/* Label styles */
+.wf-label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: var(--font-size-small);
+  letter-spacing: var(--font-size-small-letter-spacing);
+  color: var(--text2);
+}
+
+/* Panel/Card styles */
+.wf-panel {
+  background: var(--background2);
+  border: 1px solid var(--border1);
+  border-radius: var(--border-radius);
+  padding: 12px;
+}
+
+/* Divider */
+.wf-divider {
+  height: 1px;
+  background: var(--border1);
+  margin: 12px 0;
+}
+
+/* Spacing utilities */
+.wf-mb-4 { margin-bottom: 4px; }
+.wf-mb-8 { margin-bottom: 8px; }
+.wf-mb-12 { margin-bottom: 12px; }
+.wf-mb-16 { margin-bottom: 16px; }
+.wf-mb-20 { margin-bottom: 20px; }
+
+.wf-mt-4 { margin-top: 4px; }
+.wf-mt-8 { margin-top: 8px; }
+.wf-mt-12 { margin-top: 12px; }
+.wf-mt-16 { margin-top: 16px; }
+.wf-mt-20 { margin-top: 20px; }
+
+/* Text utilities */
+.wf-text-muted { color: var(--text3); }
+.wf-text-small { 
+  font-size: var(--font-size-small); 
+  letter-spacing: var(--font-size-small-letter-spacing);
+}

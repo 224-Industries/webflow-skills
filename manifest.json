@@ -1,0 +1,57 @@
+{
+  "name": "webflow-agent-skills",
+  "description": "Ship solutions for and with Webflow. This plugin provides a collection of skills to help you integrate and automate tasks related to Webflow, including webhook management, designer api tasks, and more.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Ben Sabic",
+    "email": "ben@224industries.com.au"
+  },
+  "homepage": "https://224industries.com.au",
+  "repository": "https://github.com/224-industries/webflow-skills",
+  "license": "MIT",
+  "keywords": [
+    "ai",
+    "agent",
+    "skill",
+    "webflow"
+  ],
+  "logo": "assets/webflow-logomark.svg",
+  "skills": [
+    {
+      "name": "webflow-designer-api",
+      "description": "Work with the Webflow Designer API — either by building Designer Extensions (iframes inside the Webflow Designer) or by generating code snippets for the Designer API Playground. Covers element manipulation, styles, components, pages, variables, assets, error handling, CLI usage, and UI design patterns. Use when creating, debugging, or modifying Designer Extensions, OR when the user wants to run Designer API code in the Playground app.",
+      "version": "2.0.0",
+      "source": "./skills/webflow-designer-api",
+      "license": "MIT",
+      "keywords": [
+        "ai",
+        "agent",
+        "skill",
+        "webflow",
+        "designer",
+        "extension",
+        "cli",
+        "element-manipulation",
+        "styles",
+        "components",
+        "pages",
+        "variables",
+        "assets",
+        "error-handling",
+        "ui-design-patterns"
+      ]
+    },
+    {
+      "name": "webflow-webhooks",
+      "description": "Receive and verify Webflow webhooks. Use when setting up Webflow webhook handlers, debugging signature verification, or handling Webflow events like form_submission, site_publish, ecomm_new_order, or collection item changes.",
+      "version": "1.0.0",
+      "source": "./skills/webflow-webhooks",
+      "license": "MIT",
+      "keywords": [
+        "ai",
+        "agent",
+        "skill"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "cursor-plugin.schema.json",
+  "title": "Cursor Plugin",
+  "description": "Schema for Cursor plugin.json metadata",
+  "type": "object",
+  "required": ["name"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9.-]*$",
+      "description": "Plugin identifier. Lowercase, kebab-case (alphanumerics, hyphens, and periods)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief overview of plugin functionality"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
+      "description": "Semantic version (e.g., 1.0.0)"
+    },
+    "author": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Creator name"
+        },
+        "email": {
+          "type": "string",
+          "description": "Creator email"
+        }
+      },
+      "required": ["name"]
+    },
+    "homepage": {
+      "type": "string",
+      "description": "Web address for plugin documentation"
+    },
+    "repository": {
+      "type": "string",
+      "description": "Web address for plugin source code"
+    },
+    "license": {
+      "type": "string",
+      "description": "License type identifier (e.g., MIT)"
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Search tags for discoverability"
+    },
+    "logo": {
+      "type": "string",
+      "description": "Relative file path or absolute URL to logo asset"
+    },
+    "rules": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ],
+      "description": "Path(s) to rule files or folders"
+    },
+    "agents": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ],
+      "description": "Path(s) to agent files or folders"
+    },
+    "skills": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ],
+      "description": "Path(s) to skill directories"
+    },
+    "commands": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ],
+      "description": "Path(s) to command files or folders"
+    },
+    "hooks": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "object" }
+      ],
+      "description": "Path to hooks configuration or inline configuration"
+    },
+    "mcpServers": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "object" },
+        { "type": "array" }
+      ],
+      "description": "Path to MCP config, inline config, or array of either"
+    }
+  },
+  "additionalProperties": false
+}

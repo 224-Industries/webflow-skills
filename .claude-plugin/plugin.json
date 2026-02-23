@@ -1,0 +1,19 @@
+{
+  "name": "webflow-agent-skills",
+  "description": "Ship solutions for and with Webflow. This plugin provides a collection of skills to help you integrate and automate tasks related to Webflow, including webhook management, designer api tasks, and more.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Ben Sabic",
+    "email": "ben@224industries.com.au"
+  },
+  "homepage": "https://224industries.com.au",
+  "repository": "https://github.com/224-industries/webflow-skills",
+  "license": "MIT",
+  "keywords": [
+    "ai",
+    "agent",
+    "skill",
+    "webflow"
+  ],
+  "skills": "./skills/"
+}
