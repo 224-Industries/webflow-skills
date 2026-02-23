@@ -1,6 +1,37 @@
 {
   "skills": [
     {
+      "name": "webflow-code-components",
+      "description": "Build, define, and import React code components into Webflow via DevLink. Use when creating Webflow code components, configuring declareComponent definitions, working with prop types, styling within Shadow DOM, bundling with Webpack, or troubleshooting DevLink imports.",
+      "files": [
+        "SKILL.md",
+        "references/bundling-and-import.md",
+        "references/cli.md",
+        "references/component-architecture.md",
+        "references/define-code-component.md",
+        "references/faq.md",
+        "references/frameworks-and-libraries.md",
+        "references/hooks.md",
+        "references/installation.md",
+        "references/introduction.md",
+        "references/prop-types.md",
+        "references/prop-types/boolean.md",
+        "references/prop-types/id.md",
+        "references/prop-types/image.md",
+        "references/prop-types/link.md",
+        "references/prop-types/number.md",
+        "references/prop-types/rich-text.md",
+        "references/prop-types/slot.md",
+        "references/prop-types/text-node.md",
+        "references/prop-types/text.md",
+        "references/prop-types/variant.md",
+        "references/prop-types/visibility.md",
+        "references/quick-start.md",
+        "references/styling-components.md",
+        "scripts/search_references.py"
+      ]
+    },
+    {
       "name": "webflow-designer-api",
       "description": "Work with the Webflow Designer API — either by building Designer Extensions (iframes inside the Webflow Designer) or by generating code snippets for the Designer API Playground. Covers element manipulation, styles, components, pages, variables, assets, error handling, CLI usage, and UI design patterns. Use when creating, debugging, or modifying Designer Extensions, OR when the user wants to run Designer API code in the Playground app.",
       "files": [

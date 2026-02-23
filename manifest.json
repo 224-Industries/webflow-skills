@@ -18,6 +18,28 @@
   "logo": "assets/webflow-logomark.svg",
   "skills": [
     {
+      "name": "webflow-code-components",
+      "description": "Build, define, and import React code components into Webflow via DevLink. Use when creating Webflow code components, configuring declareComponent definitions, working with prop types, styling within Shadow DOM, bundling with Webpack, or troubleshooting DevLink imports.",
+      "version": "1.0.0",
+      "source": "./skills/webflow-code-components",
+      "license": "MIT",
+      "keywords": [
+        "ai",
+        "agent",
+        "skill",
+        "webflow",
+        "code-components",
+        "devlink",
+        "react",
+        "declareComponent",
+        "props",
+        "shadow-dom",
+        "bundling",
+        "webpack",
+        "library"
+      ]
+    },
+    {
       "name": "webflow-designer-api",
       "description": "Work with the Webflow Designer API — either by building Designer Extensions (iframes inside the Webflow Designer) or by generating code snippets for the Designer API Playground. Covers element manipulation, styles, components, pages, variables, assets, error handling, CLI usage, and UI design patterns. Use when creating, debugging, or modifying Designer Extensions, OR when the user wants to run Designer API code in the Playground app.",
       "version": "2.0.0",
