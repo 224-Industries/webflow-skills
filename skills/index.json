@@ -75,6 +75,20 @@
       ]
     },
     {
+      "name": "webflow-enterprise-api",
+      "description": "Webflow Enterprise API endpoints for workspace management, audit logs, site activity, 301 redirects, robots.txt, and well-known files. Use when working with Enterprise-only Webflow API endpoints that require an Enterprise workspace.",
+      "files": [
+        "SKILL.md",
+        "references/301-redirects.md",
+        "references/robots-txt.md",
+        "references/site-activity-logs.md",
+        "references/well-known-files.md",
+        "references/workspace-audit-logs.md",
+        "references/workspace-management.md",
+        "scripts/search_references.py"
+      ]
+    },
+    {
       "name": "webflow-webhooks",
       "description": "Receive and verify Webflow webhooks. Use when setting up Webflow webhook handlers, debugging signature verification, or handling Webflow events like form_submission, site_publish, ecomm_new_order, or collection item changes.",
       "files": [
