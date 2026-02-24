@@ -6,6 +6,8 @@
 
 This repository contains a collection of Webflow Agent Skills by 224 Industries. These skills are designed to enhance the capabilities of agents by providing them with specialized functionalities.
 
+<img width="1200" height="630" alt="224-industries-webflow-agent-skills-vercel-skills-cli" alt="Vercel Skills CLI output from installing the Webflow Agent Skills by 224 Industries" src="https://github.com/user-attachments/assets/896d2eed-1f2c-4a46-9bae-0f0899f7cb52" />
+
 ## What are Agent Skills?
 
 Agent Skills are folders of instructions, scripts, and resources that agents can discover and use to do things more accurately and efficiently. They work across any AI agent that supports the [open Agent Skills standard](https://agentskills.io).
