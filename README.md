@@ -52,18 +52,27 @@ npx skills add 224-industries/webflow-skills --skill webflow-designer-api
 npx skills add 224-industries/webflow-skills --list
 ```
 
-### Claude Code Plugin
+<details>
+<summary>Manual Download</summary>
 
-Install via Claude Code's plugin system:
+Download `.skill` files directly from the Available Skills table above and upload them to any agent that supports the [Agent Skills standard](https://agentskills.io):
+
+- **Claude Web / Desktop / Cowork** — Go to Customize > Skills, click **+**, then **Upload a skill**
+
+</details>
+
+<details>
+<summary>Claude Code / Factory Droid Plugin</summary>
 
 ```bash
 # Add the plugin (includes all skills)
 /plugin add 224-industries/webflow-skills
 ```
 
-> Claude Code plugins are also supported in Factory's [Droid](https://docs.factory.ai/cli/configuration/plugins#claude-code-compatibility).
+</details>
 
-### Gumloop Agents
+<details>
+<summary>Gumloop Agents</summary>
 
 Upload skills directly to [Gumloop](https://docs.gumloop.com/core-concepts/skills) agents:
 
@@ -71,9 +80,12 @@ Upload skills directly to [Gumloop](https://docs.gumloop.com/core-concepts/skill
 2. In Gumloop, open your agent's configuration and scroll to the **Skills** section
 3. Click **+ Skill** and upload the `.skill` file
 
-### Other Installation Methods
+</details>
 
-Agent skills can also be installed by using the below commands from [Playbooks](https://playbooks.com/skills) or [Context7](https://context7.com/docs/skills):
+<details>
+<summary>Other CLI Methods</summary>
+
+Agent skills can also be installed via [Playbooks](https://playbooks.com/skills) or [Context7](https://context7.com/docs/skills):
 
 ```bash
 # Playbooks
@@ -82,6 +94,8 @@ npx playbooks add skill 224-industries/webflow-skills
 # Context7
 npx ctx7 skills install /224-industries/webflow-skills
 ```
+
+</details>
 
 ## Adding New Skills
 

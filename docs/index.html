@@ -7,8 +7,13 @@
   <meta name="description" content="Open-source Agent Skills for Webflow. Give your AI agents the context they need to build, ship, and automate across the Webflow platform. MIT licensed.">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Ben Sabic">
-  <meta name="theme-color" content="#09090b">
+  <meta name="theme-color" content="#111212">
 
+  <link rel="icon" type="image/x-icon" href="https://224industries.com.au/webflow-skills/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://224industries.com.au/webflow-skills/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://224industries.com.au/webflow-skills/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://224industries.com.au/webflow-skills/apple-touch-icon.png">
+  <link rel="manifest" href="https://224industries.com.au/webflow-skills/site.webmanifest">
   <link rel="canonical" href="https://224industries.com.au/webflow-skills">
 
   <!-- Open Graph -->
@@ -100,6 +105,22 @@
               "@type": "Answer",
               "text": "The fastest way is to download a .skill file and upload it in Claude via Customize > Skills. You can also install via the Skills CLI (npx skills add 224-industries/webflow-skills), Claude Code (/plugin add 224-industries/webflow-skills), Gumloop, Playbooks, or Context7."
             }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I create my own Agent Skills?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. A skill is just a folder with a SKILL.md file and any supporting references, scripts, or assets. Create a SKILL.md with YAML frontmatter (name and description), add your instructions in the body, and you have a working skill. See the Agent Skills specification at agentskills.io for the full format."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are these skills free to use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. All five Webflow skills in this repository are open-source under the MIT license. You can use, modify, and distribute them freely. For premium skills covering strategy, discovery, and client workflows, check out the Webflow Skills Kit."
+            }
           }
         ]
       }
@@ -110,7 +131,7 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg: #09090b;
+      --bg: #111212;
       --card: #09090b;
       --card-hover: #18181b;
       --foreground: #fafafa;
@@ -153,7 +174,7 @@
     /* ── Hero ── */
     .hero {
       position: relative;
-      padding: 160px 0 120px;
+      padding: 200px 0 160px;
       background-image:
         linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
@@ -169,6 +190,22 @@
       height: 160px;
       background: linear-gradient(to bottom, transparent, var(--bg));
       pointer-events: none;
+    }
+
+    .hero-logo-link {
+      display: block;
+      width: 180px;
+      margin-bottom: 24px;
+      color: #FBFBF9;
+      transition: color 0.4s ease;
+    }
+
+    .hero-logo-link:hover { color: #6AFFDC; }
+
+    .hero-logo {
+      display: block;
+      width: 100%;
+      height: auto;
     }
 
     .hero h1 {
@@ -191,6 +228,8 @@
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
     }
 
     .btn {
@@ -230,7 +269,7 @@
     section { padding: 64px 0; }
     section + section { border-top: 1px solid var(--border); }
 
-    .section-header { margin-bottom: 40px; }
+    .section-header { margin-bottom: 24px; }
 
     .section-title {
       font-size: 1.5rem;
@@ -290,12 +329,16 @@
     .skill-row:first-child { border-top: 1px solid var(--border); }
 
     .skill-name {
-      font-family: var(--font-mono);
       font-size: 0.875rem;
       font-weight: 500;
       color: var(--foreground);
       flex-shrink: 0;
       width: 220px;
+    }
+
+    .skill-name .skill-prefix {
+      color: var(--muted-foreground);
+      font-weight: 400;
     }
 
     .skill-desc {
@@ -353,11 +396,20 @@
 
     /* ── Install tabs ── */
     .install-tabs {
+      position: relative;
       display: flex;
       gap: 0;
       border-bottom: 1px solid var(--border);
       margin-bottom: 0;
-      flex-wrap: wrap;
+    }
+
+    .install-tabs-indicator {
+      position: absolute;
+      bottom: 0;
+      height: 2px;
+      background: var(--foreground);
+      transition: left 0.3s ease, width 0.3s ease;
+      pointer-events: none;
     }
 
     .install-tab {
@@ -368,18 +420,15 @@
       background: transparent;
       color: var(--muted-foreground);
       border: none;
-      border-bottom: 2px solid transparent;
       cursor: pointer;
-      transition: color 0.15s, border-color 0.15s;
+      transition: color 0.15s;
       white-space: nowrap;
-      margin-bottom: -1px;
     }
 
     .install-tab:hover { color: var(--foreground); }
 
     .install-tab.active {
       color: var(--foreground);
-      border-bottom-color: var(--foreground);
     }
 
     .install-panel {
@@ -424,9 +473,79 @@
 
     .install-panel .note a:hover { color: var(--foreground); text-decoration-color: var(--foreground); }
 
+    /* ── FAQ ── */
+    .faq-list { display: flex; flex-direction: column; }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-item:first-child { border-top: none; }
+
+    .faq-item summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 0;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--foreground);
+      cursor: pointer;
+      list-style: none;
+      transition: color 0.15s;
+    }
+
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::marker { display: none; content: ''; }
+
+    .faq-item summary:hover { color: var(--muted); }
+
+    .faq-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+
+    .faq-item.is-open .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.3s ease;
+    }
+
+    .faq-item[open] .faq-answer {
+      grid-template-rows: 1fr;
+    }
+
+    .faq-answer-inner {
+      overflow: hidden;
+    }
+
+    .faq-answer-inner p {
+      padding: 0 0 20px;
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 640px;
+    }
+
+    .faq-answer-inner a {
+      color: var(--foreground);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--muted-foreground);
+    }
+
+    .faq-answer-inner a:hover { text-decoration-color: var(--foreground); color: var(--foreground); }
+
     /* ── Responsive ── */
     @media (max-width: 640px) {
-      .hero { padding: 100px 0 80px; }
+      .hero { padding: 120px 0 100px; }
       .hero h1 { font-size: 2rem; }
       section { padding: 48px 0; }
 
@@ -453,11 +572,12 @@
   <!-- Hero -->
   <header class="hero">
     <div class="container">
+      <a href="https://224industries.com.au/" target="_blank" rel="external nofollow noopener" class="hero-logo-link"><svg class="hero-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 338 43" fill="none"><path d="M97.3184 41.5332V0H107.6V41.5332H97.3184Z" fill="currentColor"></path><path d="M108.898 41.5332V11.7919H118.018V15.8581H118.192C120.399 12.6633 123.246 10.9206 127.37 10.9206C133.876 10.9206 137.71 15.5677 137.71 22.1898V41.5332H128.241V24.1067C128.241 20.9699 126.673 18.8206 123.594 18.8206C120.457 18.8206 118.366 21.4346 118.366 25.0942V41.5332H108.898Z" fill="currentColor"></path><path d="M151.663 42.4626C144.053 42.4626 138.651 36.5957 138.651 26.6626C138.651 17.3684 143.995 10.9206 151.663 10.9206C155.845 10.9206 158.227 12.6633 159.97 15.1611H160.144V0H169.612V41.5332H160.551V37.5251H160.434C158.634 40.6038 155.555 42.4626 151.663 42.4626ZM154.103 34.9692C158.053 34.9692 160.376 31.542 160.376 26.6626C160.376 21.667 158.343 18.0655 154.219 18.0655C150.443 18.0655 148.236 21.5508 148.236 26.5464C148.236 31.7163 150.443 34.9692 154.103 34.9692Z" fill="currentColor"></path><path d="M181.27 42.4045C174.416 42.4045 170.814 37.9317 170.814 31.3096V11.7919H180.224V29.3346C180.224 32.5876 181.677 34.3883 184.697 34.3883C187.95 34.3883 189.925 31.9486 189.925 28.4052V11.7919H199.394V41.5332H190.332V37.8736H190.158C188.008 40.778 185.394 42.4045 181.27 42.4045Z" fill="currentColor"></path><path d="M214.869 42.4626C206.155 42.4626 200.695 38.4545 200.405 31.8905H209.35C209.699 34.853 211.674 36.3052 214.811 36.3052C217.657 36.3052 219.458 35.2597 219.458 33.3427C219.458 30.6707 215.856 30.3802 211.906 29.6832C206.736 28.8118 201.218 27.4177 201.218 20.4471C201.218 14.1736 207.027 10.9206 214.055 10.9206C222.478 10.9206 227.009 14.5802 227.474 20.4471H218.761C218.412 17.775 216.611 16.9618 213.997 16.9618C211.674 16.9618 209.873 17.8331 209.873 19.692C209.873 21.7831 213.242 22.0736 217.018 22.7706C222.246 23.642 228.403 24.978 228.403 32.5876C228.403 39.0935 222.653 42.4626 214.869 42.4626Z" fill="currentColor"></path><path d="M240.675 41.8817C235.157 41.8817 231.207 40.081 231.207 33.6913V17.717H227.257V11.7919H231.207L231.267 2.50549H240.503L240.443 11.7919H247.449V17.717H240.443V31.6582C240.443 33.9817 241.721 34.5626 243.754 34.5626C244.567 34.5626 245.496 34.5045 245.845 34.5045V41.417C245.032 41.6494 243.231 41.8817 240.675 41.8817Z" fill="currentColor"></path><path d="M247.231 41.5332V11.7919H256.293V16.439H256.467C258.558 12.8956 260.998 11.3272 264.6 11.3272C265.471 11.3272 266.052 11.3853 266.458 11.5596V19.692H266.226C260.417 18.8787 256.7 21.7251 256.7 28.1729V41.5332H247.231Z" fill="currentColor"></path><path d="M267.725 41.5332V11.7919H277.194V41.5332H267.725ZM267.725 11.8532V2.49645H277.194V8.76043L267.725 11.8532Z" fill="currentColor"></path><path d="M294.516 42.4045C284.7 42.4045 278.658 35.6082 278.658 26.6045C278.658 17.717 284.874 10.9206 293.936 10.9206C298.176 10.9206 301.545 12.3147 304.101 14.6383C307.644 17.8912 309.387 23.0611 309.329 29.1023H287.952C288.533 33.1104 290.741 35.6082 294.633 35.6082C297.13 35.6082 298.757 34.5045 299.57 32.6457H308.806C308.167 35.3177 306.425 37.8736 303.811 39.6744C301.313 41.417 298.292 42.4045 294.516 42.4045ZM288.011 23.4677H299.744C299.396 19.9243 297.189 17.6589 294.11 17.6589C290.508 17.6589 288.65 19.9243 288.011 23.4677Z" fill="currentColor"></path><path d="M324.117 42.4626C315.404 42.4626 309.944 38.4545 309.653 31.8905H318.599C318.947 34.853 320.922 36.3052 324.059 36.3052C326.905 36.3052 328.706 35.2597 328.706 33.3427C328.706 30.6707 325.105 30.3802 321.155 29.6832C315.985 28.8118 310.466 27.4177 310.466 20.4471C310.466 14.1736 316.275 10.9206 323.304 10.9206C331.727 10.9206 336.258 14.5802 336.722 20.4471H328.009C327.66 17.775 325.86 16.9618 323.246 16.9618C320.922 16.9618 319.122 17.8331 319.122 19.692C319.122 21.7831 322.491 22.0736 326.266 22.7706C331.494 23.642 337.652 24.978 337.652 32.5876C337.652 39.0935 331.901 42.4626 324.117 42.4626Z" fill="currentColor"></path><path d="M0 41.5315C0.116177 34.8514 3.07868 31.0175 7.0287 27.7065C10.6302 24.6278 15.2772 21.7234 18.414 18.9351C20.0405 17.4829 21.028 15.9726 21.028 13.9976C21.028 10.9189 19.2273 8.82776 15.8581 8.82776C13.9993 8.82776 12.5471 9.40864 11.5596 10.6285C10.3978 11.9645 9.81694 13.7653 9.75885 16.4954H0.580884C0.580884 11.8484 1.39412 9.00203 3.31104 6.38805C5.57649 3.1351 9.87503 0.927737 16.0905 0.927737C25.6751 0.927737 30.8449 6.6204 30.8449 13.6491C30.8449 19.1675 27.7663 22.3624 24.2229 25.0925C20.6795 27.9969 16.3809 30.4366 13.5927 33.3992V33.4572H31.9735L30.9165 36.1068C30.4944 37.1648 30.2562 38.2873 30.2122 39.4256L30.1284 41.594L0 41.5315Z" fill="currentColor"></path><path d="M31.3659 41.5315C31.4821 34.8514 34.4446 31.0175 38.3946 27.7065C41.9961 24.6278 46.6432 21.7234 49.78 18.9351C51.4065 17.4829 52.3939 15.9726 52.3939 13.9976C52.3939 10.9189 50.5932 8.82776 47.2241 8.82776C45.3653 8.82776 43.913 9.40864 42.9255 10.6285C41.7638 11.9645 41.1829 13.7653 41.1248 16.4954H31.9468C31.9468 11.8484 32.7601 9.00202 34.677 6.38804C36.9424 3.1351 41.241 0.927734 47.4564 0.927734C57.041 0.927734 62.2109 6.6204 62.2109 13.6491C62.2109 19.1675 59.1322 22.3623 55.5888 25.0925C52.0454 27.9969 47.7469 30.4366 44.9586 33.3992V33.4572H62.269V41.5315H31.3659Z" fill="currentColor"></path><path d="M80.7158 41.578V33.5198H62.1855V23.7449L80.5996 1.38086H90.2423V25.3133H95.993V33.4462H90.2423V41.578H80.7158ZM69.5628 25.3133H80.7158V11.6625H80.5996L69.5628 25.1971V25.3133Z" fill="currentColor"></path></svg></a>
       <h1>Webflow Agent Skills</h1>
       <p>Give your AI agents the context they need to build, ship, and automate across Webflow.</p>
 
       <div class="hero-actions">
-        <a href="https://github.com/224-industries/webflow-skills" target="_blank" rel="external noopener" class="btn btn--primary">
+        <a href="https://github.com/224-industries/webflow-skills" target="_blank" rel="external nofollow noopener" class="btn btn--primary">
           <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
           GitHub
         </a>
@@ -475,7 +595,7 @@
       <div class="section-body">
         <p>An agent skill is a folder containing instructions, reference docs, and scripts that an AI agent can read when it needs them. Think of it like an onboarding guide you'd hand a new team member on their first day, except the new hire is an AI model.</p>
         <p>Each skill has a SKILL.md file that tells the agent what the skill does and when to use it. When the agent encounters a task that matches, it reads the instructions and gets to work with the right context. No guessing, no hallucinating, no generic output.</p>
-        <p>Anthropic originally built skills for Claude, then released the format as an <a href="https://agentskills.io">open standard</a>. Now they work across a growing number of AI tools, and partners like Canva, Notion, Figma, and Atlassian are already building their own.</p>
+        <p>Anthropic originally built skills for Claude, then released the format as an <a href="https://agentskills.io" target="_blank" rel="external nofollow noopener">open standard</a>. Now they work across a growing number of AI tools, and partners like Canva, Notion, Figma, and Atlassian are already building their own.</p>
       </div>
     </div>
   </section>
@@ -491,47 +611,47 @@
       <div class="skill-list">
 
         <div class="skill-row">
-          <span class="skill-name">webflow-browser-api</span>
+          <span class="skill-name"><span class="skill-prefix">webflow / </span>Browser API</span>
           <span class="skill-desc">Control Webflow Analyze &amp; Optimize via the Browser API. Manage tracking consent, integrate CMPs, track experiments, and personalize experiences.</span>
           <span class="skill-actions">
-            <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-browser-api" target="_blank" rel="external noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
-            <a href="https://skills.224ai.au/webflow-browser-api.skill" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
+            <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-browser-api" target="_blank" rel="external nofollow noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
+            <a href="https://skills.224ai.au/webflow-browser-api.skill" target="_blank" rel="external nofollow noopener" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
           </span>
         </div>
 
         <div class="skill-row">
-          <span class="skill-name">webflow-code-components</span>
+          <span class="skill-name"><span class="skill-prefix">webflow / </span>Code Components</span>
           <span class="skill-desc">Build and import React code components into Webflow via DevLink. Configure declareComponent definitions, prop types, and Shadow DOM styling.</span>
           <span class="skill-actions">
-            <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-code-components" target="_blank" rel="external noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
-            <a href="https://skills.224ai.au/webflow-code-components.skill" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
+            <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-code-components" target="_blank" rel="external nofollow noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
+            <a href="https://skills.224ai.au/webflow-code-components.skill" target="_blank" rel="external nofollow noopener" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
           </span>
         </div>
 
         <div class="skill-row">
-          <span class="skill-name">webflow-designer-api</span>
+          <span class="skill-name"><span class="skill-prefix">webflow / </span>Designer API</span>
           <span class="skill-desc">Build Designer Extensions or generate Playground code. Work with elements, styles, components, pages, variables, and assets.</span>
           <span class="skill-actions">
-            <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-designer-api" target="_blank" rel="external noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
-            <a href="https://skills.224ai.au/webflow-designer-api.skill" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
+            <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-designer-api" target="_blank" rel="external nofollow noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
+            <a href="https://skills.224ai.au/webflow-designer-api.skill" target="_blank" rel="external nofollow noopener" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
           </span>
         </div>
 
         <div class="skill-row">
-          <span class="skill-name">webflow-enterprise-api</span>
+          <span class="skill-name"><span class="skill-prefix">webflow / </span>Enterprise API</span>
           <span class="skill-desc">Enterprise-only endpoints for workspace management, audit logs, site activity, 301 redirects, robots.txt, and well-known files.</span>
           <span class="skill-actions">
-            <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-enterprise-api" target="_blank" rel="external noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
-            <a href="https://skills.224ai.au/webflow-enterprise-api.skill" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
+            <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-enterprise-api" target="_blank" rel="external nofollow noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
+            <a href="https://skills.224ai.au/webflow-enterprise-api.skill" target="_blank" rel="external nofollow noopener" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
           </span>
         </div>
 
         <div class="skill-row">
-          <span class="skill-name">webflow-webhooks</span>
+          <span class="skill-name"><span class="skill-prefix">webflow / </span>Webhooks</span>
           <span class="skill-desc">Receive and verify Webflow webhooks. Handle form submissions, site publishes, ecommerce orders, and collection item changes.</span>
           <span class="skill-actions">
-            <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-webhooks" target="_blank" rel="external noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
-            <a href="https://skills.224ai.au/webflow-webhooks.skill" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
+            <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-webhooks" target="_blank" rel="external nofollow noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
+            <a href="https://skills.224ai.au/webflow-webhooks.skill" target="_blank" rel="external nofollow noopener" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
           </span>
         </div>
 
@@ -542,7 +662,7 @@
           <h3>Webflow Skills Kit</h3>
           <p>Premium skills for Webflow professionals: strategy reports, discovery workflows, client roleplay, and more. Built for and by Webflow professionals, the Skills Kit is designed to help you get the most out of AI agents in your Webflow projects, while saving you money and time.</p>
         </div>
-        <a href="https://flashbrew.digital/webflow-skills-kit" class="btn btn--ghost">Learn more</a>
+        <a href="https://flashbrew.digital/webflow-skills-kit" target="_blank" rel="external noopener" class="btn btn--ghost">Learn more</a>
       </div>
     </div>
   </section>
@@ -552,7 +672,7 @@
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">Installation</h2>
-        <p class="section-desc">Add the skills with your AI agent in a few clicks.</p>
+        <p class="section-desc">Add the skills to your favorite AI agents and platforms in just a few clicks.</p>
       </div>
 
       <div class="install-tabs" role="tablist">
@@ -563,6 +683,7 @@
         <button class="install-tab" role="tab" aria-selected="false" data-tab="ai-sdk">AI SDK</button>
         <button class="install-tab" role="tab" aria-selected="false" data-tab="playbooks">Playbooks</button>
         <button class="install-tab" role="tab" aria-selected="false" data-tab="context7">Context7</button>
+        <span class="install-tabs-indicator"></span>
       </div>
 
       <div class="install-panels">
@@ -575,13 +696,13 @@
 
 <span class="comment"># List available skills</span>
 <span class="cmd">npx skills add 224-industries/webflow-skills --list</span></code>
-          <span class="note">Powered by <a href="https://skills.sh">skills.sh</a></span>
+          <span class="note">Powered by <a href="https://skills.sh" target="_blank" rel="external nofollow noopener">skills.sh</a></span>
         </div>
 
         <div class="install-panel" data-panel="claude-code">
           <code><span class="comment"># Add the plugin (includes all skills)</span>
 <span class="cmd">/plugin add 224-industries/webflow-skills</span></code>
-          <span class="note">Also supported in Factory's <a href="https://docs.factory.ai/cli/configuration/plugins#claude-code-compatibility">Droid</a>.</span>
+          <span class="note">Also supported in Factory's <a href="https://docs.factory.ai/cli/configuration/plugins#claude-code-compatibility" target="_blank" rel="external nofollow noopener">Droid</a>.</span>
         </div>
 
         <div class="install-panel active" data-panel="claude-web">
@@ -597,7 +718,7 @@
 <span class="comment"># 2. In Gumloop, open your agent's configuration</span>
 <span class="comment"># 3. Scroll to the Skills section</span>
 <span class="comment"># 4. Click + Skill and upload the .skill file</span></code>
-          <span class="note">Learn more in the <a href="https://docs.gumloop.com/core-concepts/skills">Gumloop docs</a>.</span>
+          <span class="note">Learn more in the <a href="https://docs.gumloop.com/core-concepts/skills" target="_blank" rel="external nofollow noopener">Gumloop docs</a>.</span>
         </div>
 
         <div class="install-panel" data-panel="ai-sdk">
@@ -606,37 +727,136 @@
 
 <span class="comment"># Skills are discovered at startup via SKILL.md frontmatter</span>
 <span class="comment"># and loaded on demand through a load_skill tool</span></code>
-          <span class="note">See the full guide at <a href="https://ai-sdk.dev/cookbook/guides/agent-skills">ai-sdk.dev/cookbook/guides/agent-skills</a>.</span>
+          <span class="note">See the full guide at <a href="https://ai-sdk.dev/cookbook/guides/agent-skills" target="_blank" rel="external nofollow noopener">ai-sdk.dev/cookbook/guides/agent-skills</a>.</span>
         </div>
 
         <div class="install-panel" data-panel="playbooks">
           <code><span class="cmd">npx playbooks add skill 224-industries/webflow-skills</span></code>
-          <span class="note">Learn more at <a href="https://playbooks.com/skills">playbooks.com/skills</a>.</span>
+          <span class="note">Learn more at <a href="https://playbooks.com/skills" target="_blank" rel="external nofollow noopener">playbooks.com/skills</a>.</span>
         </div>
 
         <div class="install-panel" data-panel="context7">
           <code><span class="cmd">npx ctx7 skills install /224-industries/webflow-skills</span></code>
-          <span class="note">Learn more at <a href="https://context7.com/docs/skills">context7.com/docs/skills</a>.</span>
+          <span class="note">Learn more at <a href="https://context7.com/docs/skills" target="_blank" rel="external nofollow noopener">context7.com/docs/skills</a>.</span>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+      </div>
+
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>What are Agent Skills? <svg class="faq-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></summary>
+          <div class="faq-answer"><div class="faq-answer-inner">
+            <p>An agent skill is a folder containing instructions, reference docs, and scripts that an AI agent can read when it needs them. Each skill has a SKILL.md file that tells the agent what the skill does and when to use it. When the agent encounters a matching task, it reads the instructions and works with the right context. No guessing, no hallucinating, no generic output.</p>
+          </div></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Which AI tools support Agent Skills? <svg class="faq-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></summary>
+          <div class="faq-answer"><div class="faq-answer-inner">
+            <p>Agent Skills work across Claude Web, Claude Desktop, Claude Cowork, Claude Code, Gumloop, the Vercel AI SDK, Playbooks, and Context7. Any AI agent that supports the <a href="https://agentskills.io" target="_blank" rel="external nofollow noopener">open Agent Skills standard</a> can use them. Anthropic originally built the format for Claude, then released it as an open standard.</p>
+          </div></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>What Webflow skills are available? <svg class="faq-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></summary>
+          <div class="faq-answer"><div class="faq-answer-inner">
+            <p>There are five open-source skills: webflow-browser-api for tracking and consent management, webflow-code-components for React components via DevLink, webflow-designer-api for Designer Extensions and the Playground, webflow-enterprise-api for enterprise-only endpoints, and webflow-webhooks for receiving and verifying webhook events.</p>
+          </div></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I install Webflow Agent Skills? <svg class="faq-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></summary>
+          <div class="faq-answer"><div class="faq-answer-inner">
+            <p>The fastest way is to download a .skill file and upload it in Claude via Customize > Skills. You can also install via the Skills CLI (<code>npx skills add 224-industries/webflow-skills</code>), Claude Code (<code>/plugin add 224-industries/webflow-skills</code>), Gumloop, Playbooks, or Context7. See the <a href="#installation">installation section</a> above for full instructions.</p>
+          </div></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I create my own Agent Skills? <svg class="faq-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></summary>
+          <div class="faq-answer"><div class="faq-answer-inner">
+            <p>Yes. A skill is just a folder with a SKILL.md file and any supporting references, scripts, or assets. Create a SKILL.md with YAML frontmatter (name and description), add your instructions in the body, and you have a working skill. See the <a href="https://agentskills.io/specification" target="_blank" rel="external nofollow noopener">Agent Skills specification</a> for the full format.</p>
+          </div></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Are these skills free to use? <svg class="faq-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></summary>
+          <div class="faq-answer"><div class="faq-answer-inner">
+            <p>Yes. All five Webflow skills in this repository are open-source under the MIT license. You can use, modify, and distribute them freely. For premium skills covering strategy, discovery, and client workflows, check out the <a href="https://flashbrew.digital/webflow-skills-kit" target="_blank" rel="external noopener">Webflow Skills Kit</a>.</p>
+          </div></div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
   <script>
-    document.querySelectorAll('.install-tab').forEach(function(tab) {
-      tab.addEventListener('click', function() {
-        document.querySelectorAll('.install-tab').forEach(function(t) {
+    // FAQ accordion
+    for (const item of document.querySelectorAll('.faq-item')) {
+      const summary = item.querySelector('summary');
+      const answer = item.querySelector('.faq-answer');
+
+      summary.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        if (item.open) {
+          item.classList.remove('is-open');
+          answer.style.gridTemplateRows = '0fr';
+          answer.addEventListener('transitionend', function once() {
+            item.open = false;
+            answer.removeEventListener('transitionend', once);
+            answer.style.gridTemplateRows = '';
+          });
+        } else {
+          item.open = true;
+          item.classList.add('is-open');
+          answer.style.gridTemplateRows = '0fr';
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              answer.style.gridTemplateRows = '1fr';
+              answer.addEventListener('transitionend', function once() {
+                answer.removeEventListener('transitionend', once);
+                answer.style.gridTemplateRows = '';
+              });
+            });
+          });
+        }
+      });
+    }
+
+    // Tab indicator
+    const indicator = document.querySelector('.install-tabs-indicator');
+
+    const moveIndicator = (tab) => {
+      indicator.style.left = `${tab.offsetLeft}px`;
+      indicator.style.width = `${tab.offsetWidth}px`;
+    };
+
+    moveIndicator(document.querySelector('.install-tab.active'));
+
+    for (const tab of document.querySelectorAll('.install-tab')) {
+      tab.addEventListener('click', () => {
+        for (const t of document.querySelectorAll('.install-tab')) {
           t.classList.remove('active');
           t.setAttribute('aria-selected', 'false');
-        });
-        document.querySelectorAll('.install-panel').forEach(function(p) {
+        }
+        for (const p of document.querySelectorAll('.install-panel')) {
           p.classList.remove('active');
-        });
+        }
         tab.classList.add('active');
         tab.setAttribute('aria-selected', 'true');
-        document.querySelector('[data-panel="' + tab.dataset.tab + '"]').classList.add('active');
+        document.querySelector(`[data-panel="${tab.dataset.tab}"]`).classList.add('active');
+        moveIndicator(tab);
       });
-    });
+    }
   </script>
 
 </body>
