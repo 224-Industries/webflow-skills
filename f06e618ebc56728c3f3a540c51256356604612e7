@@ -1,0 +1,23 @@
+docs/index.html
+  58fdffb9d550f709 8-9,11,14-17,19-40,42-108
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.5",
+  "base_commit_sha": "f06e618ebc56728c3f3a540c51256356604612e7",
+  "prompts": {
+    "58fdffb9d550f709": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "65ec722a-8187-466d-92bb-36aa97369ffc",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Ben Sabic <bensabic@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 1042,
+      "total_deletions": 399,
+      "accepted_lines": 637,
+      "overriden_lines": 4
+    }
+  }
+}
