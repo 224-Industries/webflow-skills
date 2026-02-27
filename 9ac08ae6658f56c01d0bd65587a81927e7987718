@@ -1,0 +1,25 @@
+docs/index.html
+  58fdffb9d550f709 10,12-16,108-123,134,177,195-210,231-232,272,339-341,399,406-412,476-545,548,575,580,598,614,617-618,623,626-627,632,635-636,641,644-645,650,653-654,665,686,699,705,721,730,735,740,746-800,802-847,851,856-857
+README.md
+  58fdffb9d550f709 55-56,58,60-64,72,74-75,83,85-86,88,98
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.5",
+  "base_commit_sha": "9ac08ae6658f56c01d0bd65587a81927e7987718",
+  "prompts": {
+    "58fdffb9d550f709": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "65ec722a-8187-466d-92bb-36aa97369ffc",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Ben Sabic <bensabic@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 369,
+      "total_deletions": 133,
+      "accepted_lines": 279,
+      "overriden_lines": 1
+    }
+  }
+}
