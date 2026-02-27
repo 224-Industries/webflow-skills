@@ -1,0 +1,41 @@
+skills/webflow-designer-api/references/elements-api.md
+  d53854b6a5e25f68 4,19,141,144-145,372-402,404-406,408-409,411,413,415,417-418,424-432,524-525
+skills/webflow-designer-api/references/variables-api.md
+  d53854b6a5e25f68 4,50-60,179-215,230-232,237,243-246,290,292-310,312-329,332-335
+skills/webflow-designer-api/references/design-guidelines.md
+  d53854b6a5e25f68 147
+skills/webflow-designer-api/references/marketplace-guidelines.md
+  d53854b6a5e25f68 81
+skills/webflow-designer-api/references/styles-api.md
+  d53854b6a5e25f68 150-156,158,165-167,170-172,174-189,192,311-339,365-370
+skills/webflow-designer-api/references/faq.md
+  d53854b6a5e25f68 4
+skills/webflow-designer-api/references/pages-api.md
+  d53854b6a5e25f68 4
+skills/webflow-designer-api/references/register-app.md
+  d53854b6a5e25f68 36
+skills/webflow-designer-api/references/designer-apis-reference.md
+  d53854b6a5e25f68 4,52,54-57,106-111,114-116,209-211,217,219-227,229-230,236-239,255-257,281-282,285-287,289-299,367-372
+README.md
+  d53854b6a5e25f68 24-25,27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.5",
+  "base_commit_sha": "60b87862777645f3ee589e74dcde8262487e6221",
+  "prompts": {
+    "d53854b6a5e25f68": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2eb8bef4-8c9b-43bc-a20d-c1003521280b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Ben Sabic <bensabic@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 312,
+      "total_deletions": 61,
+      "accepted_lines": 295,
+      "overriden_lines": 5
+    }
+  }
+}
