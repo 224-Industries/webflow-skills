@@ -23,6 +23,10 @@ Agent Skills are folders of instructions, scripts, and resources that agents can
 | [webflow-webhooks](./skills/webflow-webhooks) | Receive and verify Webflow webhooks. Use when setting up Webflow webhook hand... | [Download](https://skills.224ai.au/webflow-webhooks.skill) |
 <!-- END:Available-Skills -->
 
+### Webflow Skills Kit
+
+Looking for more? The [Webflow Skills Kit](https://flashbrew.digital/webflow-skills-kit) is a bundle of premium Agent Skills for Webflow professionals, including strategy report generation, discovery workflows, client roleplay, and more. Built for and by Webflow professionals, the Skills Kit is designed to help you get the most out of AI agents in your Webflow projects, while saving you money and time.
+
 ## Installation
 
 ### Skills

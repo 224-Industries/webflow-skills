@@ -78,7 +78,7 @@ Guidelines used by Webflow's review team to evaluate app submissions.
 **Additional requirements for Designer API apps:**
 
 1. **Consistency**
-   - Align visual style, typography, and color palette with Webflow's [App design guidelines](references/design-guidelines.md)
+   - Align visual style, typography, and color palette with Webflow's [App design guidelines](design-guidelines.md)
    - Maintain consistency with established Designer patterns (e.g., use component icons only for components, follow existing interaction patterns)
    - Avoid new UI patterns that conflict with Designer functionality
 2. **Usability**

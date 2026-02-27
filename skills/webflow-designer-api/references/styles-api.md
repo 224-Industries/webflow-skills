@@ -147,18 +147,49 @@ await style.setProperties(
 
 ## Element Styles
 
-### Applying Style to Element
+### Getting Element Styles
+
+```typescript
+const element = await webflow.getSelectedElement();
+const styles = await element.getStyles();
+// styles is an array of Style objects already applied to this element
+```
+
+### Applying a Style to an Element
 
 ```typescript
 const element = await webflow.getSelectedElement();
 await element.setStyles([style]);
 ```
 
-### Getting Element Styles
+### Updating an Existing Element's Style
+
+When modifying styles on an element that is **already styled**, retrieve the existing style first and update its properties — do **not** create a new style.
 
 ```typescript
+const element = await webflow.getSelectedElement();
+if (!element) return;
+
 const styles = await element.getStyles();
+if (styles.length > 0) {
+  // Update the existing style's properties directly
+  const existingStyle = styles[0];
+  await existingStyle.setProperties({
+    'background-color': '#FF0000',
+    'padding-top': '32px',
+  });
+} else {
+  // No style applied yet — create one
+  const newStyle = await webflow.createStyle("MyStyle");
+  await newStyle.setProperties({
+    'background-color': '#FF0000',
+    'padding-top': '32px',
+  });
+  await element.setStyles([newStyle]);
+}
 ```
+
+> **Important**: Styles in Webflow are shared — updating a style's properties affects **every element** using that style. This is usually the desired behavior (consistent theming), but be aware of it when making changes.
 
 See [Elements API Reference](elements-api.md) for more on working with elements.
 
@@ -277,6 +308,35 @@ async function createResponsiveHeadingStyle() {
 }
 ```
 
+### Update the Selected Element's Style
+
+Retrieves the existing style from the selected element and updates its properties without creating a new style.
+
+```typescript
+async function updateSelectedElementStyle() {
+  const selected = await webflow.getSelectedElement();
+  if (!selected) {
+    await webflow.notify({ type: 'Error', message: 'Select an element' });
+    return;
+  }
+
+  const styles = await selected.getStyles();
+  if (styles.length === 0) {
+    await webflow.notify({ type: 'Error', message: 'Selected element has no style to update' });
+    return;
+  }
+
+  const style = styles[0];
+  await style.setProperties({
+    'font-size': '20px',
+    'color': '#333333',
+    'line-height': '1.5',
+  });
+
+  await webflow.notify({ type: 'Success', message: 'Style updated' });
+}
+```
+
 ### Apply a Shared Style to Multiple Elements
 
 Finds all Heading elements and applies the same style to each one.
@@ -302,8 +362,9 @@ async function applyStyleToAllHeadings() {
 
 ## Best Practices
 
-1. **Use long-form CSS property names**: Always use `background-color` instead of `background`, `padding-top` instead of `padding`, etc.
-2. **Choose descriptive style names**: Names must be unique across the project — use semantic names like `"PrimaryButton"` or `"CardWrapper"`
-3. **Set base styles on the main breakpoint first**: Define core properties without a breakpoint option, then override for smaller screens
-4. **Reuse styles across elements**: Retrieve existing styles with `getStyleByName` rather than creating duplicates
-5. **Keep hover and focus states accessible**: Ensure interactive states have sufficient contrast and visible focus indicators
+1. **Update existing styles — don't recreate them**: When modifying an already-styled element, use `element.getStyles()` to retrieve its current styles and call `setProperties` on the existing style object. Only use `createStyle` when the element has no style or you intentionally need a new one.
+2. **Use long-form CSS property names**: Always use `background-color` instead of `background`, `padding-top` instead of `padding`, etc.
+3. **Choose descriptive style names**: Names must be unique across the project — use semantic names like `"PrimaryButton"` or `"CardWrapper"`
+4. **Set base styles on the main breakpoint first**: Define core properties without a breakpoint option, then override for smaller screens
+5. **Reuse styles across elements**: Retrieve existing styles with `getStyleByName` rather than creating duplicates
+6. **Keep hover and focus states accessible**: Ensure interactive states have sufficient contrast and visible focus indicators

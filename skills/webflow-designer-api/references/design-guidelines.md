@@ -144,7 +144,7 @@ Colors auto-adjust based on user's Appearance settings (dark/light mode).
 **Orange**
 ```css
 --orangeBackground: #BF4704;
---orangeBackgroundHover: #DC95616;
+--orangeBackgroundHover: #DC9561;
 --orangeText: #EBA267;
 --orangeIcon: #EBA267;
 --orangeBorder: #DF640C;

@@ -1,7 +1,7 @@
 ---
 name: "Elements API"
 description: "Reference for element selection, insertion, removal, properties, presets, and the element builder for bulk operations."
-tags: [elements, getSelectedElement, getAllElements, setSelectedElement, after, before, append, prepend, remove, children, elementPresets, elementBuilder, DivBlock, Section, Grid, VFlex, HFlex, QuickStack, Row, Paragraph, Heading, TextLink, LinkBlock, Image, DOM, setTag, setAttribute, getAllCustomAttributes, setCustomAttribute, getCustomAttribute, removeCustomAttribute, textContent, setTextContent, getTextContent, createStyle, setProperties, setStyles, getStyles, getAllAttributes, getAttribute, removeAttribute, getHeadingLevel, setHeadingLevel, getAsset, setAltText, getTarget, setSettings, getRequired, setRequired, getInputType, setInputType]
+tags: [elements, getSelectedElement, getAllElements, setSelectedElement, after, before, append, prepend, remove, children, elementPresets, elementBuilder, DivBlock, Section, Grid, VFlex, HFlex, QuickStack, Row, Paragraph, Heading, TextLink, LinkBlock, Image, DOM, setTag, setAttribute, getAllCustomAttributes, setCustomAttribute, getCustomAttribute, removeCustomAttribute, textContent, setTextContent, getTextContent, createStyle, setProperties, setStyles, getStyles, getAllAttributes, getAttribute, removeAttribute, getHeadingLevel, setHeadingLevel, getAsset, setAltText, getTarget, setSettings, getRequired, setRequired, getInputType, setInputType, HtmlEmbed, CodeBlock, customCode, embed, limitations]
 ---
 
 # Elements API Reference
@@ -16,6 +16,7 @@ Reference for selecting, inserting, removing, and updating elements on the curre
 - [Custom DOM Elements](#custom-dom-elements)
 - [Element Properties](#element-properties)
 - [Element Types and Methods](#element-types-and-methods)
+- [API Limitations](#api-limitations)
 - [Workflow Examples](#workflow-examples)
 - [Best Practices](#best-practices)
 
@@ -137,8 +138,10 @@ Access via `webflow.elementPresets`:
 | Pre-built Layouts | `LayoutFeaturesList`, `LayoutFeaturesMetrics`, `LayoutFeaturesTable`, `LayoutFooterDark`, `LayoutFooterLight`, `LayoutFooterSubscribe`, `LayoutGalleryOverview`, `LayoutGalleryScroll`, `LayoutGallerySlider`, `LayoutHeroHeadingCenter`, `LayoutHeroHeadingLeft`, `LayoutHeroHeadingRight`, `LayoutHeroStack`, `LayoutHeroSubscribeLeft`, `LayoutHeroSubscribeRight`, `LayoutHeroWithoutImage`, `LayoutLogosQuoteBlock`, `LayoutLogosQuoteDivider`, `LayoutLogosTitleLarge`, `LayoutLogosTitleSmall`, `LayoutLogosWithoutTitle`, `LayoutNavbarLogoCenter`, `LayoutNavbarLogoLeft`, `LayoutNavbarNoShadow`, `LayoutPricingComparison`, `LayoutPricingItems`, `LayoutPricingOverview`, `LayoutTeamCircles`, `LayoutTeamSlider`, `LayoutTestimonialColumnDark`, `LayoutTestimonialColumnLight`, `LayoutTestimonialImageLeft`, `LayoutTestimonialSliderLarge`, `LayoutTestimonialSliderSmall`, `LayoutTestimonialStack`, `StructureLayoutQuickStack1plus2`, `StructureLayoutQuickStack1x1`, `StructureLayoutQuickStack2plus1`, `StructureLayoutQuickStack2x1`, `StructureLayoutQuickStack2x2`, `StructureLayoutQuickStack3x1`, `StructureLayoutQuickStack4x1`, `StructureLayoutQuickStackMasonry` |
 | E-commerce | `CommerceAddToCartWrapper`, `CommerceCartQuickCheckoutActions`, `CommerceCartWrapper`, `CommerceCheckoutAdditionalInfoSummaryWrapper`, `CommerceCheckoutAdditionalInputsContainer`, `CommerceCheckoutCustomerInfoSummaryWrapper`, `CommerceCheckoutDiscounts`, `CommerceCheckoutFormContainer`, `CommerceCheckoutOrderItemsWrapper`, `CommerceCheckoutOrderSummaryWrapper`, `CommerceCheckoutPaymentSummaryWrapper`, `CommerceCheckoutShippingSummaryWrapper`, `CommerceDownloadsWrapper`, `CommerceOrderConfirmationContainer`, `CommercePayPalCheckoutButton`, `CommercePaypalCheckoutFormContainer` |
 | CMS & Dynamic Content | `DynamoWrapper` |
-| Media & Embeds | `BackgroundVideoWrapper`, `Facebook`, `HtmlEmbed`, `Image`, `MapWidget`, `Spline`, `Twitter`, `Video`, `YouTubeVideo` |
+| Media & Embeds | `BackgroundVideoWrapper`, `Facebook`, `HtmlEmbed`\*, `Image`, `MapWidget`, `Spline`, `Twitter`, `Video`, `YouTubeVideo` |
 | Advanced & Miscellaneous | `Animation`, `BlockContainer`, `CodeBlock`, `IX2InstanceFactoryOnClass`, `IX2InstanceFactoryOnElement`, `SearchForm` |
+
+> \* `HtmlEmbed` can be inserted but its **content cannot be set via the API**. See [API Limitations](#api-limitations) for the recommended workaround.
 
 ## Custom DOM Elements
 
@@ -366,6 +369,67 @@ const type = await formField.getInputType(); // 'text' | 'email' | 'password' | 
 await formField.setInputType('email');
 ```
 
+## API Limitations
+
+### HtmlEmbed (Code Embed) — Insert Only, No Content API
+
+The `HtmlEmbed` element preset (`webflow.elementPresets.HtmlEmbed`) can be **inserted** onto the canvas, but the Designer API **does not support setting or reading its content** (the custom HTML/CSS/JS code inside it). There is no `setSettings`, `setTextContent`, or equivalent method that works on `HtmlEmbed` elements.
+
+This means you **cannot** programmatically add custom code (e.g. a Swiper carousel, third-party script embeds, tracking pixels, or any custom HTML/JS) into a Code Embed element via the API.
+
+#### Workaround: Page Custom Code Settings
+
+When a user needs custom code on a page, **write the code for them and instruct them to add it manually** via Webflow's Page Settings:
+
+1. Write the complete custom code (HTML, CSS, JS) for the user
+2. Ask the user to open **Page Settings** for the target page (gear icon in the Pages panel)
+3. Direct them to the **Custom Code** section at the bottom of Page Settings
+4. Instruct them to paste the code into the **Before `</body>` tag** field (for scripts) or the **Inside `<head>` tag** field (for stylesheets/meta tags)
+5. Remind them to **save** and **publish** for the code to take effect on the live site
+
+> **Note**: Site-wide custom code can also be added via **Site Settings > Custom Code**, which applies to every page. Use page-level custom code when the code is specific to a single page.
+
+#### Example: Adding a Swiper Carousel
+
+Instead of attempting to insert an `HtmlEmbed` with Swiper code, write the code and present it to the user:
+
+```
+I've written the Swiper carousel code for you. To add it to your page:
+
+1. Open **Page Settings** for this page (gear icon in the Pages panel)
+2. Scroll to the **Custom Code** section
+3. Paste the following into the **Inside <head> tag** field:
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"/>
+
+4. Paste the following into the **Before </body> tag** field:
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+<script>
+  const swiper = new Swiper('.swiper', {
+    direction: 'vertical',
+    loop: true,
+
+    pagination: {
+      el: '.swiper-pagination',
+    },
+
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+
+    scrollbar: {
+      el: '.swiper-scrollbar',
+    },
+  });
+</script>
+
+5. Click **Save**, then **Publish** your site.
+```
+
+Meanwhile, build the visual structure (container divs with appropriate classes) using the Elements API, since those elements _are_ fully supported.
+
 ## Workflow Examples
 
 ### Insert a Simple CTA Section
@@ -457,3 +521,5 @@ async function normalizeHeadingsToH2() {
    ```
 
 3. **Use element builder for complex structures** to minimize API calls
+
+4. **Don't try to set HtmlEmbed content via the API** — the Designer API can insert `HtmlEmbed` elements but cannot set their inner code. For custom code needs (scripts, embeds, widgets), write the code for the user and instruct them to add it via Page Settings > Custom Code

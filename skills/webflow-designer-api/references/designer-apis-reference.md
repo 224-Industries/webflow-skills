@@ -1,7 +1,7 @@
 ---
 name: "Designer APIs Reference"
 description: "Quick reference table for all Webflow Designer API methods across elements, styles, components, pages, variables, assets, and utilities."
-tags: [designer-api, quick-reference, getSelectedElement, getAllElements, setSelectedElement, getRootElement, createStyle, getStyleByName, getAllStyles, removeStyle, registerComponent, getAllComponents, enterComponent, exitComponent, createAsset, getAssetById, getAllAssets, getAllAssetFolders, createAssetFolder, getDefaultVariableCollection, getAllVariableCollections, getVariableCollectionById, createVariableCollection, getCurrentPage, getAllPages, createPage, getAllFolders, createFolder, notify, setExtensionSize, elementBuilder, elementPresets, webflow-api, method-table]
+tags: [designer-api, quick-reference, getSelectedElement, getAllElements, setSelectedElement, getRootElement, createStyle, getStyleByName, getAllStyles, removeStyle, registerComponent, getAllComponents, enterComponent, exitComponent, createAsset, getAssetById, getAllAssets, getAllAssetFolders, createAssetFolder, getDefaultVariableCollection, getAllVariableCollections, getVariableCollectionById, createVariableCollection, getCurrentPage, getAllPagesAndFolders, createPage, createPageFolder, switchPage, setMetadata, notify, setExtensionSize, elementBuilder, elementPresets, webflow-api, method-table]
 ---
 
 # Designer APIs Reference
@@ -49,11 +49,12 @@ Core `webflow.*` methods available globally.
 | `getAllVariableCollections()` | Get all variable collections |
 | `getVariableCollectionById(id)` | Get variable collection by ID |
 | `createVariableCollection(name)` | Create new variable collection |
+| `removeVariableCollection(id)` | Remove variable collection |
 | `getCurrentPage()` | Get current page |
-| `getAllPages()` | Get all pages |
-| `createPage(options)` | Create new page |
-| `getAllFolders()` | Get all page folders |
-| `createFolder(name, parent?)` | Create page folder |
+| `getAllPagesAndFolders()` | Get all pages and folders |
+| `createPage()` | Create new page (configure via setters) |
+| `createPageFolder()` | Create page folder (configure via setters) |
+| `switchPage(page)` | Navigate to a page |
 | `notify(options)` | Show notification to user |
 | `setExtensionSize(size)` | Resize extension panel |
 | `elementBuilder(preset)` | Create element builder for bulk operations |
@@ -102,12 +103,17 @@ Access via `webflow.elementPresets.*`:
 
 | Category | Presets |
 |----------|---------|
-| **Layout** | `DivBlock`, `Section`, `Container`, `Grid`, `VFlex`, `HFlex` |
-| **Text** | `Paragraph`, `Heading`, `TextBlock`, `RichText`, `BlockQuote` |
-| **Media** | `Image`, `Video`, `YouTube`, `Lottie` |
-| **Forms** | `FormForm`, `FormInput`, `FormButton`, `FormTextarea`, `FormSelect` |
-| **Navigation** | `Link`, `LinkBlock`, `NavBar`, `NavMenu` |
+| **Layout** | `DivBlock`, `Section`, `Grid`, `VFlex`, `HFlex`, `QuickStack`, `Row` |
+| **Text** | `Paragraph`, `Heading`, `TextBlock`, `RichText`, `Blockquote`, `List`, `ListItem` |
+| **Media** | `Image`, `Video`, `YouTubeVideo`, `BackgroundVideoWrapper`, `HtmlEmbed`\*, `Spline` |
+| **Forms** | `FormForm`, `FormTextInput`, `FormButton`, `FormTextarea`, `FormSelect`, `FormCheckboxInput`, `FormRadioInput`, `FormFileUploadWrapper`, `FormBlockLabel`, `FormReCaptcha` |
+| **Navigation** | `TextLink`, `LinkBlock`, `NavbarWrapper`, `Button`, `DropdownWrapper`, `TabsWrapper`, `SliderWrapper`, `Pagination` |
+| **CMS** | `DynamoWrapper` |
 | **Custom** | `DOM` (custom HTML tags) |
+
+> \* `HtmlEmbed` can be inserted but its content cannot be set via the API. See [Elements API — API Limitations](elements-api.md#api-limitations).
+
+See [Elements API — Element Presets](elements-api.md#element-presets) for the full list including pre-built layouts and e-commerce presets.
 
 ### Element Builder (Bulk Operations)
 
@@ -200,31 +206,37 @@ Instances are created using element insertion methods with a `Component` object:
 | Method | Returns | Description |
 |--------|---------|-------------|
 | `webflow.getCurrentPage()` | `Page` | Get current page |
-| `webflow.getAllPages()` | `Page[]` | Get all pages |
-| `webflow.createPage(options)` | `Page` | Create new page |
+| `webflow.getAllPagesAndFolders()` | `(Page \| Folder)[]` | Get all pages and folders |
+| `webflow.createPage()` | `Page` | Create new page (configure via setters) |
+| `webflow.switchPage(page)` | `void` | Navigate to a page |
 
 ### Page Methods
 
 | Method | Description |
 |--------|-------------|
-| `page.getName()` / `setName(name)` | Page name |
+| `page.getName()` / `setName(name)` | Internal page name |
 | `page.getSlug()` / `setSlug(slug)` | URL slug |
-| `page.getTitle()` / `setTitle(title)` | Page title |
-| `page.setMetaDescription(desc)` | SEO description |
-| `page.setOgTitle(title)` | Open Graph title |
-| `page.setOgDescription(desc)` | Open Graph description |
-| `page.setOgImage(asset)` | Open Graph image |
-| `page.setIndexable(bool)` | Allow search indexing |
-| `page.setFolder(folder)` | Move to folder |
-| `page.isDraft()` | Check if draft |
+| `page.getTitle()` / `setTitle(title)` | Page title (used for `<title>` and SEO) |
+| `page.getDescription()` / `setDescription(desc)` | Page meta description |
+| `page.setMetadata(options)` | Bulk update page, SEO, and OG settings |
+| `page.getOpenGraphTitle()` / `setOpenGraphTitle(title)` | Open Graph title |
+| `page.getOpenGraphDescription()` / `setOpenGraphDescription(desc)` | Open Graph description |
+| `page.getOpenGraphImage()` / `setOpenGraphImage(url)` | Open Graph image |
+| `page.excludeFromSearch(bool)` | Exclude from internal site search |
+| `page.isDraft()` / `setDraft(bool)` | Draft status |
+| `page.isHomepage()` | Check if homepage |
 | `page.isPasswordProtected()` | Check if protected |
+| `page.getKind()` | Page category (`static`, `cms`, `ecommerce`, `utility`) |
+| `page.getPublishPath()` | Get published URL path |
 
 ### Folder Management
 
 | Method | Returns | Description |
 |--------|---------|-------------|
-| `webflow.getAllFolders()` | `Folder[]` | Get all folders |
-| `webflow.createFolder(name, parent?)` | `Folder` | Create folder |
+| `webflow.createPageFolder()` | `Folder` | Create folder (configure via setters) |
+| `folder.getName()` / `setName(name)` | Folder name |
+| `folder.getSlug()` / `setSlug(slug)` | Folder URL slug |
+| `folder.getParent()` / `setParent(folder)` | Parent folder (for nesting) |
 
 ---
 
@@ -240,6 +252,9 @@ Instances are created using element insertion methods with a `Component` object:
 | `webflow.getAllVariableCollections()` | `Collection[]` | Get all collections |
 | `webflow.getVariableCollectionById(id)` | `Collection` | Get collection by ID |
 | `webflow.createVariableCollection(name)` | `Collection` | Create collection |
+| `webflow.removeVariableCollection(id)` | `boolean` | Remove collection by ID |
+| `collection.getName()` | `string` | Get collection name |
+| `collection.setName(name)` | `null` | Rename collection |
 
 ### Variable Creation (on Collection)
 
@@ -263,9 +278,25 @@ Instances are created using element insertion methods with a `Component` object:
 
 | Method | Description |
 |--------|-------------|
+| `variable.getName()` | Get variable name |
+| `variable.get(options?)` | Get value (supports `mode`, `customValues`, `doNotInheritFromBase` options) |
 | `variable.set(value)` | Update value |
 | `variable.setName(name)` | Rename variable |
-| `variable.getBinding()` | Get CSS `var()` reference string |
+| `variable.remove()` | Delete variable from collection |
+| `variable.getBinding()` | Get CSS `var()` reference (e.g. `var(--brand-blue)`) |
+| `variable.getCSSName()` | Get CSS custom property name (e.g. `--brand-blue`) |
+
+### Variable Modes
+
+| Method | Returns | Description |
+|--------|---------|-------------|
+| `collection.getAllVariableModes()` | `VariableMode[]` | Get all modes in collection |
+| `collection.getVariableModeById(id)` | `VariableMode` | Get mode by ID |
+| `collection.getVariableModeByName(name)` | `VariableMode` | Get mode by name |
+| `collection.createVariableMode(name)` | `VariableMode` | Create a new mode |
+| `mode.getName()` | `string` | Get mode name |
+| `mode.setName(name)` | `null` | Rename mode (must be unique in collection) |
+| `mode.remove()` | `boolean` | Remove mode |
 
 ---
 
@@ -333,6 +364,12 @@ await webflow.setExtensionSize({ width: 300, height: 400 });
 | `InvalidElementPlacement` | Invalid element location |
 | `InvalidRequest` | Invalid for current state |
 | `InvalidStyle` | Style not recognized |
+| `InvalidStyleName` | Style name doesn't exist or is incorrect |
+| `InvalidStyleProperty` | Style property is invalid |
+| `InvalidStyleVariant` | Style variant not recognized |
+| `InvalidTargetElement` | Target element invalid for operation |
+| `PageCreateFailed` | Page creation failed |
+| `ResourceCreationFailed` | Resource creation failed |
 | `ResourceMissing` | Resource not found |
 | `ResourceRemovalFailed` | Cannot remove (in use) |
 | `VariableInvalid` | Invalid variable value |

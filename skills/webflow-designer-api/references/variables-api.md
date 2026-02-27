@@ -1,7 +1,7 @@
 ---
 name: "Variables API"
 description: "Reference for design token variables including colors, sizes, fonts, numbers, and percentages organized in collections."
-tags: [variables, design-tokens, collections, getDefaultVariableCollection, getAllVariableCollections, getVariableCollectionById, createVariableCollection, createColorVariable, createSizeVariable, createFontFamilyVariable, createNumberVariable, createPercentageVariable, getVariableByName, getVariable, getAllVariables, getBinding, set, setName, CustomValue, SizeValue, variable-modes, calc, clamp, min, max, color-mix, color, size, font-family, number, percentage, design-system]
+tags: [variables, design-tokens, collections, getDefaultVariableCollection, getAllVariableCollections, getVariableCollectionById, createVariableCollection, removeVariableCollection, createColorVariable, createSizeVariable, createFontFamilyVariable, createNumberVariable, createPercentageVariable, getVariableByName, getVariable, getAllVariables, getName, get, getBinding, getCSSName, set, setName, removeVariable, remove, CustomValue, SizeValue, variable-modes, VariableMode, getAllVariableModes, getVariableModeById, getVariableModeByName, createVariableMode, getName, remove, calc, clamp, min, max, color-mix, color, size, font-family, number, percentage, design-system]
 ---
 
 # Variables API Reference
@@ -45,6 +45,17 @@ const collection = await webflow.getVariableCollectionById('collection-4a393cee-
 ### Create Collection
 ```typescript
 const collection = await webflow.createVariableCollection("Brand Colors");
+```
+
+### Collection Name
+```typescript
+const name = await collection.getName();
+await collection.setName("Updated Name");
+```
+
+### Remove Collection
+```typescript
+await webflow.removeVariableCollection(collectionId);
 ```
 
 ## Variable Types
@@ -165,6 +176,43 @@ const variable = await collection.getVariable('variable-81b8fa46-aa26-f1ef-e265-
 const variables = await collection.getAllVariables();
 ```
 
+## Reading Variable Properties
+
+### Get Variable Name
+```typescript
+const name = await variable.getName();
+```
+
+### Get Variable Value
+
+```typescript
+variable.get(options?: {
+  mode?: VariableMode,
+  customValues?: boolean,
+  doNotInheritFromBase?: boolean
+}): Promise<string | number | SizeValue | Variable | CustomValue>
+```
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `mode` | `VariableMode` | Fetch value for a specific variable mode |
+| `customValues` | `boolean` | Return the variable's custom value (e.g. `calc()`, `color-mix()` expressions). **Must be `true` if the variable holds a custom value, otherwise throws an error.** |
+| `doNotInheritFromBase` | `boolean` | Skip inheriting from the base variable mode |
+
+```typescript
+// Get a simple value
+const color = await brandBlue.get();
+// → "#146EF5"
+
+// Get a custom value (calc, color-mix, clamp expressions)
+const custom = await lightBlue.get({ customValues: true });
+// → { type: 'custom', value: 'color-mix(in srgb, var(--brand-blue), white 50%)' }
+
+// Get a mode-specific value
+const darkMode = await collection.getVariableModeByName('Dark');
+const darkBg = await bgColor.get({ mode: darkMode });
+```
+
 ## Updating Variables
 
 ```typescript
@@ -179,17 +227,23 @@ await headingFont.set('Poppins');
 
 // Rename a variable
 await brandBlue.setName('Primary Blue');
+
+// Remove a variable
+await brandBlue.remove();
 ```
 
 ## Variable Binding
 
-Use `getBinding()` to get the CSS `var()` reference for a variable. This is needed when building custom value expressions that reference other variables.
+Use `getBinding()` to get the CSS `var()` reference for a variable. This is needed when building custom value expressions that reference other variables. Use `getCSSName()` to get just the custom property name without the `var()` wrapper.
 
 ```typescript
 const binding = await brandBlue.getBinding();
 // Returns: "var(--brand-blue)"
 
-// Use in a custom value expression
+const cssName = await brandBlue.getCSSName();
+// Returns: "--brand-blue"
+
+// Use binding in a custom value expression
 const lightBlue = await collection.createColorVariable('Light Blue', {
   type: 'custom',
   value: `color-mix(in srgb, ${binding}, white 50%)`
@@ -233,11 +287,52 @@ const lightBrand = await collection.createColorVariable('Light Brand', {
 
 ## Variable Modes
 
-All creation methods accept an optional `mode` parameter for specifying which variable mode the value applies to. Retrieve a mode using `collection.getVariableModeByName()`.
+Variable modes are named variants of a variable collection (e.g. "Light" and "Dark" themes). Each mode stores its own values for every variable in the collection, so a single variable like `Background` can resolve to different values depending on the active mode.
+
+### Get Modes
 
 ```typescript
-const mode = await collection.getVariableModeByName('Dark');
-const bgColor = await collection.createColorVariable('Background', '#1E1E1E', { mode });
+const collection = await webflow.getDefaultVariableCollection();
+
+// All modes
+const allModes = await collection.getAllVariableModes();
+
+// By name
+const darkMode = await collection.getVariableModeByName('Dark');
+
+// By ID
+const mode = await collection.getVariableModeById(modeId);
+```
+
+### Create and Remove Modes
+
+Modes created via the Designer API are always "Manual" modes. Mode names must be unique within a collection.
+
+```typescript
+const collection = await webflow.getDefaultVariableCollection();
+
+// Create a new mode
+const darkMode = await collection.createVariableMode('Dark Mode');
+
+// Rename a mode
+await darkMode.setName('Dark');
+
+// Get mode name
+const name = await darkMode.getName();
+
+// Remove a mode
+await darkMode.remove();
+```
+
+### Assign Values to Modes
+
+All variable creation methods accept an optional `mode` parameter for specifying which mode the value applies to.
+
+```typescript
+const collection = await webflow.getDefaultVariableCollection();
+const darkMode = await collection.getVariableModeByName('Dark');
+
+const bgColor = await collection.createColorVariable('Background', '#1E1E1E', { mode: darkMode });
 ```
 
 ## Using Variables in Styles

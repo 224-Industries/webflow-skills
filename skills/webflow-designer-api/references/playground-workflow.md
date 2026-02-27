@@ -1,5 +1,5 @@
 ---
-name: playground-workflow
+name: "Playground Workflow"
 description: How to use the Webflow Designer API Playground to write and run standalone code snippets directly inside the Designer. Great for prototyping, testing API methods, and one-off automations.
 tags: [playground, snippets, prototyping, testing, quick-start]
 ---

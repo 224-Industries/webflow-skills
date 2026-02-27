@@ -1,7 +1,7 @@
 ---
 name: "FAQ & Troubleshooting"
 description: "Frequently asked questions and troubleshooting for Designer Extensions, Marketplace Apps, and common issues."
-tags: [faq, troubleshooting, testing, frameworks, iframe, serve, bundle, upload, permissions, admin, marketplace, private-app, install, credentials, client-secret, development-mode, css-conflicts, responsive, scopes, errors]
+tags: [faq, troubleshooting, testing, frameworks, iframe, serve, bundle, upload, permissions, admin, marketplace, private-app, install, credentials, client-secret, development-mode, css-conflicts, responsive, scopes, errors, webflow-cli]
 ---
 
 # FAQ & Troubleshooting

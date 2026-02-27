@@ -33,7 +33,7 @@ Login to your Webflow account and navigate to your Dashboard.
 
 Select the Workspace for your app. It's recommended to create a dedicated development workspace to keep apps organized and separate from production environments.
 
-> **New to Webflow?** Get started with Webflow's free [Developer Workspace](https://developers.webflow.com/data/docs/developer-workspace.md) designed for testing and developing Apps.
+> **New to Webflow?** Get started with Webflow's free [Developer Workspace](https://developers.webflow.com/data/docs/developer-workspace) designed for testing and developing Apps.
 
 ### 3. Navigate to Workspace Settings
 

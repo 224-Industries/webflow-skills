@@ -1,5 +1,5 @@
 ---
-name: designer-extension-workflow
+name: "Designer Extension Workflow"
 description: How to scaffold, develop, test, and deploy a Webflow Designer Extension — a full app with UI that runs as an iframe inside the Designer.
 tags: [extension, scaffold, cli, development, deployment, project-structure]
 ---
