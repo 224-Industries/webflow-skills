@@ -1,0 +1,23 @@
+README.md
+  d53854b6a5e25f68 66-73
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.5",
+  "base_commit_sha": "f48620784e5d7d6621485f8635bf69e93fb3ef4d",
+  "prompts": {
+    "d53854b6a5e25f68": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2eb8bef4-8c9b-43bc-a20d-c1003521280b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Ben Sabic <bensabic@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 8,
+      "total_deletions": 0,
+      "accepted_lines": 8,
+      "overriden_lines": 0
+    }
+  }
+}
