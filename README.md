@@ -63,6 +63,14 @@ Install via Claude Code's plugin system:
 
 > Claude Code plugins are also supported in Factory's [Droid](https://docs.factory.ai/cli/configuration/plugins#claude-code-compatibility).
 
+### Gumloop Agents
+
+Upload skills directly to [Gumloop](https://docs.gumloop.com/core-concepts/skills) agents:
+
+1. Download the `.skill` file from the Available Skills table above
+2. In Gumloop, open your agent's configuration and scroll to the **Skills** section
+3. Click **+ Skill** and upload the `.skill` file
+
 ### Other Installation Methods
 
 Agent skills can also be installed by using the below commands from [Playbooks](https://playbooks.com/skills) or [Context7](https://context7.com/docs/skills):
