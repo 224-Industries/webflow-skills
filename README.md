@@ -134,4 +134,4 @@ Contributions are welcome! Please read our [Contributing Guide](.github/CONTRIBU
 
 ## Creator
 
-[Ben Sabic](https://bensabic.dev) (Fractional CTO) at [224 Industries](https://224industries.com.au)
+[224 Industries](https://224industries.com.au)
