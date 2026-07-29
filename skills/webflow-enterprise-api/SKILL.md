@@ -5,7 +5,7 @@ license: MIT
 metadata:
   author: "Ben Sabic"
   repository: "https://github.com/224-industries/webflow-skills"
-  url: "https://skills.224ai.au/webflow-enterprise-api.skill"
+  url: "https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-enterprise-api.skill"
   version: "1.0.0"
   keywords: "ai, agent, skill, enterprise, workspace management, site activity, audit logs, 301 redirects, robots-txt, well-known files, webflow api"
 ---

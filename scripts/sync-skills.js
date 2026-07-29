@@ -162,7 +162,7 @@ function generateReadmeSkillsList(skills) {
 
   for (const skill of skills) {
     const escapedDesc = truncate(skill.description).replace(/\|/g, "\\|");
-    const downloadUrl = `https://skills.224ai.au/${skill.dirName}.skill`;
+    const downloadUrl = `https://github.com/224-Industries/webflow-skills/releases/latest/download/${skill.dirName}.skill`;
     lines.push(`| [${skill.name}](./skills/${skill.dirName}) | ${escapedDesc} | [Download](${downloadUrl}) |`);
   }
 
