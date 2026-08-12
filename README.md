@@ -81,7 +81,7 @@ Upload skills directly to [Gumloop](https://docs.gumloop.com/core-concepts/skill
 <details>
 <summary>Other CLI Methods</summary>
 
-Agent skills can also be installed via [Playbooks](https://playbooks.com/skills) or [Context7](https://context7.com/docs/skills):
+Agent skills can also be installed via [Playbooks](https://www.npmjs.com/package/playbooks) or [Context7](https://context7.com/docs/clients/cli):
 
 ```bash
 # Playbooks
@@ -121,8 +121,8 @@ This will create the skill structure and automatically update manifest.json, pla
 - [Agent Skills Specification](https://agentskills.io/specification)
 - [npx skills](https://skills.sh/)
 - [Validate Agent Skill](https://github.com/marketplace/actions/validate-skill)
-- [Playbooks](https://playbooks.com/skills)
-- [Context7 Skills](https://context7.com/docs/skills)
+- [Playbooks](https://www.npmjs.com/package/playbooks)
+- [Context7 Skills](https://context7.com/docs/clients/cli)
 
 ## Contributing
 
