@@ -37,7 +37,7 @@ A living document for understanding how this repository is structured and how it
 ## Data Flow
 
 ```
-manifest.json ──────────────────────────────────────► SKILL.md (writes author + repository)
+manifest.json ──────────────────────────────────────► SKILL.md (writes repository; author only if unset)
       │                                                  │
       │                                    reads frontmatter
       │                                                  │
@@ -58,7 +58,9 @@ manifest.json ──────────────────────
 | Plugin name, description, author, homepage, repo, license | `manifest.json` (global fields) | Both plugin.json files, marketplace.json |
 | Plugin keywords | `manifest.json` → `keywords` | Both plugin.json files, marketplace.json |
 | Logo | `manifest.json` → `logo` | `.cursor-plugin/plugin.json` only |
-| Author, repository | `manifest.json` (global fields) | `SKILL.md` → `metadata.author`, `metadata.repository` |
+| Repository | `manifest.json` (global fields) | `SKILL.md` → `metadata.repository` |
+| Author (default) | `manifest.json` (global fields) | `SKILL.md` → `metadata.author`, only where the skill has not declared its own |
+| Author (per skill) | `SKILL.md` → `metadata.author` | Preserved as-is; sync never overwrites it |
 | Skill name, description, version, license | `SKILL.md` frontmatter | `manifest.json` → `skills[]`, `skills/index.json` |
 | Skill keywords | `SKILL.md` → `metadata.keywords` | `manifest.json` → `skills[].keywords` |
 | Skill file listing | Filesystem (skill directory contents) | `skills/index.json` → `skills[].files` |
@@ -106,4 +108,4 @@ Both platforms support: `name`, `description`, `version`, `author`, `homepage`, 
 - **Repository:** https://github.com/224-industries/webflow-skills
 - **Maintainer:** [Ben Sabic](https://bensabic.dev) at [224 Industries](https://224industries.com.au)
 - **License:** MIT
-- **Last Updated:** 2026-02-23
+- **Last Updated:** 2026-09-15

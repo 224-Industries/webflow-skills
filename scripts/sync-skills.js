@@ -7,8 +7,8 @@
  * (.claude-plugin/plugin.json, .cursor-plugin/plugin.json),
  * .claude-plugin/marketplace.json, skills/index.json, and README.md.
  *
- * Also propagates author and repository from manifest.json into each
- * skill's SKILL.md frontmatter.
+ * Also propagates repository from manifest.json into each skill's SKILL.md
+ * frontmatter, and the author where the skill has not declared its own.
  * @example
  * // Run from the repository root
  * node scripts/sync-skills.js
@@ -325,8 +325,9 @@ async function updateIndex(skills) {
   return true;
 }
 
-// Propagates author and repository from manifest.json into each
-// skill's SKILL.md frontmatter so they stay in sync.
+// Propagates repository from manifest.json into each skill's SKILL.md
+// frontmatter so they stay in sync. The author is a default rather than an
+// override: a skill that names its own author keeps it.
 async function updateSkillFrontmatter(skills, manifest) {
   const author = manifest.author?.name || "";
   const repository = manifest.repository || "";
@@ -337,7 +338,12 @@ async function updateSkillFrontmatter(skills, manifest) {
     let content = await readFile(skillMdPath, "utf-8");
     const original = content;
 
-    if (author) {
+    // A skill may declare its own author. Only fall back to the global author
+    // when the skill has not set one, so per-skill attribution survives a sync.
+    const declared = content.match(/^  author:\s*"?([^"\n]*)"?\s*$/m);
+    const hasOwnAuthor = Boolean(declared && declared[1].trim());
+
+    if (author && !hasOwnAuthor) {
       content = content.replace(
         /^(  author:) .+$/m,
         `$1 "${author}"`
