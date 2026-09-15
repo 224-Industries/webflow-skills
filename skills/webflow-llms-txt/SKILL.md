@@ -3,7 +3,7 @@ name: webflow-llms-txt
 description: Generate, audit and maintain an llms.txt file for a Webflow site. Use when creating an llms.txt for the first time, refreshing a stale one, checking which pages are missing from it, writing the descriptions inside it, or diffing this month's file against last month's. Works with or without a Webflow API token.
 license: MIT
 metadata:
-  author: "Ben Sabic"
+  author: "Kirk Land"
   repository: "https://github.com/224-industries/webflow-skills"
   url: "https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-llms-txt.skill"
   version: "1.0.0"
