@@ -6,38 +6,38 @@ A living document for understanding how this repository is structured and how it
 
 ```
 ./
-├── manifest.json                        # Source of truth — global config, keywords, skills array
+├── manifest.json                       # Source of truth — global config, keywords, skills array
 ├── skills/
-│   ├── index.json                       # Generated — agent-skills-discovery RFC index
+│   ├── index.json                      # Generated — agent-skills-discovery RFC index
 │   └── <skill-name>/
-│       ├── SKILL.md                     # Entry point — frontmatter + instructions + reference index
-│       ├── references/                  # Detailed reference docs (API guides, guidelines, etc.)
-│       ├── scripts/                     # Helper scripts for the skill
-│       └── assets/                      # Static assets (CSS, images, etc.)
+│       ├── SKILL.md                    # Entry point — frontmatter + instructions + reference index
+│       ├── references/                 # Detailed reference docs (API guides, guidelines, etc.)
+│       ├── scripts/                    # Helper scripts for the skill
+│       └── assets/                     # Static assets (CSS, images, etc.)
 ├── scripts/
-│   ├── sync-skills.js                   # Syncs manifest.json → plugin files, marketplace, index.json, README
-│   └── add-skill.js                     # Scaffolds a new skill directory with SKILL.md
+│   ├── sync-skills.js                  # Syncs manifest.json → plugin files, marketplace, index.json, README
+│   └── add-skill.js                    # Scaffolds a new skill directory with SKILL.md
 ├── .claude-plugin/
-│   ├── plugin.json                      # Generated — Claude Code plugin manifest
-│   ├── plugin.schema.json               # JSON Schema for Claude Code plugin.json validation
-│   └── marketplace.json                 # Claude Code marketplace (single plugin entry)
+│   ├── plugin.json                     # Generated — Claude Code plugin manifest
+│   ├── plugin.schema.json              # JSON Schema for Claude Code plugin.json validation
+│   └── marketplace.json                # Claude Code marketplace (single plugin entry)
 ├── .cursor-plugin/
-│   ├── plugin.json                      # Generated — Cursor plugin manifest
-│   └── plugin.schema.json               # JSON Schema for Cursor plugin.json validation
+│   ├── plugin.json                     # Generated — Cursor plugin manifest
+│   └── plugin.schema.json              # JSON Schema for Cursor plugin.json validation
 ├── .github/
-│   ├── workflows/validate-and-sync.yml  # CI — validate skills, validate plugins, sync on main
-│   └── CONTRIBUTING.md                  # Contribution guidelines
-├── assets/                              # Shared static assets (logo, etc.)
-├── CLAUDE.md                            # Project instructions for Claude Code
-├── AGENTS.md                            # Project instructions for other AI coding agents
-├── README.md                            # Public-facing documentation
-└── LICENSE                              # MIT
+│   ├── workflows/validate-and-sync.yml # CI — validate skills, validate plugins, sync on main
+│   └── CONTRIBUTING.md                 # Contribution guidelines
+├── assets/                             # Shared static assets (logo, etc.)
+├── CLAUDE.md                           # Project instructions for Claude Code
+├── AGENTS.md                           # Project instructions for other AI coding agents
+├── README.md                           # Public-facing documentation
+└── LICENSE                             # MIT
 ```
 
 ## Data Flow
 
 ```
-manifest.json ────────────────────────────────────► SKILL.md (writes repository; author only if unset)
+manifest.json ──────────────────────────────────────► SKILL.md (writes repository; author only if unset)
       │                                                  │
       │                                    reads frontmatter
       │                                                  │
