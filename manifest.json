@@ -3,8 +3,8 @@
   "description": "Ship solutions for and with Webflow. This plugin provides a collection of skills to help you integrate and automate tasks related to Webflow, including webhook management, designer api tasks, and more.",
   "version": "2.0.0",
   "author": {
-    "name": "Ben Sabic",
-    "email": "ben@224industries.com.au"
+    "name": "224 Industries",
+    "email": "support@224industries.com.au"
   },
   "homepage": "https://224industries.com.au",
   "repository": "https://github.com/224-industries/webflow-skills",
@@ -105,6 +105,54 @@
         "robots-txt",
         "well-known files",
         "webflow api"
+      ]
+    },
+    {
+      "name": "webflow-llms-txt",
+      "description": "Generate, audit and maintain an llms.txt file for a Webflow site. Use when creating an llms.txt for the first time, refreshing a stale one, checking which pages are missing from it, writing the descriptions inside it, or diffing this month's file against last month's. Works with or without a Webflow API token.",
+      "version": "1.0.0",
+      "source": "./skills/webflow-llms-txt",
+      "license": "MIT",
+      "keywords": [
+        "ai",
+        "agent",
+        "skill",
+        "webflow",
+        "llms-txt",
+        "aeo",
+        "geo",
+        "seo",
+        "structured content",
+        "site audit",
+        "crawlers",
+        "ai search",
+        "content inventory",
+        "sitemap"
+      ]
+    },
+    {
+      "name": "webflow-schema",
+      "description": "Build, fix and audit JSON-LD structured data on Webflow sites. Use when adding schema to a Collection template, binding schema to CMS fields, checking why rich results or FAQ snippets are not showing, cleaning up Webflow's auto-generated schema, fixing wrong published dates in Search Console, or auditing the live JSON-LD on any Webflow page.",
+      "version": "1.0.0",
+      "source": "./skills/webflow-schema",
+      "license": "MIT",
+      "keywords": [
+        "ai",
+        "agent",
+        "skill",
+        "webflow",
+        "schema",
+        "json-ld",
+        "structured data",
+        "rich results",
+        "faq schema",
+        "article schema",
+        "breadcrumb",
+        "itemlist",
+        "cms binding",
+        "seo",
+        "aeo",
+        "search console"
       ]
     },
     {

@@ -106,6 +106,6 @@ Both platforms support: `name`, `description`, `version`, `author`, `homepage`, 
 
 - **Project:** Webflow Agent Skills
 - **Repository:** https://github.com/224-industries/webflow-skills
-- **Maintainer:** [Ben Sabic](https://bensabic.dev) at [224 Industries](https://224industries.com.au)
+- **Maintainer:** Kirk Land at [224 Industries](https://224industries.com.au)
 - **License:** MIT
-- **Last Updated:** 2026-09-15
+- **Last Updated:** 2026-10-13

@@ -1,0 +1,42 @@
+<!--
+  Key takeaways ItemList schema builder (Architecture B)
+
+  Paste before </body> in the page's custom code, or in a site-wide footer embed.
+
+  Set data-takeaway="true" on each individual takeaway element, never on a
+  wrapper holding several. Text is read with textContent and positions count up
+  in page order. The list name comes from document.title up to the first "|";
+  change the pageName line if the site uses a different separator.
+  If nothing is marked, the script exits without adding anything.
+-->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var pageName = document.title.split('|')[0].trim();
+
+  var takeaways = [];
+  document.querySelectorAll('[data-takeaway="true"]').forEach(function (el) {
+    var text = el.textContent.trim().replace(/\s+/g, ' ');
+    if (text) {
+      takeaways.push({
+        "@type": "ListItem",
+        "position": takeaways.length + 1,
+        "name": text
+      });
+    }
+  });
+
+  if (!takeaways.length) return;
+
+  var s = document.createElement('script');
+  s.type = 'application/ld+json';
+  s.text = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Key Takeaways",
+    "description": "Key takeaways from " + pageName,
+    "numberOfItems": takeaways.length,
+    "itemListElement": takeaways
+  });
+  document.head.appendChild(s);
+});
+</script>
