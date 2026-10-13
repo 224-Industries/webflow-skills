@@ -89,6 +89,43 @@
       ]
     },
     {
+      "name": "webflow-llms-txt",
+      "description": "Generate, audit and maintain an llms.txt file for a Webflow site. Use when creating an llms.txt for the first time, refreshing a stale one, checking which pages are missing from it, writing the descriptions inside it, or diffing this month's file against last month's. Works with or without a Webflow API token.",
+      "files": [
+        "SKILL.md",
+        "references/data-api-inventory.md",
+        "references/file-format.md",
+        "references/monthly-audit.md",
+        "references/overview-block.md",
+        "references/sitemap-fallback.md",
+        "references/webflow-constraints.md",
+        "references/writing-descriptions.md",
+        "scripts/check_urls.py",
+        "scripts/diff_llms_txt.py",
+        "scripts/search_references.py",
+        "scripts/validate_llms_txt.py"
+      ]
+    },
+    {
+      "name": "webflow-schema",
+      "description": "Build, fix and audit JSON-LD structured data on Webflow sites. Use when adding schema to a Collection template, binding schema to CMS fields, checking why rich results or FAQ snippets are not showing, cleaning up Webflow's auto-generated schema, fixing wrong published dates in Search Console, or auditing the live JSON-LD on any Webflow page.",
+      "files": [
+        "SKILL.md",
+        "assets/faq-schema.html",
+        "assets/takeaways-schema.html",
+        "references/architectures.md",
+        "references/auditing.md",
+        "references/auto-generate-pitfalls.md",
+        "references/new-site-checklist.md",
+        "references/platform-limits.md",
+        "references/worked-examples.md",
+        "references/writing-via-api.md",
+        "scripts/audit_jsonld.py",
+        "scripts/check_bindable_text.py",
+        "scripts/search_references.py"
+      ]
+    },
+    {
       "name": "webflow-webhooks",
       "description": "Receive and verify Webflow webhooks. Use when setting up Webflow webhook handlers, debugging signature verification, or handling Webflow events like form_submission, site_publish, ecomm_new_order, or collection item changes.",
       "files": [

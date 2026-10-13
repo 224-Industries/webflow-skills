@@ -1,0 +1,45 @@
+<!--
+  FAQPage schema builder (Architecture B)
+
+  Paste before </body> in the page's custom code, or in a site-wide footer embed.
+
+  Set these attributes on the FAQ accordion, through component overrides if it is a component:
+    each FAQ item wrapper       data-faq-item="true"
+    the question text inside it data-faq-question="true"
+    the answer rich text        data-faq-answer="true"
+
+  All three must be set or the item is skipped. The answer is read as innerHTML,
+  so inline links survive. Several accordions on one page merge into one FAQPage.
+  Do not also bind an FAQPage in the template's JSON-LD field on the same page.
+-->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var faqs = [];
+  document.querySelectorAll('[data-faq-item="true"]').forEach(function (item) {
+    var q = item.querySelector('[data-faq-question="true"]');
+    var a = item.querySelector('[data-faq-answer="true"]');
+    if (!q || !a) return;
+
+    var question = q.textContent.trim();
+    var answer = a.innerHTML.trim();
+    if (!question || !answer) return;
+
+    faqs.push({
+      "@type": "Question",
+      "name": question,
+      "acceptedAnswer": { "@type": "Answer", "text": answer }
+    });
+  });
+
+  if (!faqs.length) return;
+
+  var s = document.createElement('script');
+  s.type = 'application/ld+json';
+  s.text = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs
+  });
+  document.head.appendChild(s);
+});
+</script>

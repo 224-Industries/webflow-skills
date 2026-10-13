@@ -15,8 +15,8 @@
       "description": "Ship solutions for and with Webflow. This plugin provides a collection of skills to help you integrate and automate tasks related to Webflow, including webhook management, designer api tasks, and more.",
       "version": "2.0.0",
       "author": {
-        "name": "Ben Sabic",
-        "email": "ben@224industries.com.au"
+        "name": "224 Industries",
+        "email": "support@224industries.com.au"
       },
       "source": "./",
       "homepage": "https://224industries.com.au",
