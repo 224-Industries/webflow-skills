@@ -1,18 +1,11 @@
-# 224 Industries - Webflow Agent Skills
+# Webflow Agent Skills
 
-![224 Industries OSS](https://img.shields.io/badge/224_Industries-OSS-111212?style=for-the-badge&labelColor=6AFFDC)
-![MIT License](https://img.shields.io/badge/License-MIT-111212?style=for-the-badge&labelColor=6AFFDC)
-[![Webflow Premium Partner](https://img.shields.io/badge/Premium_Partner-146EF5?style=for-the-badge&logo=webflow&logoColor=white)](https://webflow.com/@224-industries)
+Open-source Agent Skills for Webflow, by 224 Industries. They give Claude and other AI agents the know-how to work on Webflow sites, from llms.txt and schema to the Designer API and webhooks.
 
-This repository contains a collection of Webflow Agent Skills by 224 Industries. These skills are designed to enhance the capabilities of agents by providing them with specialized functionalities.
+Browse them at [224industries.com.au/webflow-skills](https://224industries.com.au/webflow-skills). Questions go to [support@224industries.com.au](mailto:support@224industries.com.au).
 
-<img width="1200" height="630" alt="224-industries-webflow-agent-skills-vercel-skills-cli" alt="Vercel Skills CLI output from installing the Webflow Agent Skills by 224 Industries" src="https://github.com/user-attachments/assets/896d2eed-1f2c-4a46-9bae-0f0899f7cb52" />
+## Available skills
 
-## What are Agent Skills?
-
-Agent Skills are folders of instructions, scripts, and resources that agents can discover and use to do things more accurately and efficiently. They work across any AI agent that supports the [open Agent Skills standard](https://agentskills.io).
-
-## Available Skills
 <!-- START:Available-Skills -->
 | Skill | Description | Download |
 | ----- | ----------- | -------- |
@@ -25,115 +18,20 @@ Agent Skills are folders of instructions, scripts, and resources that agents can
 | [webflow-webhooks](./skills/webflow-webhooks) | Receive and verify Webflow webhooks. Use when setting up Webflow webhook hand... | [Download](https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-webhooks.skill) |
 <!-- END:Available-Skills -->
 
-## Installation
-
-### Skills
-
-Use [skills](https://skills.sh/) to install skills directly:
+## Install
 
 ```bash
-
-███████╗██╗  ██╗██╗██╗     ██╗     ███████╗
-██╔════╝██║ ██╔╝██║██║     ██║     ██╔════╝
-███████╗█████╔╝ ██║██║     ██║     ███████╗
-╚════██║██╔═██╗ ██║██║     ██║     ╚════██║
-███████║██║  ██╗██║███████╗███████╗███████║
-╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚══════╝
-
-# Install all skills
 npx skills add 224-industries/webflow-skills
-
-# Install specific skills
-npx skills add 224-industries/webflow-skills --skill webflow-designer-api
-
-# List available skills
-npx skills add 224-industries/webflow-skills --list
 ```
 
-<details>
-<summary>Manual Download</summary>
+Or download a `.skill` file from the table above and upload it in Claude under Customize > Skills.
 
-Download `.skill` files directly from the Available Skills table above and upload them to any agent that supports the [Agent Skills standard](https://agentskills.io):
-
-- **Claude Web / Desktop / Cowork** — Go to Customize > Skills, click **+**, then **Upload a skill**
-
-</details>
-
-<details>
-<summary>Claude Code / Factory Droid Plugin</summary>
+In Claude Code:
 
 ```bash
-# Add the plugin (includes all skills)
 /plugin add 224-industries/webflow-skills
 ```
 
-</details>
-
-<details>
-<summary>Gumloop Agents</summary>
-
-Upload skills directly to [Gumloop](https://docs.gumloop.com/core-concepts/skills) agents:
-
-1. Download the `.skill` file from the Available Skills table above
-2. In Gumloop, open your agent's configuration and scroll to the **Skills** section
-3. Click **+ Skill** and upload the `.skill` file
-
-</details>
-
-<details>
-<summary>Other CLI Methods</summary>
-
-Agent skills can also be installed via [Playbooks](https://www.npmjs.com/package/playbooks) or [Context7](https://context7.com/docs/clients/cli):
-
-```bash
-# Playbooks
-npx playbooks add skill 224-industries/webflow-skills
-
-# Context7
-npx ctx7 skills install /224-industries/webflow-skills
-```
-
-</details>
-
-## Adding New Skills
-
-Use the included script to add new skills:
-
-```bash
-node scripts/add-skill.js <skill-name> "<description>"
-```
-
-Example:
-
-```bash
-node scripts/add-skill.js webflow-designer-api "Build Webflow Designer Extensions..."
-```
-
-This will create the skill structure and automatically update manifest.json, platform plugin files, skills/index.json, and this README.
-
-## Scripts
-
-| Script | Description |
-| ------ | ----------- |
-| `node scripts/add-skill.js` | Add a new skill to the repository |
-| `node scripts/sync-skills.js` | Sync manifest.json, platform plugin files, skills/index.json, and README with skills directory |
-
-## Resources
-
-- [Agent Skills Specification](https://agentskills.io/specification)
-- [npx skills](https://skills.sh/)
-- [Validate Agent Skill](https://github.com/marketplace/actions/validate-skill)
-- [Playbooks](https://www.npmjs.com/package/playbooks)
-- [Context7 Skills](https://context7.com/docs/clients/cli)
-
-## Contributing
-
-Contributions are welcome! Please read our [Contributing Guide](.github/CONTRIBUTING.md) for more information.
-
 ## License
 
-[MIT License](LICENSE)
-
-## Creator
-
-[224 Industries](https://224industries.com.au)
+[MIT](LICENSE)
