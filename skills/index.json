@@ -90,7 +90,7 @@
     },
     {
       "name": "webflow-insights",
-      "description": "Answer questions about how a Webflow site is performing from Webflow's own data, through the Webflow MCP server. Covers Analyze (traffic, pages, sources, goals, engagement), Optimize (A/B test, AI-optimised and personalisation results) and AEO Analytics (AI crawler traffic, tracked prompts, AI visibility and citations). Use for \"how's the site going\", \"which pages get the most traffic\", \"has my test got a winner\", \"which pages are AI crawlers reading\", a monthly check-up, or working out why traffic changed. Works with whichever of the three products the site has. Read-only.",
+      "description": "Answer questions about how a Webflow site is performing from Webflow's own data, through the Webflow MCP server. Covers Analyze (traffic, pages, sources, goals, engagement), Optimize (A/B test, AI-optimised and personalisation results) and AEO Analytics (AI crawler traffic, tracked prompts, AI visibility and citations). Use for \"how's the site going\", \"which pages get the most traffic\", \"has my test got a winner\", \"which pages are AI crawlers reading\", a monthly check-up, or working out why traffic changed. Run it with no question and it delivers a snapshot of the last 28 days and suggests what to ask next. Works with whichever of the three products the site has. Read-only.",
       "files": [
         "SKILL.md",
         "references/aeo.md",

@@ -8,11 +8,85 @@ tags: [check-up, monthly-report, diagnose, traffic-drop, cross-product, answer-f
 
 ## Table of Contents
 
+- [No question asked: the snapshot](#no-question-asked-the-snapshot)
+- [Suggesting what to ask next](#suggesting-what-to-ask-next)
 - [Answering a question](#answering-a-question)
 - [Monthly check-up](#monthly-check-up)
 - [Diagnosing a change](#diagnosing-a-change)
 - [Answer layout](#answer-layout)
 - [Best Practices](#best-practices)
+
+## No question asked: the snapshot
+
+Most people running this skill are marketers, not analysts, and won't always know what to ask. When someone runs the skill by name with no question, or asks something open ("how are we doing?", "what's happening on the site?"), deliver a snapshot straight away. Don't open with questions.
+
+The only question allowed before the snapshot is **which site**, and only when the connection reaches more than one live site. List them by name and domain (never by id) and ask once. Leave out staging sites, backups and anything not published in the last year unless they're the only ones.
+
+1. Check all three products (see `availability.md`).
+2. Window: the last 28 days ending yesterday, in the site's time zone, against the 28 days before. Rolling windows keep it current whatever day it's run.
+3. Run, for whatever is available:
+   - `get_traffic_report` daily sessions for both windows (add them up for totals), then check for automated spikes (see `analyze.md`)
+   - `get_top_pages_report`, limit 10, current window
+   - `get_top_dimensions_report` for `trafficSource`, current window
+   - `list_goals`, then `get_goal_performance` for up to three goals, both windows
+   - Optimize: live tests and where each stands
+   - AEO: `get_bot_traffic` total for both windows (ending today `00:00:00.000Z`), top 5 crawled pages, and `get_visibility` if prompt tracking is on
+4. Write it in the layout below. Keep it to one screen. The snapshot is a starting point, not the full report.
+
+```markdown
+## [Site name]: the last 28 days
+
+[Two sentences: the most important thing, then the next.]
+
+**Visits:** [n], [up/down X%] on the 28 days before ([n]).
+**Most visited:** [page] ([n]), [page] ([n]), [page] ([n])
+**Where visitors came from:** [source] [X%], [source] [X%], [source] [X%]. [Generative AI visits, if any]
+**[Goal name]:** [n], against [n] before
+**Tests:** [each live test in one line, in plain words]
+**AI crawlers:** [n] requests, [change]. Most read: [page], [page]
+
+**Worth a look**
+1. [Action tied to a number above]
+(up to 3)
+
+**Ask me next**
+- "[question]"
+- "[question]"
+- "[question]"
+
+[One availability line, if any product is missing]
+Say "monthly check-up" any time for the full report.
+```
+
+Leave out any line whose product isn't available or that has nothing in it.
+
+## Suggesting what to ask next
+
+End every snapshot, and any answer that stops short of the full picture, with three or four questions the person could ask next. They do most of the work of making the skill easy to use.
+
+- **Build them from what the data showed.** A spike, a falling page, a goal with no conversions or a test near significance each deserves a question.
+- **Use their real names:** page titles, goal names and test names, not placeholders.
+- **Write them the way the person would say them,** short and in plain words, so they can copy one as is.
+- **Only suggest questions the available products can answer.** No AEO questions for a site without AEO.
+- **Make them answerable.** Each should map to reports this skill can run.
+- If the person replies "the first one" or just a number, run that question.
+
+A bank to choose from, by what the data shows:
+
+| When the data shows | Suggest |
+|---|---|
+| A spike or drop on certain days | "Why did visits [jump / drop] around [date]?" |
+| A goal with conversions | "Where do the people who [goal, in plain words] come from?" |
+| A goal with no conversions, or no goals | "What should we set up as a goal on this site?" |
+| A blog or resources collection in the top pages | "Which [blog posts] get read most, and how far do people scroll?" |
+| A clear top landing page | "Where do people go after the [page title] page?" |
+| A meaningful mobile share | "How do mobile visitors compare with desktop?" |
+| Campaign (UTM) traffic | "Which campaigns brought visitors in the last month?" |
+| A live A/B test | "Is the [test name] test ready to call?" |
+| A test with a segment worth checking | "How is [test name] doing on mobile versus desktop?" |
+| AEO crawler data | "Which AI tools read our site most, and which pages?" |
+| AEO prompt tracking | "How often do AI answers mention us, and who do they cite instead?" |
+| Analyze only, and the person asked about AI | "Are any visitors arriving from ChatGPT or other AI tools?" |
 
 ## Answering a question
 
@@ -90,6 +164,7 @@ For anything other than a check-up:
 3. **What it means or what to do next**, up to three points, each tied to a number.
 4. **What the data can't tell you**, only when it matters to the question.
 5. **The availability note**, one line, only when a missing product is relevant.
+6. **Two or three questions to ask next**, when the answer opens up more to explore (see [Suggesting what to ask next](#suggesting-what-to-ask-next)).
 
 Writing rules:
 

@@ -1,6 +1,6 @@
 ---
 name: webflow-insights
-description: Answer questions about how a Webflow site is performing from Webflow's own data, through the Webflow MCP server. Covers Analyze (traffic, pages, sources, goals, engagement), Optimize (A/B test, AI-optimised and personalisation results) and AEO Analytics (AI crawler traffic, tracked prompts, AI visibility and citations). Use for "how's the site going", "which pages get the most traffic", "has my test got a winner", "which pages are AI crawlers reading", a monthly check-up, or working out why traffic changed. Works with whichever of the three products the site has. Read-only.
+description: Answer questions about how a Webflow site is performing from Webflow's own data, through the Webflow MCP server. Covers Analyze (traffic, pages, sources, goals, engagement), Optimize (A/B test, AI-optimised and personalisation results) and AEO Analytics (AI crawler traffic, tracked prompts, AI visibility and citations). Use for "how's the site going", "which pages get the most traffic", "has my test got a winner", "which pages are AI crawlers reading", a monthly check-up, or working out why traffic changed. Run it with no question and it delivers a snapshot of the last 28 days and suggests what to ask next. Works with whichever of the three products the site has. Read-only.
 license: MIT
 metadata:
   author: "Kirk Land"
@@ -27,14 +27,15 @@ This skill checks which products a site has, runs the right reads, interprets th
 
 ## Before you start
 
-1. **Find the site.** `data_sites_tool > list_sites`. If there are several and the person hasn't said which, ask. Then call `get_site` for the site's `timeZone`.
+1. **Find the site.** `data_sites_tool > list_sites`. If there are several live sites and the person hasn't said which, list them by name and domain and ask once. Then call `get_site` for the site's `timeZone`.
 2. **Check what's available.** Run the light probes in [references/availability.md](references/availability.md) for the products the question needs. A check-up probes all three. Record each as available, not on the plan, not set up, or no access, and reuse the result for the rest of the conversation.
 3. **Resolve the date window** in the site's time zone. See [references/analyze.md](references/analyze.md) > Date windows.
 
-## Three ways in
+## Four ways in
 
 | Request | What to do |
 |---|---|
+| **No question**, or an open one ("how are we doing?") | Deliver a snapshot of the last 28 days straight away, then suggest three or four questions to ask next. Don't open with questions; the only one allowed first is which site. Layout in [references/reports.md](references/reports.md) |
 | **A question** ("which pages get the most traffic?") | Run the fewest reads that answer it, using the reference for that product |
 | **A monthly check-up** | Last complete month against the one before, across every available product. Layout in [references/reports.md](references/reports.md) |
 | **Diagnosing a change** ("why did traffic drop?") | Confirm the change, find where it happened, check what changed on the site, then conclude with a confidence level. Steps in [references/reports.md](references/reports.md) |
@@ -46,6 +47,7 @@ This skill checks which products a site has, runs the right reads, interprets th
 3. **What to do next**, up to three points, each tied to a number.
 4. **What the data can't tell you**, when it matters to the question.
 5. **One availability line**, only when a missing product is relevant.
+6. **Two or three questions to ask next**, built from what the data showed and using the site's real page, goal and test names. Most people won't know what to ask, so this is how they find the next useful question. If they reply "the first one", run it.
 
 Use plain words ("visits", not "sessions"), give counts alongside percentages, and leave out ids, field names and raw JSON.
 
@@ -57,7 +59,7 @@ Use plain words ("visits", not "sessions"), give counts alongside percentages, a
 | [references/analyze.md](references/analyze.md) | Traffic, pages, sources, goals, engagement, scroll depth or page flow |
 | [references/optimize.md](references/optimize.md) | Tests, experiments, variations or personalisation |
 | [references/aeo.md](references/aeo.md) | AI crawlers, AI search, tracked prompts, visibility or citations |
-| [references/reports.md](references/reports.md) | A check-up, a diagnosis, or a question that spans products. Also holds the answer layout |
+| [references/reports.md](references/reports.md) | A snapshot, a check-up, a diagnosis, or a question that spans products. Also holds the answer layouts and the bank of suggested questions |
 
 ## Requirements
 

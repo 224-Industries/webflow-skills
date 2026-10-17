@@ -80,6 +80,7 @@ Filter any report to one page, source, country, device or campaign with the prom
 ### Traffic sources and referrers
 
 - `trafficSource` rows come back with a short code (`attributeKey`, such as `DN`) and a name (`Direct`). Use the name in answers and the code in filters.
+- **Generative AI is its own source** (code `AI`): visits referred by AI tools such as ChatGPT or Perplexity. It's available on any site with Analyze, with or without AEO Analytics. Report it even when it's small, because it's what most people asking about AI search want to know.
 - **Direct is a catch-all.** It includes bookmarks, typed addresses, links in apps and email, privacy settings that strip the referrer, and most automated traffic. A large Direct share isn't a finding by itself.
 - **The site's own domain appears in the referrer list** when visitors move between pages or subdomains. Leave the site's own domains out when describing where visitors come from.
 

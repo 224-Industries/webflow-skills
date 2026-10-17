@@ -80,13 +80,13 @@ Use these lines, adjusted to the sentence around them. Don't swap in "blocked", 
 
 When the question is about the missing product itself ("which pages did AI crawlers read last week?"), say so in the first line, then give the person whatever the available data can honestly say.
 
-> That's not something Webflow can show for this site: AEO Analytics isn't included in your current plan. Analyze can show part of the picture, though. In the last 30 days, 14 visits arrived from chatgpt.com and 3 from perplexity.ai.
+> That's not something Webflow can show for this site: AEO Analytics isn't included in your current plan. Analyze can show part of the picture, though. In the last 30 days, 17 visits came from AI tools: 14 from ChatGPT and 3 from Perplexity.
 
 Useful fallbacks:
 
 | Missing | What Analyze can still show |
 |---|---|
-| AEO | Visits referred by AI tools. Rank `get_top_dimensions_report` by `referrer` and look for chatgpt.com, perplexity.ai, gemini.google.com, claude.ai and copilot.microsoft.com. Only report the ones that actually appear. |
+| AEO | Visits referred by AI tools. Rank `get_top_dimensions_report` by `trafficSource` and read the **Generative AI** row (code `AI`). For which tools, rank by `referrer` with `filter: {"trafficSource": {"eq": "AI"}}`, or look for chatgpt.com, perplexity.ai, gemini.google.com, claude.ai and copilot.microsoft.com. Only report what actually appears. |
 | Optimize | Before-and-after comparisons of a page around the date it changed. Label these as a comparison, not a test, because nothing controlled for other changes in that period. |
 
 ## Mistakes that are yours, not the site's
