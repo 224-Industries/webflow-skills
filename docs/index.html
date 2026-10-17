@@ -107,7 +107,7 @@
             "name": "What Webflow skills are available?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "There are seven open-source skills: webflow-browser-api for tracking and consent management, webflow-code-components for React components via DevLink, webflow-designer-api for Designer Extensions and the Playground, webflow-enterprise-api for enterprise-only endpoints, webflow-llms-txt for generating and maintaining an llms.txt file, webflow-schema for building and auditing JSON-LD structured data, and webflow-webhooks for receiving and verifying webhook events."
+              "text": "There are eight open-source skills: webflow-browser-api for tracking and consent management, webflow-code-components for React components via DevLink, webflow-designer-api for Designer Extensions and the Playground, webflow-enterprise-api for enterprise-only endpoints, webflow-insights for reading Analyze, Optimize and AEO Analytics data, webflow-llms-txt for generating and maintaining an llms.txt file, webflow-schema for building and auditing JSON-LD structured data, and webflow-webhooks for receiving and verifying webhook events."
             }
           },
           {
@@ -147,7 +147,7 @@
             "name": "Are these skills free to use?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. All seven Webflow skills in this repository are open-source under the MIT license. You can use, modify, and distribute them freely. Premium skills covering strategy, discovery, and client workflows are available separately in the Webflow Skills Kit."
+              "text": "Yes. All eight Webflow skills in this repository are open-source under the MIT license. You can use, modify, and distribute them freely. Premium skills covering strategy, discovery, and client workflows are available separately in the Webflow Skills Kit."
             }
           }
         ]
@@ -585,7 +585,7 @@
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">Available Skills</h2>
-        <p class="section-desc">Seven open-source skills for the Webflow platform, from browser-side tracking to structured data and llms.txt.</p>
+        <p class="section-desc">Eight open-source skills for the Webflow platform, from browser-side tracking to site performance data, structured data and llms.txt.</p>
       </div>
       <div class="skill-list">
         <div class="skill-row">
@@ -618,6 +618,14 @@
           <span class="skill-actions">
             <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-enterprise-api" target="_blank" rel="noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
             <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-enterprise-api.skill" target="_blank" rel="noopener" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
+          </span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name"><span class="skill-prefix">webflow / </span>Insights</span>
+          <span class="skill-desc">Read Webflow Analyze, Optimize and AEO Analytics through the Webflow MCP server. Get a site snapshot, check whether a test has a winner, see what AI crawlers read, and find out why traffic changed.</span>
+          <span class="skill-actions">
+            <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-insights" target="_blank" rel="noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
+            <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-insights.skill" target="_blank" rel="noopener" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
           </span>
         </div>
         <div class="skill-row">
@@ -668,6 +676,7 @@
             <tr><td>Bring React components into Webflow</td><td><code>webflow-code-components</code></td><td>No</td></tr>
             <tr><td>Build a Designer Extension</td><td><code>webflow-designer-api</code></td><td>No</td></tr>
             <tr><td>Manage workspaces and sites at scale</td><td><code>webflow-enterprise-api</code></td><td>API token</td></tr>
+            <tr><td>See how your site and tests are performing</td><td><code>webflow-insights</code></td><td>Yes, Webflow's MCP server</td></tr>
             <tr><td>Keep your llms.txt current for AI search</td><td><code>webflow-llms-txt</code></td><td>No, works from your sitemap</td></tr>
             <tr><td>Add or audit schema markup</td><td><code>webflow-schema</code></td><td>To write schema, not to audit it</td></tr>
             <tr><td>React to site events automatically</td><td><code>webflow-webhooks</code></td><td>No</td></tr>
@@ -762,7 +771,7 @@
         <details class="faq-item">
           <summary>What Webflow skills are available? <svg class="faq-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></summary>
           <div class="faq-answer"><div class="faq-answer-inner">
-            <p>There are seven open-source skills: webflow-browser-api for tracking and consent management, webflow-code-components for React components via DevLink, webflow-designer-api for Designer Extensions and the Playground, webflow-enterprise-api for enterprise-only endpoints, webflow-llms-txt for generating and maintaining an llms.txt file, webflow-schema for building and auditing JSON-LD structured data, and webflow-webhooks for receiving and verifying webhook events.</p>
+            <p>There are eight open-source skills: webflow-browser-api for tracking and consent management, webflow-code-components for React components via DevLink, webflow-designer-api for Designer Extensions and the Playground, webflow-enterprise-api for enterprise-only endpoints, webflow-insights for reading Analyze, Optimize and AEO Analytics data, webflow-llms-txt for generating and maintaining an llms.txt file, webflow-schema for building and auditing JSON-LD structured data, and webflow-webhooks for receiving and verifying webhook events.</p>
           </div></div>
         </details>
         <details class="faq-item">
@@ -792,7 +801,7 @@
         <details class="faq-item">
           <summary>Are these skills free to use? <svg class="faq-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></summary>
           <div class="faq-answer"><div class="faq-answer-inner">
-            <p>Yes. All seven Webflow skills in this repository are open-source under the MIT license. You can use, modify, and distribute them freely. Premium skills covering strategy, discovery, and client workflows are available separately in the Webflow Skills Kit.</p>
+            <p>Yes. All eight Webflow skills in this repository are open-source under the MIT license. You can use, modify, and distribute them freely. Premium skills covering strategy, discovery, and client workflows are available separately in the Webflow Skills Kit.</p>
           </div></div>
         </details>
       </div>
