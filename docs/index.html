@@ -191,6 +191,7 @@
     --prompt-bg: rgba(106, 255, 220, 0.08);
     --prompt-border: rgba(106, 255, 220, 0.24);
     --copy-hover: rgba(250, 250, 250, 0.08);
+    --btn-hover: #d4d4d8;
     --logo-filter: invert(1);
     color-scheme: dark;
   }
@@ -207,6 +208,7 @@
     --prompt-bg: var(--brand-100);
     --prompt-border: transparent;
     --copy-hover: #ffffff;
+    --btn-hover: #3a3d3d;
     --logo-filter: none;
     color-scheme: light;
   }
@@ -318,8 +320,8 @@
     border-radius: var(--radius-medium); padding: 10px 20px; cursor: pointer;
     transition: background .15s, border-color .15s, color .15s;
   }
-  .btn-primary { background: var(--brand-500); color: var(--brand-text); border: 1px solid var(--brand-500); }
-  .btn-primary:hover { background: var(--brand-600); border-color: var(--brand-600); color: var(--brand-text); }
+  .btn-primary { background: var(--text); color: var(--bg); border: 1px solid var(--text); }
+  .btn-primary:hover { background: var(--btn-hover); border-color: var(--btn-hover); color: var(--bg); }
   .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
   .btn-ghost:hover { background: var(--hover-bg); }
   .btn-primary svg, .btn-ghost svg { width: 16px; height: 16px; flex-shrink: 0; }
