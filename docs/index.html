@@ -416,22 +416,22 @@
   .install-panel .comment { color: var(--text-subtle); }
   .install-panel .note { display: block; margin-top: var(--space-3); font-size: 0.8125rem; line-height: 1.5; color: var(--text-subtle); }
 
-  /* FAQ */
-  .faq-list { display: flex; flex-direction: column; border-top: var(--hair) solid var(--border); }
+  /* Accordions: the same on both pages (benchmark: the Webflow Skills FAQ) */
   .faq-item { border-bottom: var(--hair) solid var(--border); }
-  .faq-item summary {
+  .faq-item > summary {
     display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
-    padding: 20px 0; font-size: 0.9375rem; font-weight: 500; color: var(--text);
+    padding: 20px 0; font-size: 0.9375rem; font-weight: 500; line-height: 1.5; color: var(--text);
     cursor: pointer; list-style: none; transition: color .15s;
   }
-  .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-item summary::marker { content: ''; }
-  .faq-item summary:hover { color: var(--text-body); }
+  .faq-item > summary::-webkit-details-marker { display: none; }
+  .faq-item > summary::marker { content: ''; }
+  .faq-item > summary:hover { color: var(--text-body); }
   .faq-icon { width: 16px; height: 16px; flex-shrink: 0; transition: transform .25s ease; }
-  .faq-item.is-open .faq-icon { transform: rotate(180deg); }
+  .faq-item.is-open > summary .faq-icon { transform: rotate(180deg); }
   .faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease; }
-  .faq-item[open] .faq-answer { grid-template-rows: 1fr; }
+  .faq-item[open] > .faq-answer { grid-template-rows: 1fr; }
   .faq-answer-inner { overflow: hidden; }
+  .faq-list { display: flex; flex-direction: column; border-top: var(--hair) solid var(--border); }
   .faq-answer-inner p { padding: 0 0 20px; margin: 0; font-size: 0.875rem; line-height: 1.7; }
 
   @media (max-width: 640px) {
@@ -761,36 +761,38 @@
     }
     const tocMobile = document.querySelector('.toc-mobile');
     tocMobile?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => { tocMobile.open = false; }));
-    // FAQ accordion
-    for (const item of document.querySelectorAll('.faq-item')) {
-      const summary = item.querySelector('summary');
-      const answer = item.querySelector('.faq-answer');
-      summary.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (item.open) {
-          item.classList.remove('is-open');
-          answer.style.gridTemplateRows = '0fr';
-          answer.addEventListener('transitionend', function once() {
-            item.open = false;
-            answer.removeEventListener('transitionend', once);
-            answer.style.gridTemplateRows = '';
-          });
-        } else {
-          item.open = true;
-          item.classList.add('is-open');
-          answer.style.gridTemplateRows = '0fr';
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              answer.style.gridTemplateRows = '1fr';
-              answer.addEventListener('transitionend', function once() {
-                answer.removeEventListener('transitionend', once);
-                answer.style.gridTemplateRows = '';
-              });
+  // Accordions: animate open and close (same as the Webflow Skills FAQ)
+  document.querySelectorAll('.faq-item').forEach(function (item) {
+    var summary = item.querySelector(':scope > summary');
+    var answer = item.querySelector(':scope > .faq-answer');
+    summary.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (item.open) {
+        item.classList.remove('is-open');
+        answer.style.gridTemplateRows = '0fr';
+        answer.addEventListener('transitionend', function once(ev) {
+          if (ev.target !== answer) return;
+          item.open = false;
+          answer.removeEventListener('transitionend', once);
+          answer.style.gridTemplateRows = '';
+        });
+      } else {
+        item.open = true;
+        item.classList.add('is-open');
+        answer.style.gridTemplateRows = '0fr';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            answer.style.gridTemplateRows = '1fr';
+            answer.addEventListener('transitionend', function once(ev) {
+              if (ev.target !== answer) return;
+              answer.removeEventListener('transitionend', once);
+              answer.style.gridTemplateRows = '';
             });
           });
-        }
-      });
-    }
+        });
+      }
+    });
+  });
     // Tab indicator
     const indicator = document.querySelector('.install-tabs-indicator');
     const moveIndicator = (tab) => {
