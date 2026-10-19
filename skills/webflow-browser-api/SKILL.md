@@ -1,13 +1,13 @@
 ---
 name: webflow-browser-api
-description: Control Webflow Analyze and Optimize from JavaScript via the Browser API. Use when managing tracking consent, integrating CMPs (OneTrust, TrustArc), tracking experiment variations, setting custom visitor attributes, or personalizing user experiences.
+description: Control Webflow Analyze and Optimize from JavaScript via the Browser API. Use when managing tracking consent, integrating CMPs (OneTrust, TrustArc, CookieYes), tracking experiment variations, setting custom visitor attributes, or personalizing user experiences.
 license: MIT
 metadata:
   author: "Ben Sabic"
   repository: "https://github.com/224-industries/webflow-skills"
   url: "https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-browser-api.skill"
-  version: "1.0.0"
-  keywords: "ai, agent, skill, analyze, browser, api, webflow, optimize, cookie consent, tracking, performance, user experience, consent management, web analytics, automation"
+  version: "1.1.0"
+  keywords: "ai, agent, skill, analyze, browser, api, webflow, optimize, cookie consent, cookieyes, tracking, performance, user experience, consent management, web analytics, automation"
 ---
 
 # Webflow Browser API
@@ -51,7 +51,7 @@ Each reference file includes YAML frontmatter with `name`, `description`, and `t
 
 ### Consent Management
 
-- **[references/consent-management.md](references/consent-management.md)**: Consent APIs, CMP integrations (OneTrust, TrustArc), custom consent solutions
+- **[references/consent-management.md](references/consent-management.md)**: Consent APIs, CMP integrations (OneTrust, TrustArc, CookieYes), custom consent solutions
 
 ### Optimize
 

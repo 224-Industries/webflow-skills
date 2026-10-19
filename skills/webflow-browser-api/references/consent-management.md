@@ -1,7 +1,7 @@
 ---
 name: "Consent Management"
-description: "Consent management APIs for Webflow Analyze and Optimize: getUserTrackingChoice, allowUserTracking, denyUserTracking, plus CMP integration examples for OneTrust, TrustArc, and custom solutions."
-tags: [consent, tracking, privacy, gdpr, onetrust, trustarc, cmp, allow-tracking, deny-tracking, get-tracking-choice, cookie-consent]
+description: "Consent management APIs for Webflow Analyze and Optimize: getUserTrackingChoice, allowUserTracking, denyUserTracking, plus CMP integration examples for OneTrust, TrustArc, CookieYes, and custom solutions."
+tags: [consent, tracking, privacy, gdpr, onetrust, trustarc, cookieyes, getckyconsent, cmp, allow-tracking, deny-tracking, get-tracking-choice, cookie-consent]
 ---
 
 # Consent Management
@@ -150,6 +150,50 @@ wf.ready(function() {
 ```
 
 > **Note:** This example is provided as-is and is not supported by Webflow. Customize the level checks to match your TrustArc configuration.
+
+## CookieYes Integration
+
+CookieYes exposes the visitor's choice through `getCkyConsent()` and fires `cookieyes_consent_update` on `document` whenever the visitor changes it. `getCkyConsent()` only returns data once the banner has loaded, which CookieYes signals with the `cookieyes_banner_loaded` event.
+
+Map Webflow tracking to the CookieYes category that covers it on your banner. `analytics` is the usual fit. Category keys stay lowercase (`necessary`, `functional`, `analytics`, `performance`, `advertisement`) even if you rename a category in the banner.
+
+```javascript
+wf.ready(function() {
+  var CKY_CATEGORY = "analytics"; // CookieYes category that covers Webflow tracking
+
+  function setTracking(allowed) {
+    var current = wf.getUserTrackingChoice();
+    if (allowed && current !== "allow") {
+      wf.allowUserTracking({ activate: true });
+    } else if (!allowed && current !== "deny") {
+      wf.denyUserTracking();
+    }
+  }
+
+  // Sync from a choice the visitor already made on an earlier page view
+  function syncFromCookieYes() {
+    if (typeof window.getCkyConsent !== "function") return;
+    try {
+      var consent = getCkyConsent();
+      if (consent && consent.isUserActionCompleted) {
+        setTracking(consent.categories[CKY_CATEGORY] === true);
+      }
+    } catch (e) {
+      // Banner not loaded yet; cookieyes_banner_loaded will call this again
+    }
+  }
+
+  document.addEventListener("cookieyes_banner_loaded", syncFromCookieYes);
+  syncFromCookieYes(); // the banner may have loaded before the Browser API
+
+  // Keep Webflow in step when the visitor accepts, rejects or changes their choice
+  document.addEventListener("cookieyes_consent_update", function(event) {
+    setTracking(event.detail.accepted.indexOf(CKY_CATEGORY) !== -1);
+  });
+});
+```
+
+> **Note:** This example is provided as-is and is not supported by Webflow or CookieYes. Check the category against your CookieYes banner settings. CookieYes's JavaScript events don't fire from its WordPress plugin unless the plugin is connected to the CookieYes web app, which doesn't affect Webflow sites using the standard CookieYes script. See CookieYes's documentation on [getCkyConsent()](https://www.cookieyes.com/documentation/retrieving-consent-data-using-api-getckyconsent/) and [banner events](https://www.cookieyes.com/documentation/events-on-cookie-banner-interactions/).
 
 ## Custom Consent Solution
 
