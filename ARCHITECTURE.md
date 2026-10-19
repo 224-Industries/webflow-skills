@@ -75,7 +75,7 @@ manifest.json ──────────────────────
 
 ```
 detect-changes
-    ├──► validate-skills (matrix per changed skill, uses Flash-Brew-Digital/validate-skill@v1)
+    ├──► validate-skills (matrix per changed skill, uses the skills-ref reference validator from agentskills.io)
     ├──► validate-plugins (ajv against JSON schemas, only if plugin files changed)
     └──► sync (runs on main only, after both validation jobs pass or are skipped)
               ├── node scripts/sync-skills.js

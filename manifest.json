@@ -67,7 +67,7 @@
     {
       "name": "webflow-designer-api",
       "description": "Work with the Webflow Designer API — either by building Designer Extensions (iframes inside the Webflow Designer) or by generating code snippets for the Designer API Playground. Covers element manipulation, styles, components, pages, variables, assets, error handling, CLI usage, and UI design patterns. Use when creating, debugging, or modifying Designer Extensions, OR when the user wants to run Designer API code in the Playground app.",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "source": "./skills/webflow-designer-api",
       "license": "MIT",
       "keywords": [
