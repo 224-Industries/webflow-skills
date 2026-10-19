@@ -118,11 +118,18 @@ jobs:
             echo "Skill '${{ matrix.skill }}' was deleted, skipping validation"
           fi
 
+      - name: Set up Python
+        if: steps.check.outputs.exists == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
       - name: Validate ${{ matrix.skill }}
         if: steps.check.outputs.exists == 'true'
-        uses: Flash-Brew-Digital/validate-skill@v1
-        with:
-          path: skills/${{ matrix.skill }}
+        # skills-ref is the reference validator for the Agent Skills specification (agentskills.io)
+        run: |
+          pip install --quiet skills-ref==0.1.1
+          agentskills validate "skills/${{ matrix.skill }}"
 
   validate-plugins:
     needs: detect-changes

@@ -113,7 +113,7 @@ The scaffolded project includes:
 - **React 19** with TypeScript
 - **Rspack** for bundling and dev server
 - **Custom Designer API hooks** for interacting with the Webflow Designer
-- **Configurable linting** via Oxlint/Oxfmt, Biome, or ESLint/Prettier/Stylelint (set up by [ultracite](https://github.com/Flash-Brew-Digital/ultracite))
+- **Configurable linting** via Oxlint/Oxfmt, Biome, or ESLint/Prettier/Stylelint (set up by [ultracite](https://github.com/haydenbleasel/ultracite))
 - **VS Code** editor configuration
 - Pre-configured `package.json` with author info pulled from your git config
 
