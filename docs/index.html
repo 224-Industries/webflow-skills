@@ -434,6 +434,54 @@
   .faq-list { display: flex; flex-direction: column; border-top: var(--hair) solid var(--border); }
   .faq-answer-inner p { padding: 0 0 20px; margin: 0; font-size: 0.875rem; line-height: 1.7; }
 
+  /* Read more modals */
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  button.skill-action { background: none; border: 0; padding: 0; font-family: var(--font); cursor: pointer; }
+  .skill-more { color: var(--text); text-decoration: underline; text-decoration-color: var(--underline); text-underline-offset: 3px; }
+  .skill-more:hover { text-decoration-color: var(--text); }
+  body:has(.skill-modal[open]) { overflow: hidden; }
+  .skill-modal {
+    width: min(560px, calc(100% - 32px)); max-height: min(720px, calc(100dvh - 32px));
+    padding: 0; margin: auto; display: none; flex-direction: column;
+    background: var(--bg); color: var(--text-body);
+    border: var(--hair) solid var(--border); border-radius: var(--radius-medium);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+  }
+  .skill-modal:focus, .skill-modal:focus-visible { outline: none; }
+  .skill-modal[open] { display: flex; animation: skill-modal-in .2s ease; }
+  .skill-modal::backdrop { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(2px); }
+  .skill-modal[open]::backdrop { animation: skill-backdrop-in .2s ease; }
+  @keyframes skill-modal-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @keyframes skill-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .skill-modal[open], .skill-modal[open]::backdrop { animation: none; } }
+  .skill-modal-head {
+    display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+    padding: 20px var(--space-4); border-bottom: var(--hair) solid var(--border);
+  }
+  .skill-modal-head h3 { margin: 0; font-size: 1rem; }
+  .skill-modal-head .skill-prefix { color: var(--text-subtle); font-weight: 400; }
+  .skill-modal-close {
+    flex: none; width: 32px; height: 32px; padding: 0; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--text); background: transparent; border: var(--hair) solid var(--border); border-radius: var(--radius-medium);
+  }
+  .skill-modal-close:hover { background: var(--hover-bg); }
+  .skill-modal-close svg { width: 14px; height: 14px; }
+  .skill-modal-body { padding: 20px var(--space-4) var(--space-4); overflow-y: auto; font-size: 0.875rem; line-height: 1.65; }
+  .skill-modal-body .skill-modal-lead { font-size: 0.9375rem; color: var(--text); }
+  .skill-modal-body h4 { margin: var(--space-4) 0 var(--gap-tight); font-size: 0.8125rem; color: var(--text); }
+  .skill-modal-body p:last-child, .skill-modal-body ul:last-child { margin-bottom: 0; }
+  .skill-modal-body li { margin-bottom: 6px; }
+  .skill-modal-foot {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    padding: var(--space-3) var(--space-4); border-top: var(--hair) solid var(--border);
+  }
+  @media (max-width: 640px) {
+    .skill-modal-head, .skill-modal-body, .skill-modal-foot { padding-left: var(--space-3); padding-right: var(--space-3); }
+  }
   @media (max-width: 640px) {
     .skill-row { flex-direction: column; gap: var(--gap-tight); }
     .skill-name { width: auto; }
@@ -514,6 +562,7 @@
           <span class="skill-name"><span class="skill-prefix">webflow / </span>Browser API</span>
           <span class="skill-desc">Control Webflow Analyze &amp; Optimize via the Browser API. Manage tracking consent, integrate CMPs, track experiments, and personalize experiences.</span>
           <span class="skill-actions">
+            <button type="button" class="skill-action skill-more" data-skill="browser-api" aria-haspopup="dialog" aria-controls="skill-browser-api">Read more<span class="visually-hidden"> about Browser API</span></button>
             <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-browser-api" target="_blank" rel="noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
             <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-browser-api.skill" target="_blank" rel="noopener" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
           </span>
@@ -522,6 +571,7 @@
           <span class="skill-name"><span class="skill-prefix">webflow / </span>Code Components</span>
           <span class="skill-desc">Build and import React code components into Webflow via DevLink. Configure declareComponent definitions, prop types, and Shadow DOM styling.</span>
           <span class="skill-actions">
+            <button type="button" class="skill-action skill-more" data-skill="code-components" aria-haspopup="dialog" aria-controls="skill-code-components">Read more<span class="visually-hidden"> about Code Components</span></button>
             <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-code-components" target="_blank" rel="noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
             <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-code-components.skill" target="_blank" rel="noopener" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
           </span>
@@ -530,6 +580,7 @@
           <span class="skill-name"><span class="skill-prefix">webflow / </span>Designer API</span>
           <span class="skill-desc">Build Designer Extensions or generate Playground code. Work with elements, styles, components, pages, variables, and assets.</span>
           <span class="skill-actions">
+            <button type="button" class="skill-action skill-more" data-skill="designer-api" aria-haspopup="dialog" aria-controls="skill-designer-api">Read more<span class="visually-hidden"> about Designer API</span></button>
             <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-designer-api" target="_blank" rel="noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
             <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-designer-api.skill" target="_blank" rel="noopener" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
           </span>
@@ -538,6 +589,7 @@
           <span class="skill-name"><span class="skill-prefix">webflow / </span>Enterprise API</span>
           <span class="skill-desc">Enterprise-only endpoints for workspace management, audit logs, site activity, 301 redirects, robots.txt, and well-known files.</span>
           <span class="skill-actions">
+            <button type="button" class="skill-action skill-more" data-skill="enterprise-api" aria-haspopup="dialog" aria-controls="skill-enterprise-api">Read more<span class="visually-hidden"> about Enterprise API</span></button>
             <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-enterprise-api" target="_blank" rel="noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
             <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-enterprise-api.skill" target="_blank" rel="noopener" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
           </span>
@@ -546,6 +598,7 @@
           <span class="skill-name"><span class="skill-prefix">webflow / </span>Insights</span>
           <span class="skill-desc">Read Webflow Analyze, Optimize and AEO Analytics through the Webflow MCP server. Get a site snapshot, check whether a test has a winner, see what AI crawlers read, and find out why traffic changed.</span>
           <span class="skill-actions">
+            <button type="button" class="skill-action skill-more" data-skill="insights" aria-haspopup="dialog" aria-controls="skill-insights">Read more<span class="visually-hidden"> about Insights</span></button>
             <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-insights" target="_blank" rel="noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
             <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-insights.skill" target="_blank" rel="noopener" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
           </span>
@@ -554,6 +607,7 @@
           <span class="skill-name"><span class="skill-prefix">webflow / </span>llms.txt</span>
           <span class="skill-desc">Generate, audit and maintain an llms.txt file for a Webflow site. Find missing pages, write useful descriptions, and see what changed since last month.</span>
           <span class="skill-actions">
+            <button type="button" class="skill-action skill-more" data-skill="llms-txt" aria-haspopup="dialog" aria-controls="skill-llms-txt">Read more<span class="visually-hidden"> about llms.txt</span></button>
             <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-llms-txt" target="_blank" rel="noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
             <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-llms-txt.skill" target="_blank" rel="noopener" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
           </span>
@@ -562,6 +616,7 @@
           <span class="skill-name"><span class="skill-prefix">webflow / </span>Schema</span>
           <span class="skill-desc">Build, fix and audit JSON-LD structured data. Bind schema to CMS fields, clean up auto-generated markup, and check what the live page ships.</span>
           <span class="skill-actions">
+            <button type="button" class="skill-action skill-more" data-skill="schema" aria-haspopup="dialog" aria-controls="skill-schema">Read more<span class="visually-hidden"> about Schema</span></button>
             <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-schema" target="_blank" rel="noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
             <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-schema.skill" target="_blank" rel="noopener" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
           </span>
@@ -570,11 +625,201 @@
           <span class="skill-name"><span class="skill-prefix">webflow / </span>Webhooks</span>
           <span class="skill-desc">Receive and verify Webflow webhooks. Handle form submissions, site publishes, ecommerce orders, and collection item changes.</span>
           <span class="skill-actions">
+            <button type="button" class="skill-action skill-more" data-skill="webhooks" aria-haspopup="dialog" aria-controls="skill-webhooks">Read more<span class="visually-hidden"> about Webhooks</span></button>
             <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-webhooks" target="_blank" rel="noopener" class="skill-action">Source <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
             <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-webhooks.skill" target="_blank" rel="noopener" class="skill-action">Download <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
           </span>
         </div>
       </div>
+      <!-- Read more modals: one per skill, opened by the buttons above -->
+      <dialog class="skill-modal" id="skill-browser-api" aria-labelledby="skill-browser-api-title">
+        <div class="skill-modal-head">
+          <h3 id="skill-browser-api-title"><span class="skill-prefix">webflow / </span>Browser API</h3>
+          <button type="button" class="skill-modal-close" aria-label="Close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+        </div>
+        <div class="skill-modal-body">
+          <p class="skill-modal-lead">Lets your agent handle cookie consent, A/B test tracking and personalisation on a Webflow site that runs Analyze or Optimize, using Webflow's own browser code rather than guesswork.</p>
+          <h4>What it helps with</h4>
+          <ul>
+            <li>Connecting a consent tool such as OneTrust or TrustArc, so Webflow only tracks visitors who said yes.</li>
+            <li>Sending Optimize test results into the analytics tool your team already reports from.</li>
+            <li>Tagging visitors with your own attributes, such as plan or industry, so tests and personalisation can target them.</li>
+          </ul>
+          <h4>What you'll need</h4>
+          <p>A Webflow site with Analyze or Optimize turned on. Custom visitor attributes need an Enterprise site. No MCP server.</p>
+          <h4>Good to know</h4>
+          <p>The skill writes the script. Someone still adds it to the site's head code and publishes, and it doesn't set up Analyze or Optimize for you.</p>
+        </div>
+        <div class="skill-modal-foot">
+          <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-browser-api.skill" target="_blank" rel="noopener" class="btn-primary">Download <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
+          <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-browser-api" target="_blank" rel="noopener" class="btn-ghost">View source <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
+        </div>
+      </dialog>
+      <dialog class="skill-modal" id="skill-code-components" aria-labelledby="skill-code-components-title">
+        <div class="skill-modal-head">
+          <h3 id="skill-code-components-title"><span class="skill-prefix">webflow / </span>Code Components</h3>
+          <button type="button" class="skill-modal-close" aria-label="Close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+        </div>
+        <div class="skill-modal-body">
+          <p class="skill-modal-lead">For when a page needs something Webflow can't build natively, like a pricing calculator or an interactive demo. Your agent builds it in React and brings it into Webflow as a component your team places like any other element.</p>
+          <h4>What it helps with</h4>
+          <ul>
+            <li>Building the React component and the settings your team edits in the Designer: text, images, links, toggles and more.</li>
+            <li>Packaging the component and importing it into Webflow through DevLink.</li>
+            <li>Fixing the usual problems with styling, shared state and imports.</li>
+          </ul>
+          <h4>What you'll need</h4>
+          <p>A developer setup with Node.js 20 or later, and a Webflow Workspace on Freelancer, Core, Growth, Agency or Enterprise (or a site on CMS, Business or Enterprise). No MCP server.</p>
+          <h4>Good to know</h4>
+          <p>This is a developer skill. Renaming a component file creates a new component and breaks the copies already on your pages, so it pays to settle names early.</p>
+        </div>
+        <div class="skill-modal-foot">
+          <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-code-components.skill" target="_blank" rel="noopener" class="btn-primary">Download <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
+          <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-code-components" target="_blank" rel="noopener" class="btn-ghost">View source <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
+        </div>
+      </dialog>
+      <dialog class="skill-modal" id="skill-designer-api" aria-labelledby="skill-designer-api-title">
+        <div class="skill-modal-head">
+          <h3 id="skill-designer-api-title"><span class="skill-prefix">webflow / </span>Designer API</h3>
+          <button type="button" class="skill-modal-close" aria-label="Close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+        </div>
+        <div class="skill-modal-body">
+          <p class="skill-modal-lead">Helps your agent build tools that work inside the Webflow Designer, from a short script that makes a batch of changes in one go to a full app your team installs.</p>
+          <h4>What it helps with</h4>
+          <ul>
+            <li>Running one-off automations in the Designer API Playground, without building an app.</li>
+            <li>Building a Designer Extension: a tool with its own panel inside the Designer, for jobs your team repeats.</li>
+            <li>Creating and editing elements, styles, components, pages, variables and assets through code.</li>
+            <li>Designing an extension that looks native to Webflow and preparing it for Marketplace review.</li>
+          </ul>
+          <h4>What you'll need</h4>
+          <p>Designer access to the site, plus the Webflow CLI if you're building an extension. No MCP server.</p>
+          <h4>Good to know</h4>
+          <p>Designer API code runs inside the Designer while it's open, so it suits build work rather than anything that has to run on the live site. Changes still need publishing.</p>
+        </div>
+        <div class="skill-modal-foot">
+          <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-designer-api.skill" target="_blank" rel="noopener" class="btn-primary">Download <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
+          <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-designer-api" target="_blank" rel="noopener" class="btn-ghost">View source <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
+        </div>
+      </dialog>
+      <dialog class="skill-modal" id="skill-enterprise-api" aria-labelledby="skill-enterprise-api-title">
+        <div class="skill-modal-head">
+          <h3 id="skill-enterprise-api-title"><span class="skill-prefix">webflow / </span>Enterprise API</h3>
+          <button type="button" class="skill-modal-close" aria-label="Close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+        </div>
+        <div class="skill-modal-body">
+          <p class="skill-modal-lead">For teams on Webflow Enterprise who manage several sites or need a record of who changed what. Your agent works with the endpoints only Enterprise workspaces get.</p>
+          <h4>What it helps with</h4>
+          <ul>
+            <li>Reading workspace audit logs (logins, role changes, invitations) and site activity logs (design changes, publishes, CMS edits).</li>
+            <li>Managing 301 redirects in bulk, for example during a migration or a URL restructure.</li>
+            <li>Updating robots.txt and uploading .well-known files without opening Site settings.</li>
+            <li>Creating, updating and deleting sites in a workspace.</li>
+          </ul>
+          <h4>What you'll need</h4>
+          <p>An Enterprise workspace and an API token with the right permissions. No MCP server.</p>
+          <h4>Good to know</h4>
+          <p>On other plans these endpoints return errors. Redirect and robots.txt changes affect search directly, so review the list before your agent writes it.</p>
+        </div>
+        <div class="skill-modal-foot">
+          <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-enterprise-api.skill" target="_blank" rel="noopener" class="btn-primary">Download <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
+          <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-enterprise-api" target="_blank" rel="noopener" class="btn-ghost">View source <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
+        </div>
+      </dialog>
+      <dialog class="skill-modal" id="skill-insights" aria-labelledby="skill-insights-title">
+        <div class="skill-modal-head">
+          <h3 id="skill-insights-title"><span class="skill-prefix">webflow / </span>Insights</h3>
+          <button type="button" class="skill-modal-close" aria-label="Close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+        </div>
+        <div class="skill-modal-body">
+          <p class="skill-modal-lead">Ask how your site is going in plain English and get an answer from Webflow's own data: traffic, top pages, whether a test has a winner, and what AI crawlers are reading.</p>
+          <h4>What it helps with</h4>
+          <ul>
+            <li>A snapshot of the last 28 days with no question needed, plus suggestions for what to ask next.</li>
+            <li>A monthly check-up that compares last month with the one before.</li>
+            <li>Working out why traffic changed, with a confidence level on the answer.</li>
+            <li>Reading A/B test results without calling a winner too early.</li>
+          </ul>
+          <h4>What you'll need</h4>
+          <p>Webflow's MCP server connected to your AI agent, and access to whichever of Analyze, Optimize and AEO Analytics the site has.</p>
+          <h4>Good to know</h4>
+          <p>It's read-only, so it can't change your site. A visit from an AI crawler isn't the same as being cited in an AI answer, and the skill keeps the two apart. AEO Analytics is mostly found on enterprise plans.</p>
+        </div>
+        <div class="skill-modal-foot">
+          <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-insights.skill" target="_blank" rel="noopener" class="btn-primary">Download <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
+          <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-insights" target="_blank" rel="noopener" class="btn-ghost">View source <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
+        </div>
+      </dialog>
+      <dialog class="skill-modal" id="skill-llms-txt" aria-labelledby="skill-llms-txt-title">
+        <div class="skill-modal-head">
+          <h3 id="skill-llms-txt-title"><span class="skill-prefix">webflow / </span>llms.txt</h3>
+          <button type="button" class="skill-modal-close" aria-label="Close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+        </div>
+        <div class="skill-modal-body">
+          <p class="skill-modal-lead">llms.txt is a plain-text map that helps AI tools understand what's on your site. Webflow doesn't update it for you, so it drifts as pages change. This skill rebuilds it from your site as it is today.</p>
+          <h4>What it helps with</h4>
+          <ul>
+            <li>Producing a fresh llms.txt, with descriptions written from what each page actually says.</li>
+            <li>Writing the overview block that describes your business in your own words.</li>
+            <li>Listing what changed since the last run: new pages, removed pages and changed URLs.</li>
+            <li>Checking the links in the file before you upload it.</li>
+          </ul>
+          <h4>What you'll need</h4>
+          <p>Your live site. A Webflow API token or the MCP server gives a more accurate page list; without one, the skill works from your sitemap.</p>
+          <h4>Good to know</h4>
+          <p>It doesn't publish anything. A person uploads the file in Site settings &gt; SEO &gt; LLMs.txt. Pages with no readable content are left out rather than given a made-up description.</p>
+        </div>
+        <div class="skill-modal-foot">
+          <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-llms-txt.skill" target="_blank" rel="noopener" class="btn-primary">Download <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
+          <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-llms-txt" target="_blank" rel="noopener" class="btn-ghost">View source <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
+        </div>
+      </dialog>
+      <dialog class="skill-modal" id="skill-schema" aria-labelledby="skill-schema-title">
+        <div class="skill-modal-head">
+          <h3 id="skill-schema-title"><span class="skill-prefix">webflow / </span>Schema</h3>
+          <button type="button" class="skill-modal-close" aria-label="Close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+        </div>
+        <div class="skill-modal-body">
+          <p class="skill-modal-lead">Schema (JSON-LD) is the structured data that helps Google and AI tools understand a page, and it's what makes FAQ and article rich results possible. This skill builds it on Webflow and works around two platform limits that quietly break it.</p>
+          <h4>What it helps with</h4>
+          <ul>
+            <li>Adding schema to CMS templates, so each blog post or case study gets its own, filled from your CMS fields.</li>
+            <li>Auditing the schema a live page actually ships, and explaining Search Console warnings.</li>
+            <li>Cleaning up Webflow's auto-generated schema and fixing wrong published dates.</li>
+          </ul>
+          <h4>What you'll need</h4>
+          <p>To audit, a live URL. To write schema, Webflow's MCP server or an API token.</p>
+          <h4>Good to know</h4>
+          <p>Webflow escapes apostrophes, quotes and ampersands in CMS values bound to schema, and rich text fields come through empty. The skill checks your content for both. Changes are staged unpublished for a person to publish.</p>
+        </div>
+        <div class="skill-modal-foot">
+          <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-schema.skill" target="_blank" rel="noopener" class="btn-primary">Download <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
+          <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-schema" target="_blank" rel="noopener" class="btn-ghost">View source <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
+        </div>
+      </dialog>
+      <dialog class="skill-modal" id="skill-webhooks" aria-labelledby="skill-webhooks-title">
+        <div class="skill-modal-head">
+          <h3 id="skill-webhooks-title"><span class="skill-prefix">webflow / </span>Webhooks</h3>
+          <button type="button" class="skill-modal-close" aria-label="Close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+        </div>
+        <div class="skill-modal-body">
+          <p class="skill-modal-lead">Webhooks let Webflow tell your other tools when something happens, like a form submission, a new order or a published CMS item. This skill helps your agent build the receiving end securely.</p>
+          <h4>What it helps with</h4>
+          <ul>
+            <li>Handling Webflow's 14 event types across forms, site publishes, pages, ecommerce, CMS and comments.</li>
+            <li>Checking that each request really came from Webflow, so a faked one gets rejected.</li>
+            <li>Handling retries, so a slow response doesn't create duplicate records.</li>
+          </ul>
+          <h4>What you'll need</h4>
+          <p>A server or serverless function to receive events. To verify requests, create the webhooks through the API rather than the dashboard. No MCP server.</p>
+          <h4>Good to know</h4>
+          <p>Webhooks created in the Webflow dashboard don't carry the signature needed to verify them. This is a developer skill: it writes the handler code, and someone deploys it.</p>
+        </div>
+        <div class="skill-modal-foot">
+          <a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-webhooks.skill" target="_blank" rel="noopener" class="btn-primary">Download <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 10.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 8.28a.75.75 0 0 1 1.06-1.06L8 10.94ZM8.75 1a.75.75 0 0 0-1.5 0v8.69h1.5V1Z"/></svg></a>
+          <a href="https://github.com/224-industries/webflow-skills/tree/main/skills/webflow-webhooks" target="_blank" rel="noopener" class="btn-ghost">View source <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3.75 2a.75.75 0 0 0 0 1.5h6.69L2.72 11.22a.75.75 0 1 0 1.06 1.06L11.5 4.56v6.69a.75.75 0 0 0 1.5 0V2.75a.75.75 0 0 0-.75-.75H3.75Z"/></svg></a>
+        </div>
+      </dialog>
   </section>
   <!-- Use cases -->
   <section id="use-cases">
@@ -761,6 +1006,40 @@
     }
     const tocMobile = document.querySelector('.toc-mobile');
     tocMobile?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => { tocMobile.open = false; }));
+  // Read more modals: open from the skill rows or a #skill-<name> link; close on the button, Esc or a backdrop click
+  (function () {
+    var modals = document.querySelectorAll('.skill-modal');
+    if (!modals.length || typeof HTMLDialogElement !== 'function') return;
+    function open(m) {
+      if (m.open) return;
+      m.showModal();
+      if (location.hash !== '#' + m.id) history.replaceState(null, '', '#' + m.id);
+      if (window.dataLayer) window.dataLayer.push({ event: 'skill_read_more', skill: m.id.replace('skill-', '') });
+    }
+    document.querySelectorAll('.skill-more').forEach(function (btn) {
+      btn.addEventListener('click', function () { open(document.getElementById('skill-' + btn.dataset.skill)); });
+    });
+    modals.forEach(function (m) {
+      m.querySelector('.skill-modal-close').addEventListener('click', function () { m.close(); });
+      m.addEventListener('click', function (ev) {
+        if (ev.target !== m) return;
+        var r = m.getBoundingClientRect();
+        if (ev.clientX < r.left || ev.clientX > r.right || ev.clientY < r.top || ev.clientY > r.bottom) m.close();
+      });
+      m.addEventListener('close', function () {
+        if (location.hash === '#' + m.id) history.replaceState(null, '', location.pathname + location.search + '#available-skills');
+      });
+    });
+    function fromHash() {
+      var m = location.hash && document.getElementById(location.hash.slice(1));
+      if (m && m.classList.contains('skill-modal')) {
+        document.getElementById('available-skills').scrollIntoView();
+        open(m);
+      }
+    }
+    window.addEventListener('hashchange', fromHash);
+    fromHash();
+  })();
   // Accordions: animate open and close (same as the Webflow Skills FAQ)
   document.querySelectorAll('.faq-item').forEach(function (item) {
     var summary = item.querySelector(':scope > summary');
