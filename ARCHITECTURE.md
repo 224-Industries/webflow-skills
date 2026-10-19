@@ -71,7 +71,7 @@ manifest.json ──────────────────────
 
 **Workflow:** `.github/workflows/validate-and-sync.yml`
 
-**Triggers:** Changes to `**/SKILL.md`, `manifest.json`, `.claude-plugin/**`, `.cursor-plugin/**` on `main` or PRs to `main`.
+**Triggers:** Changes to `skills/**`, `manifest.json`, `.claude-plugin/**`, `.cursor-plugin/**` or the workflow file itself, on `main` or PRs to `main`.
 
 ```
 detect-changes
@@ -83,6 +83,10 @@ detect-changes
 ```
 
 The `sync` job uses `always() && !failure() && !cancelled()` so that skipped validation jobs (e.g. no plugin files changed) don't block it.
+
+The `sync` job pushes with the built-in `GITHUB_TOKEN` (`contents: write`), so it needs no stored secret.
+
+**Releases** are made by hand: each skill directory is zipped as `<skill-name>.skill` (with the directory at the zip root) and all of them are attached to a dated GitHub release (`skills-YYYY-MM-DD`) marked as latest. The page and README download links point at `releases/latest/download/<skill-name>.skill`.
 
 ## Scripts
 

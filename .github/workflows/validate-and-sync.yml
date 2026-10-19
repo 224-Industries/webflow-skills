@@ -8,6 +8,7 @@ on:
       - "manifest.json"
       - ".claude-plugin/**"
       - ".cursor-plugin/**"
+      - ".github/workflows/validate-and-sync.yml"
   pull_request:
     branches: [main]
     paths:
@@ -15,6 +16,7 @@ on:
       - "manifest.json"
       - ".claude-plugin/**"
       - ".cursor-plugin/**"
+      - ".github/workflows/validate-and-sync.yml"
 
 concurrency:
   group: skills-${{ github.ref }}
@@ -144,51 +146,15 @@ jobs:
           npx ajv-cli validate -s .claude-plugin/plugin.schema.json -d .claude-plugin/plugin.json
           npx ajv-cli validate -s .cursor-plugin/plugin.schema.json -d .cursor-plugin/plugin.json
 
-  package-and-upload:
-    needs: [detect-changes, validate-skills]
-    if: always() && !failure() && !cancelled() && github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.detect-changes.outputs.skills != '[]'
-    runs-on: ubuntu-slim
-    strategy:
-      fail-fast: false
-      matrix:
-        skill: ${{ fromJson(needs.detect-changes.outputs.skills) }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Package ${{ matrix.skill }}
-        run: |
-          cd skills
-          zip -r "${{ matrix.skill }}.skill" "${{ matrix.skill }}"
-          echo "Packaged ${{ matrix.skill }}.skill ($(du -h "${{ matrix.skill }}.skill" | cut -f1))"
-
-      - name: Upload to Cloudflare R2
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: r2 object put ${{ vars.R2_BUCKET_NAME }}/${{ matrix.skill }}.skill --file=skills/${{ matrix.skill }}.skill --content-type=application/zip
-
-      - name: Summary
-        run: |
-          echo "## ✅ Skill Packaged and Uploaded" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Skill:** \`${{ matrix.skill }}\`" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Download URL:**" >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          echo "${{ vars.R2_PUBLIC_URL }}/${{ matrix.skill }}.skill" >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-
   sync:
     needs: [validate-skills, validate-plugins]
     if: always() && !failure() && !cancelled() && github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-slim
+    permissions:
+      contents: write # lets the built-in GITHUB_TOKEN push the regenerated files
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
-        with:
-          token: ${{ secrets.WF_SKILLS_BOT }}
 
       - name: Sync skills
         run: node scripts/sync-skills.js
